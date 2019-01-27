@@ -1,0 +1,64 @@
+{
+  "name": "webpack-boilerplate",
+  "version": "4.1.0",
+  "description": "Webpack Boilerplate",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write \"**/*.+(js|jsx|scss|css|styl|yml)\"",
+    "dev": "yarn && yarn format && webpack-dev-server --config ./webpack/configuration/development.config.js",
+    "prod": "yarn build && node server/index.js",
+    "build": "yarn && yarn format && webpack --config ./webpack/configuration/production.config.js",
+    "server": "yarn prod && serve --listen 8080 dist",
+    "e2e:dev-webpack": "start-server-and-test dev http-get://localhost:8080 cy:run",
+    "e2e:dev": "start-server-and-test  server :8080 cy:open",
+    "e2e:prod": "start-server-and-test  server :8080 cy:run",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "lint": "eslint src"
+  },
+  "author": "Mario Brusarosco",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariobrusarosco/webpack-boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mariobrusarosco/webpack-boilerplate/issues"
+  },
+  "homepage": "https://github.com/mariobrusarosco/webpack-boilerplate#readme",
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-async-to-generator": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^1.0.0",
+    "css-loader": "^1.0.1",
+    "cypress": "^3.1.3",
+    "express": "^4.16.4",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "live-serve": "^0.0.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-loader": "^3.0.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "serve": "^10.1.1",
+    "start-server-and-test": "^1.7.11",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.26.0",
+    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "imports-loader": "^0.8.0",
+    "prettier": "^1.15.3"
+  }
+}

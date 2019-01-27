@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+
+.env
+yarn-error.log
+npm-debug.log
+
+.vscode
+
+cypress/screenshots
+cypress/videos
