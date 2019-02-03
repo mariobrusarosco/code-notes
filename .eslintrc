@@ -3,7 +3,7 @@
     "es6": true,
     "browser": true
   },
-	"extend": ["eslint-config-prettier"],
+	"extends": ["eslint-config-prettier"],
   "rules": {
 		"comma-dangle": 2,
 		"no-restricted-modules": 0,

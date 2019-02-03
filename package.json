@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "format": "prettier --write \"**/*.+(js|jsx|scss|css|styl|yml)\"",
-    "dev": "yarn && yarn format && webpack-dev-server --config ./webpack/configuration/development.config.js",
+    "dev": "yarn && webpack-dev-server --config ./webpack/configuration/development.config.js",
     "prod": "yarn build && node server/index.js",
     "build": "yarn && yarn format && webpack --config ./webpack/configuration/production.config.js",
     "server": "yarn prod && serve --listen 8080 dist",
@@ -58,6 +58,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
+    "faker": "^4.1.0",
     "imports-loader": "^0.8.0",
     "prettier": "^1.15.3"
   }
