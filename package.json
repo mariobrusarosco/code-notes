@@ -6,7 +6,10 @@
   "scripts": {
     "format": "prettier --write \"**/*.+(js|jsx|scss|css|styl|yml)\"",
     "dev": "yarn && webpack-dev-server --config ./webpack/configuration/development.config.js",
-    "prod": "yarn build && node server/index.js",
+		"dev:full": "",
+		"dev:front": "",
+		"dev:back": "nodemon server/index.js",
+		"prod": "yarn build && node server/index.js",
     "build": "yarn && yarn format && webpack --config ./webpack/configuration/production.config.js",
     "server": "yarn prod && serve --listen 8080 dist",
     "e2e:dev-webpack": "start-server-and-test dev http-get://localhost:8080 cy:run",
