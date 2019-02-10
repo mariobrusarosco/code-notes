@@ -1,5 +1,5 @@
 {
-  "name": "code-notee",
+  "name": "code-notes",
   "version": "4.1.1",
   "description": "Webpack Boilerplate",
   "private": true,
@@ -9,9 +9,7 @@
     "dev:front": "webpack-dev-server --config ./webpack/configuration/development.config.js",
     "build:front": "yarn format && webpack --config ./webpack/configuration/production.config.js",
     "serve:front": "yarn build:front && node server/serve-front-end.js",
-
     "dev:back": "nodemon -r dotenv/config server/index.js ",
-
     "e2e:dev-webpack": "start-server-and-test dev:front http-get://localhost:8080 cy:run",
     "e2e:dev": "start-server-and-test serve:front :8080 cy:open",
     "e2e:prod": "start-server-and-test serve:front :8080 cy:run",
@@ -48,8 +46,11 @@
     "express-static-gzip": "^1.1.3",
     "file-loader": "^2.0.0",
     "global": "^4.3.2",
+    "helmet": "^3.15.1",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.5.0",
+    "mongoose": "^5.4.11",
+    "morgan": "^1.9.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "react": "^16.7.0",
