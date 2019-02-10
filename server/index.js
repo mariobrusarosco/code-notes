@@ -49,15 +49,11 @@ console.log(process.env.DB_CREDENTIALS)
 
 
 // Developemtn only middlewares
-if (env === 'development') {
+// if (env === 'development') {
 	// app.use(helmet())
-	app.use(morgan('tiny'))
 	appDebuger('!!!!')
-}
-
-
-
-
+	app.use(morgan('tiny'))
+// }
 
 // ROUTES
 const users = require('./routes/users')
@@ -68,7 +64,7 @@ app.use('/', home)
 
 // DB
 const mongoose = require('mongoose')
-	mongoose.connect('mongodb://admin:ma240787@ds121222.mlab.com:21222/dev-code-notes', { useNewUrlParser: true })
+	mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
 		.then(() => {
 			console.log('Connected to a mongo DB')
 		})
