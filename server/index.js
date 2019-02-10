@@ -35,11 +35,7 @@ const dbDebuger = require('debug')('app:db')
 
 // --------------  CONFIGURATION --------------------- //
 
-// const config = require('config')
-// console.log(config.get('DB_CREDENTIALS'))
-
-// const keys = require('dotenv').config()
-// console.log(keys)
+console.log('Environment: ', env)
 console.log(process.env.DB_CREDENTIALS)
 // --------------  CONFIGURATION --------------------- //
 

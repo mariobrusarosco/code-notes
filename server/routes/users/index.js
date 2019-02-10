@@ -67,7 +67,7 @@ Router.post('/', (req, res) => {
 })
 
 Router.put('/:id', (req, res) => {
-  const user = getUser(req)
+	const user = getUser(req)
 
   if (!user) {
     return res.status(404).send('Invalid User Id')
@@ -75,7 +75,7 @@ Router.put('/:id', (req, res) => {
 
   validateUser(req)
     .then(({ name }) => {
-      user.name = name
+			user.name = name
       return res.send(user)
     })
     .catch(({ details }) => res.status(404).send(details.map(error => error.message)))
@@ -88,6 +88,7 @@ Router.delete('/:id', (req, res) => {
     return res.status(404).send('Invalid User Id')
   }
 
+	console.log('deleting user')
   return res.send(user)
 })
 
