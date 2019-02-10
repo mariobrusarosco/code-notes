@@ -8,7 +8,7 @@ import { render } from 'react-dom'
 import App from 'components/App'
 
 // Global Styles
-
+import './styles.css'
 console.log(`I'm the one who knocks`)
 
 const container = document.querySelector('#app')
