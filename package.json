@@ -2,7 +2,10 @@
   "name": "code_notes",
   "version": "4.1.0",
   "description": "Webpack Boilerplate",
-  "private": true,
+	"private": true,
+	"engines": {
+		"node": "8.10.0"
+	},
   "scripts": {
     "format": "prettier --write \"**/*.+(css)\"",
     "lint": "eslint src",
@@ -15,7 +18,7 @@
     "e2e:prod": "start-server-and-test serve:front :8080 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "postinstall": "yarn build:front",
+    "heroku-postbuild": "yarn build:front",
     "start": "node -r dotenv/config server/index.js"
   },
   "author": "Mario Brusarosco",
@@ -62,12 +65,13 @@
     "webpack": "^4.26.0",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.1",
+		"webpack-dev-server": "^3.1.10",
+		"babel-eslint": "^10.0.1",
     "brotli-webpack-plugin": "^1.1.0",
     "compression-webpack-plugin": "^2.0.0",
     "prettier": "^1.15.3"
+  },
+  "devDependencies": {
+
   }
 }

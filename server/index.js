@@ -45,9 +45,9 @@ console.log(process.env.DB_CREDENTIALS)
 
 
 // --------------  TEMPLATE ENGINES  --------------------- //
-app.set('view engine', 'pug')
+// app.set('view engine', 'pug')
 // app.set('views', './views') // THIS IS THE DEFAULT BEHAVIOUR FOR PUG VIEWS
-app.set('views', './src')
+// app.set('views', './src')
 // --------------  TEMPLATE ENGINES --------------------- //
 
 
