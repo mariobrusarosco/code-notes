@@ -1,7 +1,7 @@
 // Fake Data
 import faker from 'faker'
 
-const CommentDetail = ({ author, avatar }) => {
+const CommentDetail = ({ author, avatar, timeAgo, content }) => {
   return (
     <div className="comment">
       <a href="" className="avatar">
@@ -12,9 +12,9 @@ const CommentDetail = ({ author, avatar }) => {
           {author}
         </a>
         <div className="metadata">
-          <span className="date"> Today at 6pm</span>
+          <span className="date">{timeAgo}</span>
         </div>
-        <div className="text">This is some text</div>
+        <div className="text">{content}</div>
       </div>
     </div>
   )

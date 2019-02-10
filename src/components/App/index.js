@@ -2,28 +2,17 @@
 import faker from 'faker'
 
 // Components
-import CommentDetail from 'components/CommentDetail'
+// import CommentDetail from 'components/CommentDetail'
+// import ApprovalCard from 'components/ApprovalCard'
 
 const App = () => {
-  return (
-    <div className="ui container comments">
-      <CommentDetail
-        avatar={faker.image.avatar()}
-        author={faker.image.avatar()}
-        timeAgo={'....'}
-      />
-      <CommentDetail
-        avatar={faker.image.avatar()}
-        author={faker.image.avatar()}
-        timeAgo={'....'}
-      />
-      <CommentDetail
-        avatar={faker.image.avatar()}
-        author={faker.image.avatar()}
-        timeAgo={'....'}
-      />
-    </div>
-  )
+  // window.navigator.geolocation.getCurrentPosition(
+  //   position => {
+  //     console.log(position)
+  //   },
+  //   err => console.error(err)
+  // )
+  return <div className="ui container">test</div>
 }
 
 export default App

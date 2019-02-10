@@ -3,3 +3,8 @@ describe('Default Test', () => {
     cy.visit('/')
   })
 })
+describe('Default Test', () => {
+	it('Must go to root page', () => {
+		cy.visit('/')
+	})
+})
