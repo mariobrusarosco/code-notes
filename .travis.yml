@@ -1,17 +1,17 @@
 language: node_js
 node_js:
-  - 'stable'
+  - "stable"
 cache:
   directories:
-    - 'node_modules'
-    - '/home/travis/.cache/Cypress'
-
-script:
+    - "node_modules"
+    - "/home/travis/.cache/Cypress"
+    
+script: 
   - yarn e2e:prod
   - yarn e2e:dev-webpack
 
 # safelist
 branches:
   only:
-    - master
-    - v4.1
+  - master
+  - v4.1

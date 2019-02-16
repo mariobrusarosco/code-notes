@@ -21,13 +21,19 @@ const developmentConfig = () => ({
   },
   devServer: {
     contentBase: 'dist',
-    hot: true
+    hot: true,
   },
-  plugins: [...commonPlugins, ...developmentPlugins],
+  plugins: [
+		...commonPlugins,
+		...developmentPlugins,
+  ],
   module: {
-    rules: [...commonLoaders, ...developmenLoaders]
-  }
+    rules: [
+      ...commonLoaders,
+      ...developmenLoaders,
+    ]
+  },
 })
 
 // Merging Common and Development configurations
-module.exports = Object.assign(commonConfig(), developmentConfig())
+module.exports = Object.assign(commonConfig() , developmentConfig())

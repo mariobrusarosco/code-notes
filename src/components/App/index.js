@@ -1,12 +1,15 @@
 import { render } from 'react-dom'
+import React from 'react'
+import SeasonDisplay from '../SeasonDisplay'
 
-import SeasonDisplay from 'components/SeasonDisplay'
-
-class App extends Component {
-  state = {
-    lat: null,
-    errorMessage: null
-  }
+class App extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			lat: null,
+			errorMessage: null
+		}
+	}
 
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
@@ -35,6 +38,7 @@ class App extends Component {
   }
 }
 
-const container = document.querySelector('.app')
+const container = document.querySelector('#app')
+console.log(container)
 
 render(<App />, container)
