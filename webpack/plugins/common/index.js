@@ -11,8 +11,8 @@ const commonPlugins = [
     root: process.cwd()
   }),
   new webpack.ProvidePlugin({
-    React: 'react'
-    // Component: ['react', 'Component'] // Just an example of providing only some parts of a Library/Module
+    React: 'react',
+    Component: ['react', 'Component'] // Just an example of providing only some parts of a Library/Module
   })
 ]
 

@@ -4,5 +4,3 @@ if (module && module.hot) {
 }
 
 import './components/App'
-
-import './teste'
