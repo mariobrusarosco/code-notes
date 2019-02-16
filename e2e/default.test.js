@@ -4,7 +4,7 @@ describe('Default Test', () => {
   })
 })
 describe('Default Test', () => {
-	it('Must go to root page', () => {
-		cy.visit('/')
-	})
+  it('Must go to root page', () => {
+    cy.visit('/')
+  })
 })

@@ -7,8 +7,8 @@ cache:
     - '/home/travis/.cache/Cypress'
 
 script:
-  - yarn e2e:dev-webpack
   - yarn e2e:prod
+  - yarn e2e:dev-webpack
 
 # safelist
 branches:
