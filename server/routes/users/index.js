@@ -2,6 +2,8 @@ const express = require('express')
 const Router = express.Router()
 const Joi = require('joi')
 
+// Utils
+const PromiseTryCatch = require('../../utils/PromiseTryCatch')
 // Common Functions
 
 // Model
@@ -42,6 +44,8 @@ Router.get('/', async (req, res) => {
   //.select('name -email')
   res.send(allUsers)
 })
+
+
 
 Router.post('/', async (req, res) => {
   const newUser = new User({
