@@ -19,7 +19,6 @@ const SeasonDisplay = ({ lat }) => {
       icon: 'sun'
     }
   }
-  console.log(seasonMapper)
 
   const season = getSeason(lat, new Date().getMonth())
 
