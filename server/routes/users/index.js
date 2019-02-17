@@ -41,7 +41,8 @@ Router.get('/', async (req, res) => {
     //.sort('name')
     .select({ name: 1, email: -1 })
   // simple select version
-  //.select('name -email')
+	//.select('name -email')
+
   res.send(allUsers)
 })
 
@@ -49,14 +50,31 @@ Router.get('/', async (req, res) => {
 
 Router.post('/', async (req, res) => {
   const newUser = new User({
-    name: 'Heisenberg',
+    // name: 'Heisenberg',
     email: 'ww@gmail.com',
-    isPublished: true
-  })
+		isPublished: true,
+		numberOfPurchases: 0,
+		// authTypes: [1]
+	})
 
-  const result = await newUser.save()
+	// Using .validate() from mongoose
+	// newUser.validate()
+	// 	.then(data => {
+		// 		console.log('data', data)
+		// 	})
+		// 	.catch(e => console.error(e.message))
+		// const validation = await newUser.validate()
 
-  res.send(result)
+		try {
+			const result = await newUser.save()
+
+			res.send(result)
+		} catch (e) {
+			const errors = Object.keys(e.errors)
+				.map(error => e.errors[error]['message'])
+
+				res.status(400).send(errors)
+		}
 })
 
 Router.put('/', async (req, res) => {
@@ -81,13 +99,33 @@ Router.put('/', async (req, res) => {
   })
 
   // Update First approach
-  const updatedUser = await User.update({
-    _id: mockedId
-  })
+	const updatedUser = await User
+		.findOneAndUpdate(
+			{_id: mockedId },
+			{
+				$set: {
+					name: 'bbbbb',
+					isPublished: false
+				}
+			},
+			{ new: true }
+		).select('name')
 
   // const updatedUser = await user.save()
 
-  res.send(user)
+  res.send(updatedUser)
+})
+
+Router.delete('/', async (req, res) => {
+	const mockedId = '5c68273df7f5d0328bd50303'
+
+	const deletedUser = await User.findOneAndRemove(
+		{
+			_id: mockedId,
+		}
+	)
+
+	res.send(deletedUser)
 })
 
 // Common Functions
