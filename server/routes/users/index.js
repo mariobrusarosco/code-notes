@@ -49,12 +49,14 @@ Router.get('/', async (req, res) => {
 
 
 Router.post('/', async (req, res) => {
+  const { name, email, isPublished, numberOfPurchases, authTypes } = req.body
+
   const newUser = new User({
-    // name: 'Heisenberg',
-    email: 'ww@gmail.com',
-		isPublished: true,
-		numberOfPurchases: 0,
-		// authTypes: [1]
+    name,
+    email,
+		isPublished,
+		numberOfPurchases,
+		authTypes,
 	})
 
 	// Using .validate() from mongoose
@@ -78,7 +80,7 @@ Router.post('/', async (req, res) => {
 })
 
 Router.put('/', async (req, res) => {
-  const mockedId = '5c68273df7f5d0328bd50303'
+  const mockedId = '5c69a02b06f59901c9338970'
 
   const user = await User.findById(mockedId)
 

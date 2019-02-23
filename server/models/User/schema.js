@@ -52,7 +52,7 @@ const userSchema = new mongoose.Schema({
 		required: function() {
 			return this.isPublished
 		}
-	}
+  }
 })
 
 module.exports = userSchema

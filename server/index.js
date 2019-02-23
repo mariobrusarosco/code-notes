@@ -50,10 +50,12 @@ app.use(morgan('tiny'))
 
 // ROUTES
 const users = require('./routes/users')
+const notes = require('./routes/notes')
 const home = require('./routes/home')
 
-app.use('/api/v1/users', users)
 app.use('/', home)
+app.use('/api/v1/users', users)
+app.use('/api/v1/notes', notes)
 
 // DB
 const mongoose = require('mongoose')

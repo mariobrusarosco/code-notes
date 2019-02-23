@@ -1,24 +1,21 @@
-import { render } from 'react-dom'
 import React from 'react'
 
 // Components
-import SeasonDisplay from '../SeasonDisplay'
-import Spinner from '../Loaders/Spinner'
+import SearchBar from '../SearchBar'
 
 class App extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			lat: null,
-			errorMessage: null
 		}
-	}
+  }
+
+  onSearchSubmit = term => {
+    console.log(term)
+  }
 
   componentDidMount() {
-    window.navigator.geolocation.getCurrentPosition(
-      position => this.setState({ lat: position.coords.latitude }),
-      error => this.setState({ errorMessage: error.message })
-    )
+
   }
 
   componentDidUpdate() {
@@ -26,21 +23,11 @@ class App extends React.Component {
   }
 
 	renderContent() {
-		if (!this.state.errorMessage && this.state.lat) {
-			return <SeasonDisplay lat={this.state.lat} />
-		}
-
-		if (this.state.errorMessage) {
-			return <div className="main">Error: {this.state.errorMessage}</div>
-		}
-
-		if (!this.state.errorMessage && !this.state.lat) {
-			return (
-				<Spinner
-					message='Please Accept location request'
-				/>
-			)
-		}
+		return (
+			<div className="ui container">
+				<SearchBar onSubmitHandler={this.onSearchSubmit} />
+			</div>
+		)
 	}
 
   render() {
@@ -49,7 +36,4 @@ class App extends React.Component {
 	}
 }
 
-const container = document.querySelector('#app')
-console.log(container)
-
-render(<App />, container)
+export default App
