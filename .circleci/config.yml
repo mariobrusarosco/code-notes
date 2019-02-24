@@ -1,5 +1,4 @@
 version: 2
-
 jobs:
   build:
     docker:
@@ -17,3 +16,46 @@ jobs:
       - run:
           name: Running E2E tests
           command: yarn e2e:prod
+
+  deploy-prod:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+          name: Deploy master to Heroku
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_PROD_WEBPACK_BOILERPLATE.git master
+
+  deploy-dev:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+          name: Deploy 'development' to Heroku
+          command: | 
+            git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEV_WEBPACK_BOILERPLATE.git development:master
+
+workflows:
+  version: 2
+
+  build-deploy:
+    jobs:
+      - build
+      - deploy-dev:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - development
+                - /(feature|hotfix)\/.*/
+      - deploy-prod:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+            tags:
+              only: /^v.*/

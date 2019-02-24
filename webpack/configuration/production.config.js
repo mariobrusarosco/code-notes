@@ -15,14 +15,22 @@ const productionConfig = () => ({
   mode: 'production',
   // devtool: 'eval-source-map',
   output: {
-    filename: '[name].[hash].bundle.js',
-    chunkFilename: '[name].[hash].chunk.js',
+    filename: '[name].[contenthash].bundle.js',
+    chunkFilename: '[name].[contenthash].chunk.js',
     path: path.resolve(__dirname, '../../dist'),
     publicPath: '/'
   },
   optimization: {
+    // runtimeChunk: 'single', // @TODO Check the purpose of these option
     splitChunks: {
-      chunks: 'all'
+      // chunks: 'all',
+			cacheGroups: {
+				vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+				}
+			},
     }
   },
   plugins: [
