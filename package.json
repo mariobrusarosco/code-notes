@@ -12,7 +12,7 @@
     "e2e:prod": "start-server-and-test front-end-server-for-tests :8080 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "front-end-server-for-tests": "yarn prod && node server/front-end-server-for-tests.js",
+    "front-end-server-for-tests": "yarn prod && node server/serve-front-end.js",
     "dev:back": "nodemon -r dotenv/config server/index.js"
   },
   "author": "Mario Brusarosco",

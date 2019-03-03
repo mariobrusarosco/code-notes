@@ -2,7 +2,6 @@ version: 2
 jobs:
   build:
     docker:
-      # - image: circleci/node:10
       - image: cypress/base:8
     working_directory: ~/app
     steps:
@@ -15,7 +14,6 @@ jobs:
           command: yarn
       - run:
           name: Running E2E tests
-          command: yarn e2e:dev-webpack
           command: yarn e2e:prod
 
   deploy-prod:
@@ -51,12 +49,3 @@ workflows:
               only:
                 - development
                 - /(feature|hotfix)\/.*/
-      - deploy-prod:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - master
-            tags:
-              only: /^v.*/
