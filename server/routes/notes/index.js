@@ -1,17 +1,19 @@
 const express = require('express')
 const Router = express.Router()
 
-const Notes = require('../../models/Note')
+// Models
+const Note = require('../../models/Note')
+const Language = require('../../models/Language')
 
 Router.get('/', async (req, res) => {
   try {
-    const allNotes = await Notes
+    const allNotes = await Note
       .find()
-      .populate('user', 'name -_id')
-      //.populate('languages') --> In case we have another collection named 'languages', we could poulated it as well
-      .select('user description language')
+      .populate('user', 'name email-_id')
+      .populate('language', 'name')
+      .populate('related_notes', 'description')
+      .select('user description language related_notes')
 
-      console.log(allNotes)
       res.send(allNotes)
   } catch(e) {
     console.log(e)
@@ -21,17 +23,35 @@ Router.get('/', async (req, res) => {
 })
 
 Router.post('/', async (req, res) => {
-  const { description, language, user } = req.body
+  const { description, language, user, related_notes } = req.body
 
-  const note = await new Notes({
+  const note = await new Note({
     description,
     language,
     user,
+    related_notes,
   })
 
-  const insertionResult = note.save()
+  const insertionResult = await note.save()
 
   res.send(insertionResult)
 })
+
+Router.put('/', async (req, res) => {
+  const { id, updates } = req.body
+
+  const note = await Note.update({ _id: id }, {
+      $set: {
+        description: 'Altered',
+        language: updates.language
+      }
+    },
+    { new: true }
+  )
+
+  res.send(note)
+})
+
+
 
 module.exports = Router
