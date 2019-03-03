@@ -74,6 +74,26 @@ mongoose
     new Error({ type: 'Mongo connection error', message: error })
   })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const userSchema = new mongoose.Schema({
   name: String,
   email: String,
