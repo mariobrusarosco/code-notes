@@ -1,35 +1,24 @@
 const mongoose = require('mongoose')
-const joi = require('joi')
 
 const userSchema = new mongoose.Schema({
-  // Simple validation
-  firstname: {
-    required: true,
+	// Simple validation
+  name: {
+		required: true,
 		type: String,
-		minlength: 2,
-		maxlength: 25
-  },
-  lastname: {
-    required: true,
-		type: String,
-		minlength: 2,
-		maxlength: 50
+		minlength: 3,
+		maxlength: 200
+		// match: /a regex here/
 	},
-  email: {
-    unique: true,
-    required: true,
-		type: String,
-		minlength: 7,
-		maxlength: 255
-  },
-  password: {
-    required: true,
-		type: String,
-		minlength: 6,
-		maxlength: 1024
-  },
+	// Enumeration Validation
+	// authTypes: {
+	// 	type: String,
+	// 	require:  true,
+	// 	enum: ['email', 'google', 'facebook']
+	// },
+	// Custom Validation
 	authTypes: {
 		type: Array,
+		// type: Array<String>,
 		validate: {
 			validator: function(v) {
 				return v && v.length > 0
@@ -51,6 +40,7 @@ const userSchema = new mongoose.Schema({
 	// 		message: 'An user must have at least one type of authentication'
 	// 	}
 	// },
+	email: String,
   lastAccess: {
     type: Date,
     default: Date.now()

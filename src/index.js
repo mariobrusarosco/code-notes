@@ -5,7 +5,7 @@ if (module && module.hot) {
 
 import React from 'react'
 import { render } from 'react-dom'
-import  App from './components/App'
+import  App from './components/Video Project/App'
 
 
 const container = document.querySelector('#app')

@@ -21,11 +21,9 @@ class App extends React.Component {
       params: {
         query: term
       },
-
     })
 
-    this.setState({ images: response.data.result })
-    console.log(this)
+    this.setState({ images: response.data.results })
   }
 
   componentDidMount() {
@@ -40,7 +38,7 @@ class App extends React.Component {
 		return (
 			<div className="ui container">
 				<SearchBar onSubmitHandler={this.onSearchSubmit} />
-        <ImageList />
+        <ImageList images={this.state.images} />
 			</div>
 		)
 	}
