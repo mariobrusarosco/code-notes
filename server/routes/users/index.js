@@ -6,11 +6,6 @@ const Joi = require('joi')
 // Utils
 const PromiseTryCatch = require('../../utils/PromiseTryCatch')
 // Common Functions
-
-
-// Models
-const User =  require('../../models/User')
-
 const validateUser = req => {
   const validationOptions = {
     firstname: Joi.string().min(2).max(25).required(),
@@ -23,6 +18,18 @@ const validateUser = req => {
   return Joi.validate(req, validationOptions)
 }
 
+const hashPassword = async password => {
+  const bcrypt = require('bcrypt')
+  const salt = await bcrypt.genSalt(10)
+  const hashedPassword = await bcrypt.hash(password, salt, )
+
+  return hashedPassword
+}
+
+
+// Models
+const User =  require('../../models/User')
+
 Router.post('/', async (req, res) => {
   //  Validation Errors
   const { error } = validateUser(req.body)
@@ -33,15 +40,17 @@ Router.post('/', async (req, res) => {
 
   // User already registered Validation
   const { email } = req.body
-  let user = await User.findOne({ email })
+  const existingUser = await User.findOne({ email })
 
-  if (user) {
+  if (existingUser) {
     return res.status(400).send('User already registered')
   }
 
-  const { firstname, lastname, password, authTypes } = req.body
+  const { firstname, lastname, password : rawPassword, authTypes } = req.body
 
-  user = new User({
+  const password = await hashPassword(rawPassword)
+
+  const newUser = new User({
     firstname,
     lastname,
     email,
@@ -49,9 +58,9 @@ Router.post('/', async (req, res) => {
     authTypes,
   })
 
-  await user.save()
+  await newUser.save()
 
-  return res.send(user)
+  return res.send(newUser)
   // const {
   //   name,
   //   email,
