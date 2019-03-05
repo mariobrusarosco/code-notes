@@ -6,7 +6,7 @@ const Joi = require('joi')
 // Utils
 const PromiseTryCatch = require('../../utils/PromiseTryCatch')
 // Common Functions
-const validateUser = req => {
+const validateNewUser = req => {
   const validationOptions = {
     firstname: Joi.string().min(2).max(25).required(),
     lastname: Joi.string().min(2).max(50).required(),
@@ -32,7 +32,7 @@ const User =  require('../../models/User')
 
 Router.post('/', async (req, res) => {
   //  Validation Errors
-  const { error } = validateUser(req.body)
+  const { error } = validateNewUser(req.body)
 
   if (error) {
     return res.status(400).send(error.details[0].message)

@@ -31,16 +31,27 @@ app.use(morgan('tiny'))
 
 // ROUTES
 const home = require('./routes/home')
+const auth = require('./routes/auth')
 const users = require('./routes/users')
 const notes = require('./routes/notes')
 const languages = require('./routes/languages')
 
-app.use('/', home)
+// app.use('/', home)
+app.use('/api/v1/auth', auth)
 app.use('/api/v1/users', users)
 app.use('/api/v1/notes', notes)
 app.use('/api/v1/languages', languages)
 
+if (process.env.NODE_ENV === 'production') {
+  // Serving assets like main.css or main.js
+  // If this condition fits...code ends here!!
+  app.use(express.static('build'))
 
+  // If the server does not recognize a route... it's gonna serve index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+  })
+}
 
 // Listener
 app.listen(PORT, () => console.log(`Serving Code Notes at ${PORT}`))
