@@ -3,6 +3,8 @@ const Router = express.Router()
 const Joi = require('joi')
 const bycrpt = require('bcrypt')
 
+// Utils
+const generateJWT = require('../../utils/generateJWT')
 // Models
 // Models
 const User =  require('../../models/User')
@@ -40,7 +42,9 @@ Router.post('/', async (req, res) => {
     return res.status(400).send('Invalid email or password')
   }
 
-  res.send(true)
+  const token = generateJWT({ email: returningUser.email })
+
+  res.send(token)
 })
 
 module.exports = Router
