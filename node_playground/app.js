@@ -59,4 +59,6 @@
 
 // require('./buffers')
 
-require('./file-system')
+// require('./file-system')
+
+require('./streams')
