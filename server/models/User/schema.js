@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const joi = require('joi')
+const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
   // Simple validation
@@ -37,20 +38,6 @@ const userSchema = new mongoose.Schema({
 			message: 'An user must have at least one type of authentication'
 		}
 	},
-	// Asyncrhonous Validation
-	// authTypes: {
-	// 	type: Array,
-	// 	validate: {
-	// 		isAsync: true,
-	// 		validator: function(v, cb) {
-	// 			setTimeout(() => {
-	// 				const validationResult = v && v.length > 0
-	// 				cb(validationResult)
-	// 			}, 5000)
-	// 		},
-	// 		message: 'An user must have at least one type of authentication'
-	// 	}
-	// },
   lastAccess: {
     type: Date,
     default: Date.now()
@@ -65,5 +52,9 @@ const userSchema = new mongoose.Schema({
   },
   username: String
 })
+
+userSchema.methods.generateJWT = function() {
+  return jwt.sign({ email: this.email }, process.env.JWT_SECRET)
+}
 
 module.exports = userSchema

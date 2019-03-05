@@ -60,7 +60,11 @@ Router.post('/', async (req, res) => {
 
   await newUser.save()
 
-  return res.send(newUser)
+  const token = newUser.generateJWT()
+
+  return res
+    .header(`x-auth-token`, token)
+    .send(newUser)
   // const {
   //   name,
   //   email,
