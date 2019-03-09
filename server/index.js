@@ -7,6 +7,7 @@ const app = express()
 
 // DB
 const mongoose = require('mongoose')
+
 mongoose.connect(
   process.env.DB_CREDENTIALS || 'mongodb://admin:ma240787@ds121222.mlab.com:21222/dev-code-notes',
   { useNewUrlParser: true }
@@ -27,6 +28,9 @@ app.use(express.json())
 const helmet = require('helmet')
 const morgan = require('morgan')
 app.use(morgan('tiny'))
+
+// Custom Middlewares
+
 // --------------  MIDDLEWARES --------------------- //
 
 // ROUTES
@@ -38,7 +42,7 @@ const notes = require('./routes/notes')
 const languages = require('./routes/languages')
 
 // app.use('/', home)
-app.use('/api/v1/auth', auth)
+app.use('/api/v1/auth',auth)
 app.use('/api/v1/users', users)
 app.use('/api/v1/me', me)
 app.use('/api/v1/notes', notes)

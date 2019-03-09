@@ -4,8 +4,7 @@ const Joi = require('joi')
 const bycrpt = require('bcrypt')
 
 // Utils
-
-
+const routeMiddleware = require('../../middlewares/routes')
 
 // Models
 const User =  require('../../models/User')
@@ -23,15 +22,14 @@ const validateReturningUser = reqBody => {
   return Joi.validate(reqBody, validationOptions)
 }
 
-
-Router.post('/', async (req, res) => {
+Router.post('/', routeMiddleware(async (req, res, next) => {
   const { error } = validateReturningUser(req.body)
 
   if (error) {
     return res.status(400).send(error.details[0].message)
   }
 
-  const { email, password } = req.body
+  const { email, password } = req.bod
 
   const returningUser = await User.findOne({ email })
   if (!returningUser) {
@@ -46,6 +44,6 @@ Router.post('/', async (req, res) => {
   const token = returningUser.generateJWT()
 
   res.send(token)
-})
+}))
 
 module.exports = Router
