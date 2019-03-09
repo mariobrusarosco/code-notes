@@ -4,6 +4,12 @@ const path = require('path')
 
 // App Setitngs
 const app = express()
+// Logging Async Errors
+// require('express-async-errors')
+
+// Logging errors in the entire App
+const winston = require('winston')
+winston.add(new winston.transports.File({ filename: "logfile.log" }));
 
 // DB
 const mongoose = require('mongoose')
@@ -47,6 +53,10 @@ app.use('/api/v1/users', users)
 app.use('/api/v1/me', me)
 app.use('/api/v1/notes', notes)
 app.use('/api/v1/languages', languages)
+
+// Error Handlers for Routes
+const { routeErrorHandler } = require('./middlewares/routes')
+app.use(routeErrorHandler)
 
 if (process.env.NODE_ENV === 'production') {
   // Serving assets like main.css or main.js

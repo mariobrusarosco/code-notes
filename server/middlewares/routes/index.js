@@ -5,9 +5,20 @@ const routeMiddleware = fn => {
     }
     catch (exception) {
       next(exception)
-      res.status(500).send('Internal Failure')
     }
   }
 }
 
-module.exports = routeMiddleware
+const winston = require('winston')
+
+const routeErrorHandler = (error, req, res) => {
+  // winston.error(error, error.message)
+
+  res.status(500).send('Internal Failure')
+}
+
+
+module.exports = {
+  routeMiddleware,
+  routeErrorHandler
+}

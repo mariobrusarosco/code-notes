@@ -4,7 +4,7 @@ const Joi = require('joi')
 const bycrpt = require('bcrypt')
 
 // Utils
-const routeMiddleware = require('../../middlewares/routes')
+const { routeMiddleware } = require('../../middlewares/routes')
 
 // Models
 const User =  require('../../models/User')
@@ -29,7 +29,9 @@ Router.post('/', routeMiddleware(async (req, res, next) => {
     return res.status(400).send(error.details[0].message)
   }
 
-  const { email, password } = req.bod
+  const { email, password } = req.body
+
+  throw new Error('sdasdasdasdasdasdas')
 
   const returningUser = await User.findOne({ email })
   if (!returningUser) {
