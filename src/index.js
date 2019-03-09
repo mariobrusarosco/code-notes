@@ -4,19 +4,21 @@ if (module && module.hot) {
 }
 
 import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
+import  { Provider } from 'react-redux'
+import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 
-import  App from './components/Video Project/App'
 import reducers from './reducers'
+
+import App from './components/Blog Project/App'
+
 
 const store = createStore(reducers)
 const container = document.querySelector('#app')
 
-render(
-  <Provider store={store} >
-    <App />,
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
   </Provider>,
   container
 )

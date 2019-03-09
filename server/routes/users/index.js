@@ -3,7 +3,6 @@ const Router = express.Router()
 const Joi = require('joi')
 
 // Middlewares
-const authorization = require('../../middlewares/authorization')
 
 // Utils
 const PromiseTryCatch = require('../../utils/PromiseTryCatch')
@@ -30,14 +29,7 @@ const hashPassword = async password => {
 
 
 // Models
-const User =  require('../../models/User')
-
-Router.get('/me', authorization, async (req, res) => {
-  console.log(req.verifiedUser)
-  const userID = req.verifiedUser
-  const currentUser = await User.findById(userID).select('-password -authTypes -lastAccess')
-  res.send(currentUser)
-})
+const User = require('../../models/User')
 
 Router.post('/', async (req, res) => {
   //  Validation Errors

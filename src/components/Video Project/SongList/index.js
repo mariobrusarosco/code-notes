@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import { selectSong } from '../../../actions'
 
@@ -26,7 +27,6 @@ class SongList extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <ul className="ui divided list song-list">
         { this.renderSongs() }
@@ -36,12 +36,12 @@ class SongList extends Component {
 }
 
 const mapStateToProps = ({ songs, selectedSong }) => {
-  console.log(selectedSong)
   return { songs, selectedSong }
 }
 
-const mapDispatchToProps = dispatch => {
-  return { selectSong }
-}
+const mapDispatchToProps = dispatch => bindActionCreators(
+  { selectSong },
+  dispatch,
+)
 
-export default connect(mapStateToProps, mapDispatchToProps)(SongList)
+export default connect(mapStateToProps,mapDispatchToProps)(SongList)
