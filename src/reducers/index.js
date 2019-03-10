@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux'
 
+import blogReducer from './blog-reducer'
+import usersReducer from './users-reducer'
+
 const reducers = combineReducers({
-  test: () => ({ a: 1 })
+  blog: blogReducer,
+  users: usersReducer,
 })
 
 export default reducers
