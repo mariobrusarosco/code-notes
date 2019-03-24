@@ -22,6 +22,7 @@ const developmentConfig = () => ({
   devServer: {
     contentBase: 'dist',
     hot: true,
+    historyApiFallback: true
   },
   plugins: [
 		...commonPlugins,

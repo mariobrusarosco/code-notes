@@ -4,12 +4,13 @@ const routeMiddleware = fn => {
       await fn(req, res)
     }
     catch (exception) {
+      console.log('calling... next()...')
       next(exception)
     }
   }
 }
 
-const winston = require('winston')
+// const winston = require('winston')
 
 const routeErrorHandler = (error, req, res) => {
   // winston.error(error, error.message)

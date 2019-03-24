@@ -8,22 +8,22 @@ const app = express()
 // require('express-async-errors')
 
 // Logging errors in the entire App
-const winston = require('winston')
-winston.add(new winston.transports.File({ filename: "logfile.log" }));
+// const winston = require('winston')
+// winston.add(new winston.transports.File({ filename: "logfile.log" }));
 
 // DB
 const mongoose = require('mongoose')
 
-mongoose.connect(
-  process.env.DB_CREDENTIALS || 'mongodb://admin:ma240787@ds121222.mlab.com:21222/dev-code-notes',
-  { useNewUrlParser: true }
-)
-.then(() => {
-  console.log('Connected to a mongo DB')
-})
-.catch(error => {
-  new Error({ type: 'Mongo connection error', message: error })
-})
+// mongoose.connect(
+//   process.env.DB_CREDENTIALS || 'mongodb://admin:ma240787@ds121222.mlab.com:21222/dev-code-notes',
+//   { useNewUrlParser: true }
+// )
+// .then(() => {
+//   console.log('Connected to a mongo DB')
+// })
+// .catch(error => {
+//   new Error({ type: 'Mongo connection error', message: error })
+// })
 
 
 // --------------  MIDDLEWARES --------------------- //

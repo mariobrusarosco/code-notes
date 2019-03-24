@@ -31,10 +31,10 @@ Router.post('/', routeMiddleware(async (req, res, next) => {
 
   const { email, password } = req.body
 
-  throw new Error('sdasdasdasdasdasdas')
+  // throw new Error('sdasdasdasdasdasdas')
 
   const returningUser = await User.findOne({ email })
-  if (!returningUser) {
+    if (!returningUser) {
     return res.status(400).send('Invalid email or password')
   }
 
