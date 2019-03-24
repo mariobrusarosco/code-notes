@@ -23,16 +23,17 @@ Router.get('/', async (req, res) => {
 })
 
 Router.post('/', async (req, res) => {
+
   const { description, language, user, related_notes } = req.body
 
-  const note = await new Note({
+  const newNote = await new Note({
     description,
     language,
     user,
     related_notes,
   })
 
-  const insertionResult = await note.save()
+  const insertionResult = await newNote.save()
 
   res.send(insertionResult)
 })
