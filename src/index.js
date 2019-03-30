@@ -19,11 +19,13 @@ const store = createStore(
 
 import App from './components/App'
 import StreamApp from './components/Stream Project/App'
+import VideoApp from './components/Video Project/App'
+
 
 ReactDOM.render(
   <Provider store={store}>
     <App />,
-    {/* <StreamApp />, */}
+    {/* <VideoApp />, */}
   </Provider>,
   document.querySelector('#app')
 )

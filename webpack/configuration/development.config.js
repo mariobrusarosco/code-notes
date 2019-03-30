@@ -13,7 +13,7 @@ const commonConfig = require('./common.config')
 
 const developmentConfig = () => ({
   mode: 'development',
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   output: {
     filename: '[name].development.bundle.js',
     path: path.resolve(__dirname, '../dist'),

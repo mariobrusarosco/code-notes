@@ -56,8 +56,8 @@ app.use('/api/v1/notes', authorization, notes)
 app.use('/api/v1/languages', languages)
 
 // Error Handlers for Routes
-const { routeErrorHandler } = require('./middlewares/routes')
-app.use(routeErrorHandler)
+// const { routeErrorHandler } = require('./middlewares/routes')
+// app.use(routeErrorHandler)
 
 if (process.env.NODE_ENV === 'production') {
   // Serving assets like main.css or main.js
