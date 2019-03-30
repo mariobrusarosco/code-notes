@@ -24,8 +24,8 @@ import VideoApp from './components/Video Project/App'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />,
-    {/* <VideoApp />, */}
+    {/* <App />, */}
+    <StreamApp />,
   </Provider>,
   document.querySelector('#app')
 )
