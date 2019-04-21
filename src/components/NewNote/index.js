@@ -1,10 +1,4 @@
-import { userState, useEffect } from 'react'
-import CodeMirror from 'codemirror'
-
-
-// Import Editor Style
-import '../../../node_modules/codemirror/theme/dracula.css'
-import '../../../node_modules/codemirror/lib/codemirror.css'
+import { useState, useEffect } from 'react'
 
 
 // Api Util
@@ -13,8 +7,6 @@ import codeNotesAPI from '../../api/code-notes'
 const NewNote = () => {
   const handleSaveNote = () => {
     console.log('saving')
-
-    codeNotesAPI.get()
   }
 
   useEffect(() => {
@@ -23,10 +15,9 @@ const NewNote = () => {
     const myCodeMirror = CodeMirror(elemRef, {
       value: "const a = 'adsda'",
       mode:  "javascript",
-      theme: 'dracula',
+      theme: 'darcula',
     });
 
-    // console.log(myCodeMirror)
   })
 
   return (
