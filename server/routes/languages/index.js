@@ -1,13 +1,18 @@
 const express = require('express')
 const Router = express.Router()
 
+// Models
 const Language = require('../../models/Language')
 
-Router.post('/', async (req, res) => {
-  const { name } = req.body
+// Middlewares
+const authorization = require('../../middlewares/authorization')
+
+Router.post('/', authorization, async (req, res) => {
+  const { name, userId } = req.body
 
   const newLanguage = await new Language({
-    name
+    name,
+    user: userID
   })
 
   await newLanguage.save()
@@ -21,7 +26,9 @@ Router.put('/', async (req, res) => {
 })
 
 Router.get('/', async (req, res) => {
-  const allLanguages = await Language.find()
+  const allLanguages = await Language
+    .find()
+    .populate('user', 'name email-_id')   
 
   res.send(allLanguages)
 })
