@@ -8,7 +8,7 @@ const Language = require('../../models/Language')
 const authorization = require('../../middlewares/authorization')
 
 Router.post('/', authorization, async (req, res) => {
-  const { name, userId } = req.body
+  const { name, userID } = req.body
 
   const newLanguage = await new Language({
     name,
