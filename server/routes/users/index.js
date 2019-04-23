@@ -3,6 +3,7 @@ const Router = express.Router()
 const Joi = require('joi')
 
 // Middlewares
+const authorization = require('../../middlewares/authorization')
 
 // Utils
 const PromiseTryCatch = require('../../utils/PromiseTryCatch')
@@ -37,13 +38,28 @@ Router.use(function(req, res, next) {
   next();
 });
 
-Router.get('/', async (req, res) => {
+Router.get('/', authorization, async (req, res) => {
   const allUsers = await User.find()
   
   res.send(allUsers)
 })
 
-Router.post('/', async (req, res) => {
+Router.patch('/:id', authorization, async (req, res) => {
+  const contentToBeUpdated = req.body
+  const userID = req.params.id
+  
+  const updatedUser = await User.findOneAndUpdate(
+			{_id: userID },
+			{
+				$set: { contentToBeUpdated }
+			},
+			{ new: true }
+		)
+  
+   res.send(updatedUser)
+})
+
+Router.post('/', authorization, async (req, res) => {
   //  Validation Errors
   const { error } = validateNewUser(req.body)
 
