@@ -55,6 +55,8 @@ Router.patch('/:id', authorization, async (req, res) => {
 			},
 			{ new: true }
 		)
+   
+    await updatedUser.save()
   
    res.send(updatedUser)
 })
