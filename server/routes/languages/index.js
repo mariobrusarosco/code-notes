@@ -20,4 +20,10 @@ Router.put('/', async (req, res) => {
   res.send(newUsername)
 })
 
+Router.get('/', async (req, res) => {
+  const allLanguages = await Languages.find()
+
+  res.send(allLanguages)
+})
+
 module.exports = Router
