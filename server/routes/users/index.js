@@ -36,6 +36,13 @@ Router.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+Router.get('/', async (req, res) => {
+  const allUsers = await User.find()
+  
+  res.send(allUsers)
+})
+
 Router.post('/', async (req, res) => {
   //  Validation Errors
   const { error } = validateNewUser(req.body)
