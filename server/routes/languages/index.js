@@ -21,7 +21,7 @@ Router.put('/', async (req, res) => {
 })
 
 Router.get('/', async (req, res) => {
-  const allLanguages = await Languages.find()
+  const allLanguages = await Language.find()
 
   res.send(allLanguages)
 })
