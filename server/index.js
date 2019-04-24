@@ -8,14 +8,14 @@ const app = express()
 // require('express-async-errors')
 
 // Logging errors in the entire App
-// const winston = require('winston')
-// winston.add(new winston.transports.File({ filename: "logfile.log" }));
+const winston = require('winston')
+winston.add(new winston.transports.File({ filename: "logfile.log" }));
 
 // DB
 const mongoose = require('mongoose')
 
 mongoose.connect(
-  process.env.DB_CREDENTIALS || 'mongodb://admin:ma240787@ds121222.mlab.com:21222/dev-code-notes',
+  process.env.DB_CREDENTIALS || 'mongodb://mariobrusarosco:ma240787@ds121222.mlab.com:21222/dev-code-notes',
   { useNewUrlParser: true }
 )
 .then(() => {
@@ -37,7 +37,11 @@ app.use(morgan('tiny'))
 
 // Custom Middlewares
 const authorization = require('./middlewares/authorization')
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 // --------------  MIDDLEWARES --------------------- //
 
 // ROUTES
@@ -49,9 +53,9 @@ const notes = require('./routes/notes')
 const languages = require('./routes/languages')
 
 // app.use('/', home)
-app.use('/api/v1/auth',auth)
+app.use('/api/v1/auth', auth)
 app.use('/api/v1/users', users)
-app.use('/api/v1/me', me)
+app.use('/api/v1/me', authorization, me)
 app.use('/api/v1/notes', authorization, notes)
 app.use('/api/v1/languages', languages)
 

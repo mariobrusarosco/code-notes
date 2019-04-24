@@ -12,20 +12,25 @@ const isRequired = value => {
 }
 
 const SignUpForm = ({
+  submitting,
+  pristine,
   handleSubmit: reduxSubmit
 }) => {
-  const onSubmitCallback = ({ firstname, lastname, email, password }) => {
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
+  const onSubmitCallback = async ({ firstname, lastname, email, password }) => {
     axios.post(
       'https://dev-code-notes.herokuapp.com/api/v1/users',
+      // 'http://localhost:9090/api/v1/users',
       { firstname, lastname, email, password, authTypes: ['email'] },
     )
-    .then(res => console.log(res))
+    .then(res => alert('Success'))
     .catch(err => console.log(err))
   }
 
   return (
     <form className="ui form" onSubmit={reduxSubmit(onSubmitCallback)}>
+      { submitting && <span>{pristine}</span> }
       <div className="field-wrapper">
         <Field
           name="firstname"
@@ -63,7 +68,12 @@ const SignUpForm = ({
         />
       </div>
       <div className="field-wrapper">
-        <button className="ui button primary">Sign Up</button>
+        <button
+          disabled={submitting || pristine}
+          className="ui button primary"
+        >
+          Sign Up
+        </button>
       </div>
     </form>
   )

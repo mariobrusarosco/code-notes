@@ -32,12 +32,6 @@ const hashPassword = async password => {
 // Models
 const User = require('../../models/User')
 
-Router.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 Router.get('/', authorization, async (req, res) => {
   const allUsers = await User.find()
 
@@ -77,15 +71,15 @@ Router.post('/', async (req, res) => {
     return res.status(400).send('User already registered')
   }
 
-  const { firstname, lastname, password : rawPassword, authTypes } = req.body
+  const { firstname, lastname, password, authTypes } = req.body
 
-  const password = await hashPassword(rawPassword)
+  const hashedPassword = await hashPassword(password)
 
   const newUser = new User({
     firstname,
     lastname,
     email,
-    password,
+    password: hashedPassword,
     authTypes,
   })
 
@@ -96,27 +90,6 @@ Router.post('/', async (req, res) => {
   return res
     .header(`x-auth-token`, token)
     .send(newUser)
-  // const {
-  //   name,
-  //   email,
-  //   password,
-  //   authTypes
-  // } = req.body
-
-  // const newUser = new User({
-  //   name,
-  //   email,
-  //   password,
-  //   authTypes
-	// })
-
-
-// {
-//   "name": "User 1",
-//   "email": "some email",
-//   "password": "12345",
-//   "authTypes": ["google"]
-// }
 })
 
 module.exports = Router
