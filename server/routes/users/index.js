@@ -40,14 +40,14 @@ Router.use(function(req, res, next) {
 
 Router.get('/', authorization, async (req, res) => {
   const allUsers = await User.find()
-  
+
   res.send(allUsers)
 })
 
 Router.patch('/:id', authorization, async (req, res) => {
   const contentToBeUpdated = req.body
   const userID = req.params.id
-  
+
   const updatedUser = await User.findOneAndUpdate(
 			{_id: userID },
 			{
@@ -55,13 +55,13 @@ Router.patch('/:id', authorization, async (req, res) => {
 			},
 			{ new: true }
 		)
-   
+
     await updatedUser.save()
-  
+
    res.send(updatedUser)
 })
 
-Router.post('/', authorization, async (req, res) => {
+Router.post('/', async (req, res) => {
   //  Validation Errors
   const { error } = validateNewUser(req.body)
 
