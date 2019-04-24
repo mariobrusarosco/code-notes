@@ -14,7 +14,7 @@ const validateNewUser = req => {
     lastname: Joi.string().min(2).max(50).required(),
     email: Joi.string().min(7).max(255).required().email(),
     password: Joi.string().min(6).max(1024).required(),
-    authTypes: Joi.array().required().label('testing custom')
+    authTypes: Joi.array().required().error(new Error(40))
   }
 
   return Joi.validate(req, validationOptions)
@@ -58,9 +58,12 @@ Router.patch('/:id', authorization, async (req, res) => {
 Router.post('/', async (req, res) => {
   //  Validation Errors
   const { error } = validateNewUser(req.body)
-
+  
+  const mapTest = {
+    "40": "this is custom message dude!!" 
+  }
   if (error) {
-    return res.status(400).send(error.details[0].message)
+    return res.status(400).send(mapTest[error.details[0].message])
   }
 
   // User already registered Validation
