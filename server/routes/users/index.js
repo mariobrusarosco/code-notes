@@ -58,12 +58,9 @@ Router.patch('/:id', authorization, async (req, res) => {
 Router.post('/', async (req, res) => {
   //  Validation Errors
   const { error } = validateNewUser(req.body)
-  
-  const mapTest = {
-    "40": "this is custom message dude!!" 
-  }
+
   if (error) {
-    return res.status(400).send(error.details[0].message)
+    return res.status(400).send(global.errorsMap[error.message])
   }
 
   // User already registered Validation

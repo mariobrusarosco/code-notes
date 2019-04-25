@@ -4,7 +4,7 @@ import SignUpForm from 'components/SignUpForm'
 const SignUp = () => {
 
   return (
-    <div className="sign-up">
+    <div className="sign-up ui segment">
       <SignUpForm />
     </div>
   )

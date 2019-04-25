@@ -7,6 +7,11 @@ const app = express()
 // Logging Async Errors
 // require('express-async-errors')
 
+
+// TO DO - Remove this Erros Map
+global.errorsMap = {
+  "40": "You must provide an authentication type"
+}
 // Logging errors in the entire App
 const winston = require('winston')
 winston.add(new winston.transports.File({ filename: "logfile.log" }));
