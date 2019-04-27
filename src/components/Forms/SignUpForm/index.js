@@ -1,12 +1,12 @@
-
+// Vendors
 import { Field, reduxForm } from 'redux-form'
 import axios from 'axios'
+
 // Components
 import InputText from 'components/Forms/Inputs/InputText'
 import SpinnerLoader from 'components/Spinner'
 
 // Utils
-import codeNotesAPI from '../../api/code-notes'
 import { isRequired } from 'utils/fieldsValidators'
 
 const SignUpForm = ({
@@ -14,7 +14,6 @@ const SignUpForm = ({
   pristine,
   handleSubmit: reduxSubmit
 }) => {
-  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
   const onSubmitCallback = async ({ firstname, lastname, email, password }) => {
     await axios.post(
@@ -31,7 +30,7 @@ const SignUpForm = ({
 
   return (
     <>
-      { submitting && <SpinnerLoader /> }
+      { true && <SpinnerLoader /> }
       <form className="ui form" onSubmit={reduxSubmit(onSubmitCallback)}>
         { submitting && <span>!!!!addasd{pristine}</span> }
 
@@ -58,7 +57,7 @@ const SignUpForm = ({
             name="email"
             component={InputText}
             label="Type an email here"
-            type="text"
+            type="email"
             validate={[isRequired]}
           />
         </div>
@@ -85,5 +84,5 @@ const SignUpForm = ({
 }
 
 export default reduxForm({
-  form: 'signUpForm'
+  form: 'SignUpForm'
 })(SignUpForm)

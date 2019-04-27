@@ -8,6 +8,7 @@ import Header from 'components/Header'
 import Home from '../../pages/Home'
 import New from '../../pages/New'
 import SignUp from '../../pages/SignUp'
+import Config from '../../pages/Config'
 
 // console.log(newNote)
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/new" component={New} />
           <Route path="/sign-up" component={SignUp} />
+          <Route path="/config" component={Config} />
         </BrowserRouter>
       </div>
     )

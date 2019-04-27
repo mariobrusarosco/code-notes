@@ -21,7 +21,6 @@ const InputText = ({ input, label, type, meta }) => {
     <>
       <label>{label}</label>
       <input
-        autoComplete='off'
         type={type}
         className={`input input--${type}`}
         {...input}
