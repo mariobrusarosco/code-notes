@@ -41,7 +41,7 @@ const morgan = require('morgan')
 
 app.use(morgan('tiny'))
 // app.use(helmet())
-// app.use(express.cookieParser());
+app.use(express.cookieParser());
 
 // Custom Middlewares
 const authorization = require('./middlewares/authorization')
