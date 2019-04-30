@@ -1,5 +1,6 @@
 const PORT = process.env.PORT || 9090
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const path = require('path')
 
 // App Setitngs
@@ -41,7 +42,7 @@ const morgan = require('morgan')
 
 app.use(morgan('tiny'))
 // app.use(helmet())
-app.use(express.cookieParser());
+app.use(cookieParser());
 
 // Custom Middlewares
 const authorization = require('./middlewares/authorization')
