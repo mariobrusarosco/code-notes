@@ -38,10 +38,13 @@ app.use(express.json())
 // Third Party Middlewares
 const helmet = require('helmet')
 const morgan = require('morgan')
+
 app.use(morgan('tiny'))
+app.use(helmet())
 
 // Custom Middlewares
 const authorization = require('./middlewares/authorization')
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
