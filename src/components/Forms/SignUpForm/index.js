@@ -8,6 +8,7 @@ import SpinnerLoader from 'components/Spinner'
 
 // Utils
 import { isRequired } from 'utils/fieldsValidators'
+import codeNotesAPI from 'api/code-notes'
 
 const SignUpForm = ({
   submitting,
@@ -16,8 +17,8 @@ const SignUpForm = ({
 }) => {
 
   const onSubmitCallback = async ({ firstname, lastname, email, password }) => {
-    await axios.post(
-      'https://dev-code-notes.herokuapp.com/api/v1/users',
+    await codeNotesAPI.post(
+      'users',
       // 'http://localhost:9090/api/v1/users',
       { firstname, lastname, email, password, authTypes: ['email'] },
     )
@@ -30,7 +31,7 @@ const SignUpForm = ({
 
   return (
     <>
-      { true && <SpinnerLoader /> }
+      {/* { true && <SpinnerLoader /> } */}
       <form className="ui form" onSubmit={reduxSubmit(onSubmitCallback)}>
         { submitting && <span>!!!!addasd{pristine}</span> }
 
