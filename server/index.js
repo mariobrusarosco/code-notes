@@ -40,7 +40,8 @@ const helmet = require('helmet')
 const morgan = require('morgan')
 
 app.use(morgan('tiny'))
-app.use(helmet())
+// app.use(helmet())
+// app.use(express.cookieParser());
 
 // Custom Middlewares
 const authorization = require('./middlewares/authorization')
@@ -50,7 +51,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   
   // For Authenticated Cookies
-  res.cookie('username', 'Mario', { expires: new Date(Date.now() + 60000), 
+//   res.cookie('username', 'Mario', { expires: new Date(Date.now() + 60000), 
   // res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
