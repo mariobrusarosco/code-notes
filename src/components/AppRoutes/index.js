@@ -1,5 +1,8 @@
 import { Route } from 'react-router-dom'
 
+// Utils
+import ProtectedRoute from 'components/ProtectedRoute'
+
 // Pages (Routes)
 import Home from 'pages/Home'
 import New from 'pages/New'
@@ -10,11 +13,11 @@ import Login from 'pages/Login'
 const AppRoutes = () => {
   return (
     <>
-      <Route path="/" exact component={Home} />
-      <Route path="/new" component={New} />
+      <Route path="/" exact component={ProtectedRoute(Home)} />
+      <Route path="/new" component={ProtectedRoute(New)} />
       <Route path="/sign-up" component={SignUp} />
       <Route path="/login" component={Login} />
-      <Route path="/config" component={Config} />
+      <Route path="/config" component={ProtectedRoute(Config)} />
     </>
   )
 }

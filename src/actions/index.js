@@ -1,11 +1,18 @@
 import _ from 'lodash'
 
+export const logUser = () => {
+  return {
+    type: 'LOG_IN'
+  }
+}
+
 export const selectSong = song => {
   return {
     type: 'SELECT_SONG',
     payload: song
   }
 }
+
 
 import axiosJsonPlaceholder from '../api/json-placeholder'
 

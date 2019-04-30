@@ -1,11 +1,11 @@
 // Components
 import LoginForm from 'components/Forms/LoginForm'
 
-const Login = () => {
+const Login = ({ history }) => {
 
   return (
     <div className="login ui segment">
-      <LoginForm />
+      <LoginForm history={history} />
     </div>
   )
 
