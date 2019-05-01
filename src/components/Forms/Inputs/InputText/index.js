@@ -15,12 +15,13 @@ const handleInputError = inputInfo => {
   }
 }
 
-const InputText = ({ input, label, type, meta }) => {
+const InputText = ({ input, inputId, label, type, meta }) => {
 
   return (
     <>
       <label>{label}</label>
       <input
+        inputId={inputId}
         type={type}
         className={`input input--${type}`}
         {...input}
