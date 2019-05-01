@@ -2,22 +2,27 @@ const PORT = process.env.PORT || 9090
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const path = require('path')
+const session = require('express-session')
+
 
 // App Setitngs
 const app = express()
-// Logging Async Errors
-// require('express-async-errors')
 
 
 // TO DO - Remove this Erros Map
 global.errorsMap = {
   "40": "You must provide an authentication type"
 }
-// Logging errors in the entire App
-const winston = require('winston')
-winston.add(new winston.transports.File({ filename: "logfile.log" }));
 
-// DB
+// --------------  ERRORS LOGGER --------------------- //
+// Logging Async Errors
+// require('express-async-errors')
+// Logging errors in the entire App
+// const winston = require('winston')
+// winston.add(new winston.transports.File({ filename: "logfile.log" }));
+// --------------  ERRORS LOGGER --------------------- //
+
+// --------------  DB --------------------- //--
 const mongoose = require('mongoose')
 
 mongoose.connect(
@@ -30,6 +35,8 @@ mongoose.connect(
 .catch(error => {
   new Error({ type: 'Mongo connection error', message: error })
 })
+// --------------  DB --------------------- //
+
 
 
 // --------------  MIDDLEWARES --------------------- //
@@ -53,10 +60,35 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods','*');
 
-  // For Authenticated Cookies
-  res.cookie('username', 'sadasdasdasdasd', { expires: new Date(Date.now() + 24 * 60 * 60 * 1000) })
+  // // For Authenticated Cookies
+  res.cookie('username', 'sadasdasdasdasd', {
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    secure: true,
+    httpOnly: true
+  })
   next()
 });
+
+const expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
+
+// app.use(session({
+//   key: 'user_sid',
+//   secret: 'somerandonstuffs',
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: {
+//       expires: 600000
+//   }
+// }))
+
+
+app.use((req, res, next) => {
+  if (req.cookies.user_sid && !req.session.user) {
+      res.clearCookie('user_sid');
+  }
+  next();
+});
+
 // --------------  MIDDLEWARES --------------------- //
 
 // ROUTES
@@ -70,8 +102,8 @@ const languages = require('./routes/languages')
 // app.use('/', home)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/users', users)
-app.use('/api/v1/me', authorization, me)
-app.use('/api/v1/notes', authorization, notes)
+app.use('/api/v1/me', me)
+app.use('/api/v1/notes', notes)
 app.use('/api/v1/languages', languages)
 
 // Error Handlers for Routes

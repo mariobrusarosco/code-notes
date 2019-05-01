@@ -14,7 +14,7 @@ class LoginForm extends Component {
   onSubmitCallback = async ({ email, password }) => {
     // TO DO async/awati aproach
     // debugger
-    // console.log(codeNotesAPI.options)
+    console.log(document.cookie)
     codeNotesAPI.post('/auth', { email, password })
       .then(res => {
         localStorage.setItem('app-token', res.data)
