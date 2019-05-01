@@ -10,6 +10,14 @@ import { decodeToken } from 'utils/authentication'
 export default WrappedComponent => {
 
   class ProtectedRoute extends Component {
+    constructor(props) {
+      super(props)
+
+      if (!this.authenticateUser()) {
+        console.log('this route is proteced...gooing to /login')
+        this.props.history.push('/login')
+      }
+    }
 
     authenticateUser = () => {
       const { userAllowed } = decodeToken()
