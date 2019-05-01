@@ -1,14 +1,8 @@
 // import axiosJsonPlaceholder from '../api/json-placeholder'
 // import _ from 'lodash'
 
-export const logUser = () => {
-  return {
-    type: 'LOG_IN'
-  }
-}
-
-export const loadUserData = payload => ({
-  type: 'LOAD_USER_DATA',
+export const logUser = payload => ({
+  type: 'LOG_IN',
   payload
 })
 

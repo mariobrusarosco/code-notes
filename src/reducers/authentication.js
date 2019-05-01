@@ -6,11 +6,8 @@ const initialState = {
 }
 
 const authentication = handleActions({
-  LOG_IN: () => ({
-    userIsLogged: true
-  }),
-  LOAD_USER_DATA: (state, { payload }) => ({
-    ...state, user: payload
+  LOG_IN: (state, { payload }) => ({
+    userData: payload,
   })
 }, initialState)
 

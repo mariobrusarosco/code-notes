@@ -17,19 +17,22 @@ import { logUser } from 'actions'
 
 // Utils
 import codeNotesAPI from 'api/code-notes'
+import { parseUserData } from 'utils/authentication'
 
 class App extends Component {
   componentDidMount() {
     console.log('....Starting the application...\n ...Checking if a user is logged...')
     const UID = localStorage.getItem('UID')
 
-    codeNotesAPI.get('/me')
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    const [userIsLogged, userData] = parseUserData(UID)
+
+    if (userIsLogged) {
+      console.log('User Can be logged')
+      this.props.logUser(userData)
+      return
+    }
+
+    console.log('User Can`t be logged')
   }
 
   render() {
@@ -45,11 +48,7 @@ class App extends Component {
 }
 
 
-const mapDispatchToProps = dispatch => ({
-  handleLogIn: () => dispatch(logUser())
-})
-
 export default connect(
   null,
-  mapDispatchToProps
+  { logUser }
 )(App)

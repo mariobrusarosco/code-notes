@@ -59,7 +59,8 @@ const userSchema = new mongoose.Schema({
 userSchema.methods.generateJWT = function() {
   return jwt.sign(
     userPublicData(this),
-    process.env.JWT_SECRET
+    process.env.JWT_SECRET,
+    { expiresIn: '24h'}
   )
 }
 
