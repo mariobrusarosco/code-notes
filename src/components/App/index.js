@@ -15,13 +15,21 @@ import history from 'utils/app-history'
 // Actions
 import { logUser } from 'actions'
 
+// Utils
+import codeNotesAPI from 'api/code-notes'
+
 class App extends Component {
   componentDidMount() {
-    const token = localStorage.getItem('app-token')
+    console.log('....Starting the application...\n ...Checking if a user is logged...')
+    const UID = localStorage.getItem('UID')
 
-    if (token) {
-      this.props.handleLogIn()
-    }
+    codeNotesAPI.get('/me')
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   render() {

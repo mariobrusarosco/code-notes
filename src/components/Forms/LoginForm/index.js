@@ -1,5 +1,6 @@
 // Vendors
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
 
 // Components
 import InputText from 'components/Forms/Inputs/InputText'
@@ -9,15 +10,19 @@ import SpinnerLoader from 'components/Spinner'
 import { isRequired } from 'utils/fieldsValidators'
 import codeNotesAPI from 'api/code-notes'
 
+// Actoins
+import { loadUserData, logUser } from 'actions'
+
 class LoginForm extends Component {
 
   onSubmitCallback = async ({ email, password }) => {
     // TO DO async/awati aproach
-    // debugger
-    console.log(document.cookie)
     codeNotesAPI.post('/auth', { email, password })
       .then(res => {
-        localStorage.setItem('app-token', res.data)
+        localStorage.setItem('UID', res.headers['uid'])
+
+        // this.props.loadUserData(res.data)
+        // this.props.logUser()
         this.props.history.push('/')
       })
       .catch(err => {
@@ -65,6 +70,8 @@ class LoginForm extends Component {
   }
 }
 
-export default reduxForm({
+const wrappedForm = reduxForm({
   form: 'login'
 })(LoginForm)
+
+export default connect(null, { loadUserData, logUser })(wrappedForm)

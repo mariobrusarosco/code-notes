@@ -61,7 +61,7 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Methods','*');
 
   // // For Authenticated Cookies
-  res.cookie('username', 'sadasdasdasdasd', {
+  res.cookie('username', 'ae', {
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
     secure: true,
     httpOnly: true

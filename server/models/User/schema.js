@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 const joi = require('joi')
 const jwt = require('jsonwebtoken')
 
+// Utils
+const { userPublicData } = require('../../utils/User')
+
 const userSchema = new mongoose.Schema({
   // Simple validation
   firstname: {
@@ -54,7 +57,10 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.methods.generateJWT = function() {
-  return jwt.sign({ _id: this._id }, process.env.JWT_SECRET)
+  return jwt.sign(
+    userPublicData(this),
+    process.env.JWT_SECRET
+  )
 }
 
 module.exports = userSchema

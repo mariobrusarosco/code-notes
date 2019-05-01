@@ -5,6 +5,7 @@ const bycrpt = require('bcrypt')
 
 // Utils
 const { routeMiddleware } = require('../../middlewares/routes')
+const { userPublicData } = require('../../utils/User')
 
 // Models
 const User =  require('../../models/User')
@@ -31,21 +32,23 @@ Router.post('/', routeMiddleware(async (req, res, next) => {
 
   const { email, password } = req.body
 
-  // throw new Error('sdasdasdasdasdasdas')
-
   const returningUser = await User.findOne({ email })
-    if (!returningUser) {
+
+  if (!returningUser) {
     return res.status(400).send('Invalid email or password')
   }
 
   const returningUserPassword = await bycrpt.compare(password,returningUser.password)
+
   if (!returningUserPassword) {
     return res.status(400).send('Invalid email or password')
   }
 
   const token = returningUser.generateJWT()
 
-  res.send(token)
+  res.header('UID', token)
+  res.header('Access-Control-Expose-Headers', 'UID')
+  res.send(userPublicData(returningUser))
 }))
 
 module.exports = Router

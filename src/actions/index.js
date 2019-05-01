@@ -1,4 +1,5 @@
-import _ from 'lodash'
+// import axiosJsonPlaceholder from '../api/json-placeholder'
+// import _ from 'lodash'
 
 export const logUser = () => {
   return {
@@ -6,15 +7,10 @@ export const logUser = () => {
   }
 }
 
-export const selectSong = song => {
-  return {
-    type: 'SELECT_SONG',
-    payload: song
-  }
-}
-
-
-import axiosJsonPlaceholder from '../api/json-placeholder'
+export const loadUserData = payload => ({
+  type: 'LOAD_USER_DATA',
+  payload
+})
 
 export const fetchPostsAndUsers = () => async (dispatch, getState) => {
   await dispatch(fetchPosts())
