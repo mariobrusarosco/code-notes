@@ -10,7 +10,7 @@ const codeNotesAPI = axios.create({
 });
 
 // axios.defaults.headers.post['Content-Type'] = 'application/json'
-axios.defaults.withCredentials = true
+// axios.defaults.withCredentials = true
 // axios.defaults.crossDomain = true
 
 export default codeNotesAPI

@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 const Header = () => {
 
   return (
-    <header className="header">
-      <Link to="/">Home</Link>
-      <Link to="/new">New</Link>
-      <Link to="/notes">Notes</Link>
-      <Link to="/sign-up">Sign Up</Link>
-      <Link to="/config">Config</Link>
-      <Link to="/login">Login</Link>
+    <header className="header ui list horizontal">
+      <Link className="item" to="/">Home</Link>
+      <Link className="item" to="/new">New</Link>
+      {/* <Link className="item" to="/notes">Notes</Link> */}
+      <Link className="item" to="/sign-up">Sign Up</Link>
+      <Link className="item" to="/config">Config</Link>
+      <Link className="item" to="/login">Login</Link>
     </header>
   )
 }

@@ -1,10 +1,18 @@
 // Vendor
 import { connect } from 'react-redux'
 
+// Actions
+import { logUser } from 'actions'
+
+// Utils
+import { parseUserData } from 'utils/authentication'
+
 export default WrappedComponent => {
 
   class ProtectedRoute extends Component {
-    componentDidMount() {
+    constructor(props) {
+      super(props)
+
       if (!this.props.userIsLogged) {
         this.props.history.push('/login')
       }
@@ -18,11 +26,11 @@ export default WrappedComponent => {
   }
 
   const mapStateToProps = ({ authentication }) => ({
-    userIsLogged: authentication && authentication.userIsLogged
+    userIsLogged: authentication && authentication.userData && authentication.userData['id']
   })
 
-
   return connect(
-    mapStateToProps
+    mapStateToProps,
+    { logUser }
   )(ProtectedRoute)
 }

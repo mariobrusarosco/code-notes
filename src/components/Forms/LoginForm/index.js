@@ -9,6 +9,7 @@ import SpinnerLoader from 'components/Spinner'
 // Utils
 import { isRequired } from 'utils/fieldsValidators'
 import codeNotesAPI from 'api/code-notes'
+import { parseUserData } from 'utils/authentication'
 
 // Actoins
 import { loadUserData, logUser } from 'actions'
@@ -19,10 +20,12 @@ class LoginForm extends Component {
     // TO DO async/awati aproach
     codeNotesAPI.post('/auth', { email, password })
       .then(res => {
+        // Set User's token
         localStorage.setItem('UID', res.headers['uid'])
 
-        // this.props.loadUserData(res.data)
-        // this.props.logUser()
+        // const [, userData] = parseUserData()
+        // this.props.logUser(userData)
+
         this.props.history.push('/')
       })
       .catch(err => {

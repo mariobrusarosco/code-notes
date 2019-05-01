@@ -21,18 +21,15 @@ import { parseUserData } from 'utils/authentication'
 
 class App extends Component {
   componentDidMount() {
-    console.log('....Starting the application...\n ...Checking if a user is logged...')
-    const UID = localStorage.getItem('UID')
+    console.log('....Starting the application...')
 
-    const [userIsLogged, userData] = parseUserData(UID)
+    const [userHasToken, userData] = parseUserData()
 
-    if (userIsLogged) {
-      console.log('User Can be logged')
+    if (userHasToken) {
+      console.log('dispatching')
       this.props.logUser(userData)
       return
     }
-
-    console.log('User Can`t be logged')
   }
 
   render() {
