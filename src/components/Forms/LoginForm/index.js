@@ -13,14 +13,15 @@ class LoginForm extends Component {
 
   onSubmitCallback = async ({ email, password }) => {
     // TO DO async/awati aproach
-
+    // debugger
+    // console.log(codeNotesAPI.options)
     codeNotesAPI.post('/auth', { email, password })
       .then(res => {
         localStorage.setItem('app-token', res.data)
         this.props.history.push('/')
       })
       .catch(err => {
-        alert(err)
+        console.log(err)
       })
   }
 
@@ -32,7 +33,7 @@ class LoginForm extends Component {
         <form className="ui form" onSubmit={this.props.handleSubmit(this.onSubmitCallback)}>
           <div className="field-wrapper">
             <Field
-              inputId="login-email"
+              data-id="login-email"
               name="email"
               component={InputText}
               label="Email"
@@ -42,7 +43,7 @@ class LoginForm extends Component {
           </div>
           <div className="field-wrapper">
             <Field
-              inputId="login-password"
+              data-id="login-password"
               name="password"
               component={InputText}
               label="Password"

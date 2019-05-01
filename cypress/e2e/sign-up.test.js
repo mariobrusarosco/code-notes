@@ -5,22 +5,22 @@ describe('Sign Up Form Validation', () => {
     cy.get('[href="/sign-up"]')
       .click()
 
-    cy.get('[inputid="signup-firstname"]')
+    cy.get('[data-id="signup-firstname"]')
       .focus()
       .blur()
       .next('.error-wrapper')
 
-    cy.get('[inputid="signup-lastname"]')
+    cy.get('[data-id="signup-lastname"]')
       .focus()
       .blur()
       .next('.error-wrapper')
 
-    cy.get('[inputid="signup-email"]')
+    cy.get('[data-id="signup-email"]')
       .focus()
       .blur()
       .next('.error-wrapper')
 
-    cy.get('[inputid="signup-password"]')
+    cy.get('[data-id="signup-password"]')
       .focus()
       .blur()
       .next('.error-wrapper')

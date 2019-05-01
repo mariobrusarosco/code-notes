@@ -37,7 +37,7 @@ const SignUpForm = ({
 
         <div className="field-wrapper">
           <Field
-            inputId="signup-firstname"
+            data-id="signup-firstname"
             name="firstname"
             component={InputText}
             label="Type your first name here"
@@ -47,7 +47,7 @@ const SignUpForm = ({
         </div>
         <div className="field-wrapper">
           <Field
-            inputId="signup-lastname"
+            data-id="signup-lastname"
             name="lastname"
             component={InputText}
             label="Type your last name here"
@@ -57,7 +57,7 @@ const SignUpForm = ({
         </div>
         <div className="field-wrapper">
           <Field
-            inputId="signup-email"
+            data-id="signup-email"
             name="email"
             component={InputText}
             label="Type an email here"
@@ -67,7 +67,7 @@ const SignUpForm = ({
         </div>
         <div className="field-wrapper">
           <Field
-            inputId="signup-password"
+            data-id="signup-password"
             name="password"
             component={InputText}
             label="Type a password here"

@@ -21,7 +21,7 @@ const InputText = ({ input, inputId, label, type, meta }) => {
     <>
       <label>{label}</label>
       <input
-        inputId={inputId}
+        data-id={inputId}
         type={type}
         className={`input input--${type}`}
         {...input}
