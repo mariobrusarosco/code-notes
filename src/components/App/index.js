@@ -17,18 +17,17 @@ import { logUser } from 'actions'
 
 // Utils
 import codeNotesAPI from 'api/code-notes'
-import { parseUserData } from 'utils/authentication'
+import { decodeToken } from 'utils/authentication'
 
 class App extends Component {
   componentDidMount() {
     console.log('....Starting the application...')
 
-    const [userHasToken, userData] = parseUserData()
+    const { userAllowed, userData } = decodeToken()
 
-    if (userHasToken) {
+    if (userAllowed) {
       console.log('dispatching')
-      this.props.logUser(userData)
-      return
+      return this.props.logUser({ userData, userAllowed })
     }
   }
 

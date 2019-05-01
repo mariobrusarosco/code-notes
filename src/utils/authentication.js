@@ -1,14 +1,14 @@
 import jwt from 'jsonwebtoken'
 
-export const parseUserData = () => {
+export const decodeToken = () => {
   const UID = localStorage.getItem('UID')
 
   if (UID) {
-    // console.log('User has a UID(token) stored...checking if it`s valid (not working so far)')
+    // console.log('A Token was found!')
+    // console.log('... userAuthenticated (not really authenticating so far!! But it will)')
     const decodedData = jwt.decode(UID);
-    return [true, decodedData]
+    return { userAllowed: true, decodedData }
   }
 
-  console.log('No Stored UID(token)')
   return [false, null]
 }

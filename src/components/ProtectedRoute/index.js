@@ -5,32 +5,33 @@ import { connect } from 'react-redux'
 import { logUser } from 'actions'
 
 // Utils
-import { parseUserData } from 'utils/authentication'
+import { decodeToken } from 'utils/authentication'
 
 export default WrappedComponent => {
 
   class ProtectedRoute extends Component {
-    constructor(props) {
-      super(props)
 
-      if (!this.props.userIsLogged) {
-        this.props.history.push('/login')
-      }
+    authenticateUser = () => {
+      const { userAllowed } = decodeToken()
+
+      return userAllowed
     }
 
     render() {
+      console.log('render: ', this.authenticateUser())
       return (
-        (this.props.userIsLogged) ? <WrappedComponent {...this.props} /> : null
+        (this.authenticateUser()) ? <WrappedComponent {...this.props} /> : null
       )
     }
   }
 
-  const mapStateToProps = ({ authentication }) => ({
-    userIsLogged: authentication && authentication.userData && authentication.userData['id']
-  })
+  return ProtectedRoute
+  // const mapStateToProps = ({ authentication }) => ({
+  //   userAllowed: authentication && authentication.userAllowed
+  // })
 
-  return connect(
-    mapStateToProps,
-    { logUser }
-  )(ProtectedRoute)
+  // return connect(
+  //   null,
+  //   { logUser }
+  // )(ProtectedRoute)
 }

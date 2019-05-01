@@ -2,12 +2,13 @@
 import { handleActions } from 'redux-actions'
 
 const initialState = {
-  userIsLogged: false
+  userAllowed: false
 }
 
 const authentication = handleActions({
-  LOG_IN: (state, { payload }) => ({
-    userData: payload,
+  LOG_IN: (state, { payload: { userAllowed, userData } }) => ({
+    userAllowed,
+    userData,
   })
 }, initialState)
 
