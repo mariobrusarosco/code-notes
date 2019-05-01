@@ -1,3 +1,6 @@
+// TO DO
+// Remove 'redux' code
+
 // Vendor
 import { connect } from 'react-redux'
 

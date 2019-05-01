@@ -1,3 +1,6 @@
+// TO DO
+// Remove console.log
+
 // Vendor
 import React, { Component } from 'react'
 import { Router } from 'react-router-dom'
@@ -23,11 +26,14 @@ class App extends Component {
   componentDidMount() {
     console.log('....Starting the application...')
 
-    const { userAllowed, userData } = decodeToken()
+    const { userAllowed, decodedData: userData } = decodeToken()
 
     if (userAllowed) {
       console.log('dispatching')
-      return this.props.logUser({ userData, userAllowed })
+      return this.props.logUser({ userAllowed, userData })
+    }
+    else {
+      console.log('no token')
     }
   }
 
