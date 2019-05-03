@@ -6,8 +6,8 @@ export const decodeToken = () => {
   if (UID) {
     // console.log('A Token was found!')
     // console.log('... userAuthenticated (not really authenticating so far!! But it will)')
-    const decodedData = jwt.decode(UID);
-    return { userAllowed: true, decodedData }
+    const userData = jwt.decode(UID);
+    return { userAllowed: true, userData }
   }
 
   return [false, null]

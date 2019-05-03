@@ -9,7 +9,7 @@ import SpinnerLoader from 'components/Spinner'
 // Utils
 import { isRequired } from 'utils/fieldsValidators'
 import codeNotesAPI from 'api/code-notes'
-import { parseUserData } from 'utils/authentication'
+import { decodeToken } from 'utils/authentication'
 
 // Actoins
 import { loadUserData, logUser } from 'actions'
@@ -23,8 +23,9 @@ class LoginForm extends Component {
         // Set User's token
         localStorage.setItem('UID', res.headers['uid'])
 
-        // const [, userData] = parseUserData()
-        // this.props.logUser(userData)
+        const { userAllowed, userData } = decodeToken()
+
+        this.props.logUser({ userAllowed, userData })
 
         this.props.history.push('/')
       })

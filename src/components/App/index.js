@@ -26,7 +26,7 @@ class App extends Component {
   componentDidMount() {
     console.log('....Starting the application...')
 
-    const { userAllowed, decodedData: userData } = decodeToken()
+    const { userAllowed, userData } = decodeToken()
 
     if (userAllowed) {
       console.log('dispatching')
