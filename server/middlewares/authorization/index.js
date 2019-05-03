@@ -25,7 +25,7 @@ const authorization = (req, res, next) => {
 //   const expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
     console.log('cookie: ', req.cookies.username)
   
-  if(req.cookies.username == '1111111111111111' || req.cookies.username == '1111111111111111') {
+  if(req.cookies.username == '9' || req.cookies.username == 9) {
     console.log('authorized')
   }
   else {
