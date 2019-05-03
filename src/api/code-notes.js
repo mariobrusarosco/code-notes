@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const codeNotesAPI = axios.create({
-  baseURL: 'http://localhost:9090/api/v1',
+  baseURL: 'https://dev-code-notes.herokuapp.com/api/v1',
+  // baseURL: 'http://localhost:9090/api/v1',
   withCredentials: true,
   headers: {
     'Accept': 'application/json',

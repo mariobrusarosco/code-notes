@@ -26,7 +26,6 @@ class LoginForm extends Component {
         const { userAllowed, userData } = decodeToken()
 
         this.props.logUser({ userAllowed, userData })
-
         this.props.history.push('/')
       })
       .catch(err => {
