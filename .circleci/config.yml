@@ -32,10 +32,7 @@ jobs:
       - checkout
       - run:
           name: Deploy 'development' to Heroku
-          command: git pull https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEV_CODE_NOTES.git development
-      - run:
-          name: Deploy 'development' to Heroku
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEV_CODE_NOTES.git development
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEV_CODE_NOTES.git
 workflows:
   version: 2
 
