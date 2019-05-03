@@ -43,12 +43,20 @@ Router.post('/', routeMiddleware(async (req, res, next) => {
   if (!returningUserPassword) {
     return res.status(400).send('Invalid email or password')
   }
+  
+  
+  res.cookie('username', '9', {
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    secure: true,
+    httpOnly: true
+  })
 
   const token = returningUser.generateJWT()
 
   res.header('UID', token)
   res.header('Access-Control-Expose-Headers', 'UID')
   res.send(userPublicData(returningUser))
+
 }))
 
 module.exports = Router
