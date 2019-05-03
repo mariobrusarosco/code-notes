@@ -24,7 +24,6 @@ const SignUpForm = ({
     )
     .then(res => alert('Success'))
     .catch(err => {
-      // debugger
       alert(err)
     })
   }
