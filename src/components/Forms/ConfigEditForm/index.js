@@ -1,6 +1,6 @@
 // Vendors
 import { Field, reduxForm } from 'redux-form'
-import { withRouter } from "react-router"
+import { connect } from 'react-redux'
 
 // Components
 import InputText from 'components/Forms/Inputs/InputText'
@@ -10,16 +10,6 @@ import SpinnerLoader from 'components/Spinner'
 import { isRequired } from 'utils/fieldsValidators'
 
 class ConfigEditForm extends Component {
-
-  // {
-  //   submitting,
-  //   pristine,
-  //   handleSubmit,
-  // } = props
-
-  componentDidMount(){
-    console.log('Config Edit Form was mounted')
-  }
 
   onSubmitCallback = async () => {
     console.log('Config Edit Form submit was triggered')
@@ -91,7 +81,14 @@ class ConfigEditForm extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    initialValues: state.authentication.userData
+  }
+}
 
-export default reduxForm({
+const enhancedForm = reduxForm({
   form: 'UserConfig'
-})(withRouter(ConfigEditForm))
+})(ConfigEditForm)
+
+export default connect(mapStateToProps)(enhancedForm)
