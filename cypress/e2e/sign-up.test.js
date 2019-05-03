@@ -5,26 +5,28 @@ describe('Sign Up Form Validation', () => {
     cy.get('[href="/sign-up"]')
       .click()
 
-    cy.get('[data-id="signup-firstname"]')
+    cy.get('[data-tag="signup-firstname"]')
       .focus()
       .blur()
       .next('.error-wrapper')
 
-    cy.get('[data-id="signup-lastname"]')
+    cy.get('[data-tag="signup-lastname"]')
       .focus()
       .blur()
       .next('.error-wrapper')
 
-    cy.get('[data-id="signup-email"]')
+    cy.get('[data-tag="signup-email"]')
       .focus()
       .blur()
       .next('.error-wrapper')
 
-    cy.get('[data-id="signup-password"]')
+    cy.get('[data-tag="signup-password"]')
       .focus()
       .blur()
       .next('.error-wrapper')
   })
 
-  // it('Must fill all inputs but with invalida')
+  it('Must fail to submit the form. Submit btn must be disabled', () => {
+    cy.get('[data-tag="signup-submit-btn"]').should('have.attr', 'disabled')
+  })
 })

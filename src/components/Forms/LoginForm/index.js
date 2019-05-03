@@ -42,7 +42,7 @@ class LoginForm extends Component {
         <form className="ui form" onSubmit={this.props.handleSubmit(this.onSubmitCallback)}>
           <div className="field-wrapper">
             <Field
-              data-id="login-email"
+              elemTag="login-email"
               name="email"
               component={InputText}
               label="Email"
@@ -52,7 +52,7 @@ class LoginForm extends Component {
           </div>
           <div className="field-wrapper">
             <Field
-              data-id="login-password"
+              elemTag="login-password"
               name="password"
               component={InputText}
               label="Password"
@@ -62,6 +62,7 @@ class LoginForm extends Component {
           </div>
           <div className="field-wrapper">
             <button
+              data-tag="login-submit-btn"
               disabled={this.props.submitting || this.props.pristine}
               className="ui button primary"
             >
