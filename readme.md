@@ -1,11 +1,7 @@
-# Webpack Boilterplate
+# Code Notes
 
-## Features
+## Development Environment
+https://dev-code-notes.herokuapp.com/
 
-* Pure CSS
-* Fonts (hosted by you, not by Google Fonts)
-* Hot Module Replacement
-* Tree Shaking
-* Babel
-* React Support
-* Code Splitting usign 'import()'
+## Production Environment
+https://prod-code-notes.herokuapp.com/

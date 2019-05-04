@@ -1,18 +1,20 @@
+// Vendors AND Libs
 const PORT = process.env.PORT || 9090
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const path = require('path')
 const session = require('express-session')
 
-
 // App Setitngs
+const config = require('./config')
 const app = express()
-
 
 // TO DO - Remove this Erros Map
 global.errorsMap = {
   "40": "You must provide an authentication type"
 }
+
+console.log(process.env.NODE_ENV)
 
 // --------------  ERRORS LOGGER --------------------- //
 // Logging Async Errors
@@ -51,13 +53,20 @@ app.use(morgan('tiny'))
 app.use(helmet())
 app.use(cookieParser());
 
+
+
+app.use(function(req, res, next) {
+  console.log(req.cookies)
+})
+
 // Custom Middlewares
 const authorization = require('./middlewares/authorization')
 
 app.use(function(req, res, next) {
   console.log(req)
 
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Origin', config.AcessControlAllowOrigin);
+  // res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods','*');
