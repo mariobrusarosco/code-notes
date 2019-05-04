@@ -1,7 +1,5 @@
 const devConfiguration = {
-  dev: {
-    'AccessControlAllowOrigin': 'http://devhost:8080'
-  }
+  'AccessControlAllowOrigin': 'https://dev-code-notes.herokuapp.com/'
 }
 
 module.exports = devConfiguration

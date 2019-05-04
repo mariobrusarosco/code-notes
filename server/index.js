@@ -6,15 +6,12 @@ const path = require('path')
 const session = require('express-session')
 
 // App Setitngs
-const config = require('./config')
+const {
+  APP_NAME,
+  VERSION,
+  AcessControlAllowOrigin,
+} = require('./config')
 const app = express()
-
-// TO DO - Remove this Erros Map
-global.errorsMap = {
-  "40": "You must provide an authentication type"
-}
-
-console.log(process.env.NODE_ENV)
 
 // --------------  ERRORS LOGGER --------------------- //
 // Logging Async Errors
@@ -55,9 +52,9 @@ app.use(cookieParser());
 
 
 
-app.use(function(req, res, next) {
-  console.log(req.cookies)
-})
+// app.use(function(req, res, next) {
+//   console.log(req.cookies, 1)
+// })
 
 // Custom Middlewares
 const authorization = require('./middlewares/authorization')
@@ -65,7 +62,7 @@ const authorization = require('./middlewares/authorization')
 app.use(function(req, res, next) {
   console.log(req.cookies)
 
-  res.header('Access-Control-Allow-Origin', config.AcessControlAllowOrigin);
+  res.header('Access-Control-Allow-Origin', AcessControlAllowOrigin);
   // res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Credentials', 'true');
@@ -94,12 +91,12 @@ const expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
 // }))
 
 
-app.use((req, res, next) => {
-  if (req.cookies.user_sid && !req.session.user) {
-      res.clearCookie('user_sid');
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   if (req.cookies.user_sid && !req.session.user) {
+//       res.clearCookie('user_sid');
+//   }
+//   next();
+// });
 
 // --------------  MIDDLEWARES --------------------- //
 
@@ -134,4 +131,4 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Listener
-app.listen(PORT, () => console.log(`Serving Code Notes at ${PORT}`))
+app.listen(PORT, () => console.log(`Serving ${APP_NAME} at ${PORT}, version: ${VERSION}`))

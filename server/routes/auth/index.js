@@ -1,17 +1,19 @@
+// Vendors and Libs
 const express = require('express')
 const Router = express.Router()
 const Joi = require('joi')
 const bycrpt = require('bcrypt')
 
+// Project's Config
+const { errorsMap } = require('../../config')
+
 // Utils
 const { routeMiddleware } = require('../../middlewares/routes')
 const { userPublicData } = require('../../utils/User')
+const { email, password } = require('../../utils/validations')
 
 // Models
-const User =  require('../../models/User')
-
-// Utils
-const { email, password } = require('../../utils/validations')
+const User = require('../../models/User')
 
 // Common Function to be realocated
 const validateReturningUser = reqBody => {
@@ -35,16 +37,16 @@ Router.post('/', routeMiddleware(async (req, res, next) => {
   const returningUser = await User.findOne({ email })
 
   if (!returningUser) {
-    return res.status(400).send('Invalid email or password')
+    return res.status(400).send(errorsMap['C01'])
   }
 
   const returningUserPassword = await bycrpt.compare(password,returningUser.password)
 
   if (!returningUserPassword) {
-    return res.status(400).send('Invalid email or password')
+    return res.status(400).send(errorsMap['C01'])
   }
-  
-  
+
+
   res.cookie('username', '9', {
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
     secure: true,

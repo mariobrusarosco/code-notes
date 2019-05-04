@@ -1,7 +1,5 @@
 const localConfiguration = {
-  local: {
-    'AccessControlAllowOrigin': 'https://dev-code-notes.herokuapp.com/'
-  }
+  'AccessControlAllowOrigin': 'http://localhost:8080'
 }
 
 module.exports = localConfiguration
