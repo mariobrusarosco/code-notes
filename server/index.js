@@ -11,6 +11,8 @@ const {
   VERSION,
   AcessControlAllowOrigin,
 } = require('./config')
+
+console.log(process.env.NODE_ENV)
 const app = express()
 
 // --------------  ERRORS LOGGER --------------------- //
