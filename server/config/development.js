@@ -1,6 +1,7 @@
 const devConfiguration = {
   'configType': 'development',
-  'AccessControlAllowOrigin': 'https://dev-code-notes.herokuapp.com/'
+  'AccessControlAllowOrigin': '*',
+  // 'AccessControlAllowOrigin': 'dev-code-notes.herokuapp.com'
 }
 
 module.exports = devConfiguration
