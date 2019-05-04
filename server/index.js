@@ -63,7 +63,7 @@ app.use(function(req, res, next) {
 const authorization = require('./middlewares/authorization')
 
 app.use(function(req, res, next) {
-  console.log(req)
+  console.log(req.cookies)
 
   res.header('Access-Control-Allow-Origin', config.AcessControlAllowOrigin);
   // res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
@@ -72,11 +72,11 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Methods','*');
 
   // // For Authenticated Cookies
-  res.cookie('username', '1111111111111111', {
-    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-    // secure: true,
-    httpOnly: true
-  })
+//   res.cookie('username', '9', {
+//     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+//     secure: true,
+//     httpOnly: true
+//   })
 
   next()
 });
