@@ -9,13 +9,10 @@ const session = require('express-session')
 const {
   APP_NAME,
   VERSION,
-  AcessControlAllowOrigin,
+  AccessControlAllowOrigin,
 } = require('./config')
 
 console.log('process.env.NODE_ENV', process.env.NODE_ENV)
-
-const config = require('./config')
-console.log('config',config)
 
 const app = express()
 
@@ -67,8 +64,7 @@ const authorization = require('./middlewares/authorization')
 
 app.use(function(req, res, next) {
   console.log(req.cookies)
-
-  res.header('Access-Control-Allow-Origin', AcessControlAllowOrigin);
+  res.header('Access-Control-Allow-Origin', AccessControlAllowOrigin);
   // res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Credentials', 'true');
