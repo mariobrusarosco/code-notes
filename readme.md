@@ -1,11 +1,11 @@
-# Webpack Boilterplate
+# Code Notes
 
-## Features
+## BUILD
+* Circle CI [![CircleCI](https://circleci.com/gh/mariobrusarosco/code-notes/tree/master.svg?style=svg)](https://circleci.com/gh/mariobrusarosco/code-notes/tree/master)
 
-* Pure CSS
-* Fonts (hosted by you, not by Google Fonts)
-* Hot Module Replacement
-* Tree Shaking
-* Babel
-* React Support
-* Code Splitting usign 'import()'
+* Travis CI [![Build Status](https://travis-ci.org/mariobrusarosco/code-notes.svg?branch=master)](https://travis-ci.org/mariobrusarosco/code-notes)
+
+## LIVE ENVIRONMENTS
+* [Development](https://dev-code-notes.herokuapp.com)
+
+* [Production](https://prod-code-notes.herokuapp.com)

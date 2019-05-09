@@ -1,16 +1,15 @@
 const developmentLoaders = [
   {
-    test: /\.scss$/,
+    test: /\.css$/,
     use: [
       'style-loader',
       {
         loader: 'css-loader',
         options: {
-          // modules: true,
-          // localIdentName: '[name]__[hash:base64:8]',
+          // modules: true, 
+          // localIdentName: '[name]__[hash:base64:8]', 
         }
       },
-      'sass-loader',
     ]
   }
 ]
