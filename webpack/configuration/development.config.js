@@ -1,5 +1,7 @@
 const path = require('path')
-
+const webpack = require('webpack')
+const HtmlWebpack = require('html-webpack-plugin')
+const CleanWebpack = require('clean-webpack-plugin')
 // Loaders
 const commonLoaders = require('../loaders/common')
 const developmenLoaders = require('../loaders/development')
@@ -11,7 +13,7 @@ const developmentPlugins = require('../plugins/development')
 // Webpacks's Configurations
 const commonConfig = require('./common.config')
 
-const developmentConfig = () => ({
+const developmentConfig = env => ({
   mode: 'development',
   devtool: 'source-map',
   output: {
@@ -21,20 +23,13 @@ const developmentConfig = () => ({
   },
   devServer: {
     contentBase: 'dist',
-    hot: true,
-    historyApiFallback: true
+    hot: true
   },
-  plugins: [
-		...commonPlugins,
-		...developmentPlugins,
-  ],
+  plugins: [...commonPlugins(env), ...developmentPlugins],
   module: {
-    rules: [
-      ...commonLoaders,
-      ...developmenLoaders,
-    ]
-  },
+    rules: [...commonLoaders, ...developmenLoaders]
+  }
 })
 
 // Merging Common and Development configurations
-module.exports = Object.assign(commonConfig() , developmentConfig())
+module.exports = Object.assign(commonConfig(), developmentConfig())

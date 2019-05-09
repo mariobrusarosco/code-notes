@@ -1,5 +1,5 @@
 const path = require('path')
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 // Loaders
 const commonLoaders = require('../loaders/common')
@@ -11,9 +11,10 @@ const productionPlugins = require('../plugins/production')
 
 // Webpacks's Configurations
 const commonConfig = require('./common.config')
-const productionConfig = () => ({
+
+const productionConfig = env => ({
   mode: 'production',
-  // devtool: 'eval-source-map',
+  devtool: 'eval-source-map',
   output: {
     filename: '[name].[contenthash].bundle.js',
     chunkFilename: '[name].[contenthash].chunk.js',
@@ -24,26 +25,20 @@ const productionConfig = () => ({
     // runtimeChunk: 'single', // @TODO Check the purpose of these option
     splitChunks: {
       // chunks: 'all',
-			cacheGroups: {
-				vendor: {
+      cacheGroups: {
+        vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
           chunks: 'all'
-				}
-			},
+        }
+      }
     }
   },
-  plugins: [
-    ...commonPlugins,
-    ...productionPlugins,
-  ],
+  plugins: [...commonPlugins(env), ...productionPlugins],
   module: {
-    rules: [
-      ...commonLoaders,
-      ...productionLoaders,
-    ]
-  },
+    rules: [...commonLoaders, ...productionLoaders]
+  }
 })
 
 // Merging Common and Production configurations
-module.exports = Object.assign(commonConfig() , productionConfig())
+module.exports = Object.assign(commonConfig(), productionConfig())

@@ -1,7 +1,11 @@
 # Code Notes
 
-## Development Environment
-https://dev-code-notes.herokuapp.com/
+## BUILD
+* Circle CI [![CircleCI](https://circleci.com/gh/mariobrusarosco/code-notes/tree/master.svg?style=svg)](https://circleci.com/gh/mariobrusarosco/code-notes/tree/master)
 
-## Production Environment
-https://prod-code-notes.herokuapp.com/
+* Travis CI [![Build Status](https://travis-ci.org/mariobrusarosco/code-notes.svg?branch=master)](https://travis-ci.org/mariobrusarosco/code-notes)
+
+## LIVE ENVIRONMENTS
+* [Development](https://dev-code-notes.herokuapp.com)
+
+* [Production](https://prod-code-notes.herokuapp.com)
