@@ -23,7 +23,8 @@ const developmentConfig = env => ({
   },
   devServer: {
     contentBase: 'dist',
-    hot: true
+    hot: true,
+    historyApiFallback: true
   },
   plugins: [...commonPlugins(env), ...developmentPlugins],
   module: {

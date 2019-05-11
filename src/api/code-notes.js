@@ -1,14 +1,21 @@
 import axios from 'axios'
 
+// Config
+const {
+  APP_URL,
+  API: { ROOT }
+} = process.env.APP
+
+console.log(process.env.APP)
+
 const codeNotesAPI = axios.create({
-  // baseURL: 'https://dev-code-notes.herokuapp.com/api/v1',
-  baseURL: 'http://localhost:9090/api/v1',
+  baseURL: `${APP_URL}/${ROOT}`,
   withCredentials: true,
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json'
   }
-});
+})
 
 // axios.defaults.headers.post['Content-Type'] = 'application/json'
 // axios.defaults.withCredentials = true

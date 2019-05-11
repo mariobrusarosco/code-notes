@@ -4,16 +4,10 @@ const cookieParser = require('cookie-parser')
 const path = require('path')
 const session = require('express-session')
 
-
 // App Setitngs
 const app = express()
 
-
-// TO DO - Remove this Erros Map
-global.errorsMap = {
-  "40": "You must provide an authentication type"
-}
-
+const config = require('../config')()
 // --------------  ERRORS LOGGER --------------------- //
 // Logging Async Errors
 // require('express-async-errors')
@@ -25,19 +19,15 @@ global.errorsMap = {
 // --------------  DB --------------------- //--
 const mongoose = require('mongoose')
 
-mongoose.connect(
-  process.env.DB_CREDENTIALS,
-  { useNewUrlParser: true }
-)
-.then(() => {
-  console.log('Connected to a mongo DB')
-})
-.catch(error => {
-  new Error({ type: 'Mongo connection error', message: error })
-})
+mongoose
+  .connect(process.env.DB_CREDENTIALS, { useNewUrlParser: true })
+  .then(() => {
+    console.log('Connected to a mongo DB')
+  })
+  .catch(error => {
+    new Error({ type: 'Mongo connection error', message: error })
+  })
 // --------------  DB --------------------- //
-
-
 
 // --------------  MIDDLEWARES --------------------- //
 // Built In Middlewares
@@ -49,30 +39,33 @@ const morgan = require('morgan')
 
 app.use(morgan('tiny'))
 app.use(helmet())
-app.use(cookieParser());
+app.use(cookieParser())
 
 // Custom Middlewares
 const authorization = require('./middlewares/authorization')
 
 app.use(function(req, res, next) {
-  console.log(req.cookies)
+  console.log('passed cookies in a request', req.cookies)
 
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods','*');
+  res.header('Access-Control-Allow-Origin', config.AccessControlAllowOrigin)
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  )
+  res.header('Access-Control-Allow-Credentials', 'true')
+  res.header('Access-Control-Allow-Methods', '*')
 
   // // For Authenticated Cookies
-//   res.cookie('username', '9', {
-//     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-//     secure: true,
-//     httpOnly: true
-//   })
+  //   res.cookie('username', '9', {
+  //     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+  //     secure: true,
+  //     httpOnly: true
+  //   })
 
   next()
-});
+})
 
-const expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
+const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 
 // app.use(session({
 //   key: 'user_sid',
@@ -84,13 +77,12 @@ const expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
 //   }
 // }))
 
-
 app.use((req, res, next) => {
   if (req.cookies.user_sid && !req.session.user) {
-      res.clearCookie('user_sid');
+    res.clearCookie('user_sid')
   }
-  next();
-});
+  next()
+})
 
 // --------------  MIDDLEWARES --------------------- //
 
@@ -113,16 +105,16 @@ app.use('/api/v1/languages', languages)
 // const { routeErrorHandler } = require('./middlewares/routes')
 // app.use(routeErrorHandler)
 
-if (process.env.NODE_ENV === 'production') {
-  // Serving assets like main.css or main.js
-  // If this condition fits...code ends here!!
-  app.use(express.static('dist'))
+// if (process.env.NODE_ENV !== 'local') {
+// Serving assets like main.css or main.js
+// If this condition fits...code ends here!!
+app.use(express.static('dist'))
 
-  // If the server does not recognize a route... it's gonna serve index.html
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve('dist', 'index.html'))
-  })
-}
+// If the server does not recognize a route... it's gonna serve index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+})
+// }
 
 // Listener
 app.listen(PORT, () => console.log(`Serving Code Notes at ${PORT}`))
