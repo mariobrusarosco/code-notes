@@ -3,13 +3,13 @@ import axios from 'axios'
 // Config
 const {
   APP_URL,
-  API: { API_ROOT }
+  API: { ROOT }
 } = process.env.APP
 
 console.log(process.env.APP)
 
 const codeNotesAPI = axios.create({
-  baseURL: `${APP_URL}/${API_ROOT}`,
+  baseURL: `${APP_URL}/${ROOT}`,
   withCredentials: true,
   headers: {
     Accept: 'application/json',
