@@ -4,11 +4,11 @@
   "description": "Code Notes",
   "scripts": {
     "dev-front": "webpack-dev-server -r dotenv/config --config ./webpack/configuration/development.config.js",
-    "prod-front": "webpack --config ./webpack/configuration/production.config.js",
+    "prod-front": "webpack -r dotenv/config --config ./webpack/configuration/production.config.js",
     "serve-front-end": "yarn prod-front && node server/serve-front-end.js",
     "dev-back": "nodemon -r dotenv/config server/index.js",
     "prod-back": "",
-    "server": "yarn prod-front && node server/index.js",
+    "server": "yarn prod-front && node -r dotenv/config server/index.js",
     "e2e-dev-webpack": "start-server-and-test serve-front-end http-get://localhost:8080 cy-run",
     "e2e-dev": "start-server-and-test serve-front-end :8080 cy-open",
     "e2e-prod": "start-server-and-test serve-front-end :8080 cy-run",
