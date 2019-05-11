@@ -2,8 +2,7 @@ describe('Sign Up Form Validation', () => {
   it('Must check if a message error appears when user focus on an input and then "blurs" without passing any data into it', () => {
     cy.visit('/')
 
-    cy.get('[href="/sign-up"]')
-      .click()
+    cy.get('[href="/sign-up"]').click()
 
     cy.get('[data-tag="signup-firstname"]')
       .focus()
