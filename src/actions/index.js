@@ -1,9 +1,10 @@
-// import axiosJsonPlaceholder from '../api/json-placeholder'
-// import _ from 'lodash'
-
 export const logUser = payload => ({
   type: 'LOG_IN',
   payload
+})
+
+export const setAppAsLoaded = () => ({
+  type: 'APP_LOADED'
 })
 
 export const fetchPostsAndUsers = () => async (dispatch, getState) => {
@@ -14,7 +15,7 @@ export const fetchPostsAndUsers = () => async (dispatch, getState) => {
     .uniq()
     .forEach(id => dispatch(fetchUser(id)))
     .value()
-  }
+}
 
 export const fetchPosts = () => async dispatch => {
   const posts = await axiosJsonPlaceholder.get('/posts')
@@ -24,14 +25,8 @@ export const fetchPosts = () => async dispatch => {
 
 export const fetchUser = function(id) {
   return async function(dispatch) {
-    const response =  await axiosJsonPlaceholder.get(`/users/${id}`)
+    const response = await axiosJsonPlaceholder.get(`/users/${id}`)
 
     dispatch({ type: 'FETCH_USER', payload: response.data })
   }
 }
-
-
-
-
-
-

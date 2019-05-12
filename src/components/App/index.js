@@ -18,7 +18,7 @@ import AppRoutes from 'components/AppRoutes'
 import history from 'utils/app-history'
 
 // Actions
-import { logUser } from 'actions'
+import { logUser, setAppAsLoaded } from 'actions'
 
 // Utils
 import codeNotesAPI from 'api/code-notes'
@@ -58,10 +58,10 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ app }) => ({
-  appIsLoaded: app && app.appIsLoaded
+  appIsLoaded: app?.appIsLoaded
 })
 
 export default connect(
   mapStateToProps,
-  { logUser }
+  { logUser, setAppAsLoaded }
 )(App)
