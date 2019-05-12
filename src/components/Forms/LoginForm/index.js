@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 
 // Components
 import InputText from 'components/Forms/Inputs/InputText'
-import SpinnerLoader from 'components/Spinner'
+import SpinnerLoader from 'components/Loaders/Spinner'
 
 // Utils
 import { isRequired } from 'utils/fieldsValidators'

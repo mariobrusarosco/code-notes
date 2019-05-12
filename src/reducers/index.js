@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
-import { reducer as formReducer} from 'redux-form'
+import { reducer as formReducer } from 'redux-form'
 
 // Reducers
 import authenticationReducer from './authentication'
+import appReducer from './app'
 
 const reducers = combineReducers({
-  form: formReducer,
-  authentication: authenticationReducer
+  app: appReducer,
+  authentication: authenticationReducer,
+  form: formReducer
 })
 
 export default reducers

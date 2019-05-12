@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import cookie from 'js-cookie'
 
 // Components
+import AppLoader from 'components/Loaders/AppLoader'
 import Header from 'components/Header'
 
 // Aoo Routes
@@ -41,6 +42,10 @@ class App extends Component {
   }
 
   render() {
+    if (!this.props.appIsLoaded) {
+      return <AppLoader />
+    }
+
     return (
       <div className="main">
         <Router history={history}>
@@ -52,7 +57,11 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = ({ app }) => ({
+  appIsLoaded: app && app.appIsLoaded
+})
+
 export default connect(
-  null,
+  mapStateToProps,
   { logUser }
 )(App)
