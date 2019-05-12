@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 // Components
 import InputText from 'components/Forms/Inputs/InputText'
-import SpinnerLoader from 'components/Spinner'
+import SpinnerLoader from 'components/Loaders/Spinner'
 
 // Utils
 import { isRequired } from 'utils/fieldsValidators'
@@ -15,10 +15,10 @@ import { decodeToken } from 'utils/authentication'
 import { loadUserData, logUser } from 'actions'
 
 class LoginForm extends Component {
-
   onSubmitCallback = async ({ email, password }) => {
     // TO DO async/awati aproach
-    codeNotesAPI.post('/auth', { email, password })
+    codeNotesAPI
+      .post('/auth', { email, password })
       .then(res => {
         // Set User's token
         localStorage.setItem('UID', res.headers['uid'])
@@ -34,11 +34,13 @@ class LoginForm extends Component {
   }
 
   render() {
-
     return (
       <>
-        { this.props.submitting && <SpinnerLoader /> }
-        <form className="ui form" onSubmit={this.props.handleSubmit(this.onSubmitCallback)}>
+        {this.props.submitting && <SpinnerLoader />}
+        <form
+          className="ui form"
+          onSubmit={this.props.handleSubmit(this.onSubmitCallback)}
+        >
           <div className="field-wrapper">
             <Field
               elemTag="login-email"
@@ -78,4 +80,7 @@ const wrappedForm = reduxForm({
   form: 'login'
 })(LoginForm)
 
-export default connect(null, { loadUserData, logUser })(wrappedForm)
+export default connect(
+  null,
+  { loadUserData, logUser }
+)(wrappedForm)

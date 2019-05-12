@@ -4,24 +4,25 @@ import { connect } from 'react-redux'
 
 // Components
 import InputText from 'components/Forms/Inputs/InputText'
-import SpinnerLoader from 'components/Spinner'
+import SpinnerLoader from 'components/Loaders/Spinner'
 
 // Utils
 import { isRequired } from 'utils/fieldsValidators'
 
 class ConfigEditForm extends Component {
-
   onSubmitCallback = async () => {
     console.log('Config Edit Form submit was triggered')
     this.props.history.push('/')
   }
 
   render() {
-
     return (
       <>
         {/* { true && <SpinnerLoader /> } */}
-        <form className="ui form" onSubmit={this.props.handleSubmit(this.onSubmitCallback)}>
+        <form
+          className="ui form"
+          onSubmit={this.props.handleSubmit(this.onSubmitCallback)}
+        >
           <div className="field-wrapper">
             <Field
               name="firstname"

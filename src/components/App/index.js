@@ -7,6 +7,7 @@ import { Router } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 // Components
+import AppLoader from 'components/Loaders/AppLoader'
 import Header from 'components/Header'
 
 // Aoo Routes
@@ -31,16 +32,19 @@ class App extends Component {
     if (userAllowed) {
       console.log('dispatching')
       return this.props.logUser({ userAllowed, userData })
-    }
-    else {
+    } else {
       console.log('no token')
     }
   }
 
   render() {
+    if (!this.props.appIsLoaded) {
+      return <AppLoader />
+    }
+
     return (
       <div className="main">
-        <Router history={history} >
+        <Router history={history}>
           <Header />
           <AppRoutes />
         </Router>
@@ -49,8 +53,11 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = ({ app }) => ({
+  appIsLoaded: app && app.appIsLoaded
+})
 
 export default connect(
-  null,
+  mapStateToProps,
   { logUser }
 )(App)
