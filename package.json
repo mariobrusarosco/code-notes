@@ -1,6 +1,6 @@
 {
   "name": "code-notes",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Code Notes",
   "scripts": {
     "dev-front": "webpack-dev-server -r dotenv/config --config ./webpack/configuration/development.config.js",
