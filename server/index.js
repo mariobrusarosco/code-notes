@@ -65,25 +65,6 @@ app.use(function(req, res, next) {
   next()
 })
 
-const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
-
-// app.use(session({
-//   key: 'user_sid',
-//   secret: 'somerandonstuffs',
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: {
-//       expires: 600000
-//   }
-// }))
-
-app.use((req, res, next) => {
-  if (req.cookies.user_sid && !req.session.user) {
-    res.clearCookie('user_sid')
-  }
-  next()
-})
-
 // --------------  MIDDLEWARES --------------------- //
 
 // ROUTES
@@ -112,7 +93,7 @@ app.use(express.static('dist'))
 
 // If the server does not recognize a route... it's gonna serve index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'))
 })
 // }
 
