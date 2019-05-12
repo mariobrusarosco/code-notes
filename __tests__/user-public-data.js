@@ -1,4 +1,4 @@
-const { userPublicData } = require('../server/utils/User')
+const { userPublicData, userPublicData2 } = require('../server/utils/User')
 
 const mockDatabaseUser = {
   _id: '795428d42asda',
@@ -22,6 +22,10 @@ describe('Util Test', () => {
   it('Must only show public properties of an User', () => {
     const publicUser = userPublicData(mockDatabaseUser)
     expect(publicUser).toEqual(mockPublicUser)
+  })
+
+  it('Must throw an error if no firstname is passed', () => {
+    expect(() => userPublicData2({ lastname: 'Brusarosco' })).toThrow()
   })
 })
 
