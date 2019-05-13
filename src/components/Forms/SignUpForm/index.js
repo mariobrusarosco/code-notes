@@ -8,32 +8,18 @@ import SpinnerLoader from 'components/Spinner'
 
 // Utils
 import { isRequired } from 'utils/fieldsValidators'
-import codeNotesAPI from 'api/code-notes'
 
 const SignUpForm = ({
   submitting,
   pristine,
-  handleSubmit: reduxSubmit
+  handleSubmit: reduxSubmit,
+  onSubmitCallback
 }) => {
-
-  const onSubmitCallback = async ({ firstname, lastname, email, password }) => {
-    await codeNotesAPI.post(
-      'users',
-      // 'http://localhost:9090/api/v1/users',
-      { firstname, lastname, email, password, authTypes: ['email'] },
-    )
-    .then(res => alert('Success'))
-    .catch(err => {
-      alert(err)
-    })
-  }
-
+  // debugger
   return (
     <>
-      {/* { true && <SpinnerLoader /> } */}
+      {pristine || (submitting && <SpinnerLoader />)}
       <form className="ui form" onSubmit={reduxSubmit(onSubmitCallback)}>
-        { submitting && <span>!!!!addasd{pristine}</span> }
-
         <div className="field-wrapper">
           <Field
             elemTag="signup-firstname"
