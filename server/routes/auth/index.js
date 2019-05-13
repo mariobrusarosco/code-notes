@@ -7,8 +7,10 @@ const bycrpt = require('bcrypt')
 // Project's Config
 const { errorsMap } = require('../../config')
 
-// Utils
+// MIddlewares
 const { routeMiddleware } = require('../../middlewares/routes')
+
+// Utils
 const { userPublicData } = require('../../utils/User')
 const { email, password } = require('../../utils/validations')
 
@@ -25,40 +27,41 @@ const validateReturningUser = reqBody => {
   return Joi.validate(reqBody, validationOptions)
 }
 
-Router.post('/', routeMiddleware(async (req, res, next) => {
-  const { error } = validateReturningUser(req.body)
+Router.post(
+  '/',
+  routeMiddleware(async (req, res, next) => {
+    const { error } = validateReturningUser(req.body)
 
-  if (error) {
-    return res.status(400).send(error.details[0].message)
-  }
+    if (error) {
+      return res.status(400).send(error.details[0].message)
+    }
 
-  const { email, password } = req.body
+    const { email, password } = req.body
 
-  const returningUser = await User.findOne({ email })
+    const returningUser = await User.findOne({ email })
 
-  if (!returningUser) {
-    return res.status(400).send(errorsMap['C01'])
-  }
+    if (!returningUser) {
+      return res.status(400).send(errorsMap['C01'])
+    }
 
-  const returningUserPassword = await bycrpt.compare(password,returningUser.password)
+    const returningUserPassword = await bycrpt.compare(password, returningUser.password)
 
-  if (!returningUserPassword) {
-    return res.status(400).send(errorsMap['C01'])
-  }
+    if (!returningUserPassword) {
+      return res.status(400).send(errorsMap['C01'])
+    }
 
+    res.cookie('username', 'dasdaasdas', {
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      secure: true,
+      httpOnly: true
+    })
 
-  res.cookie('username', '9', {
-    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-    secure: true,
-    httpOnly: true
+    const token = returningUser.generateJWT()
+
+    res.header('UID', token)
+    res.header('Access-Control-Expose-Headers', 'UID')
+    res.send(userPublicData(returningUser))
   })
-
-  const token = returningUser.generateJWT()
-
-  res.header('UID', token)
-  res.header('Access-Control-Expose-Headers', 'UID')
-  res.send(userPublicData(returningUser))
-
-}))
+)
 
 module.exports = Router

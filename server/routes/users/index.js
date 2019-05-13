@@ -2,32 +2,34 @@ const express = require('express')
 const Router = express.Router()
 const Joi = require('joi')
 
+// Project's Config
+const { errorsMap } = require('../../config')
+
 // Middlewares
 const authorization = require('../../middlewares/authorization')
 
 // Utils
-const PromiseTryCatch = require('../../utils/PromiseTryCatch')
+const { validateNewUser } = require('../../utils/validations')
 // Common Functions
-const validateNewUser = req => {
-  const validationOptions = {
-    firstname: Joi.string().min(2).max(25).required(),
-    lastname: Joi.string().min(2).max(50).required(),
-    email: Joi.string().min(7).max(255).required().email(),
-    password: Joi.string().min(6).max(1024).required(),
-    authTypes: Joi.array().required().error(new Error(40))
-  }
+// const validateNewUser = req => {
+//   const validationOptions = {
+//     firstname: Joi.string().min(2).max(25).required(),
+//     lastname: Joi.string().min(2).max(50).required(),
+//     email: Joi.string().min(7).max(255).required().email(),
+//     password: Joi.string().min(6).max(1024).required(),
+//     authTypes: Joi.array().required().error(new Error(40))
+//   }
 
-  return Joi.validate(req, validationOptions)
-}
+//   return Joi.validate(req, validationOptions)
+// }
 
 const hashPassword = async password => {
   const bcrypt = require('bcrypt')
   const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(password, salt, )
+  const hashedPassword = await bcrypt.hash(password, salt)
 
   return hashedPassword
 }
-
 
 // Models
 const User = require('../../models/User')
@@ -43,16 +45,16 @@ Router.patch('/:id', authorization, async (req, res) => {
   const userID = req.params.id
 
   const updatedUser = await User.findOneAndUpdate(
-			{_id: userID },
-			{
-				$set: { contentToBeUpdated }
-			},
-			{ new: true }
-		)
+    { _id: userID },
+    {
+      $set: { contentToBeUpdated }
+    },
+    { new: true }
+  )
 
-    await updatedUser.save()
+  await updatedUser.save()
 
-   res.send(updatedUser)
+  res.send(updatedUser)
 })
 
 Router.post('/', async (req, res) => {
@@ -60,7 +62,7 @@ Router.post('/', async (req, res) => {
   const { error } = validateNewUser(req.body)
 
   if (error) {
-    return res.status(400).send(global.errorsMap[error.message])
+    return res.status(400).send(errorsMap[error.message])
   }
 
   // User already registered Validation
@@ -68,7 +70,7 @@ Router.post('/', async (req, res) => {
   const existingUser = await User.findOne({ email })
 
   if (existingUser) {
-    return res.status(400).send('User already registered')
+    return res.status(400).send(errorsMap['D01'])
   }
 
   const { firstname, lastname, password, authTypes } = req.body
@@ -80,7 +82,7 @@ Router.post('/', async (req, res) => {
     lastname,
     email,
     password: hashedPassword,
-    authTypes,
+    authTypes
   })
 
   await newUser.save()
@@ -89,11 +91,10 @@ Router.post('/', async (req, res) => {
 
   return res
     .header(`x-auth-token`, token)
-    .send(newUser)
+    .send('Thanks!! Your user was successfully registered!')
 })
 
 module.exports = Router
-
 
 // Router.get('/', async (req, res) => {
 //   const allUsers = await User.find({
@@ -111,16 +112,13 @@ module.exports = Router
 //   res.send(allUsers)
 // })
 
-
-
-
-	// Using .validate() from mongoose
-	// newUser.validate()
-	// 	.then(data => {
-		// 		console.log('data', data)
-		// 	})
-		// 	.catch(e => console.error(e.message))
-		// const validation = await newUser.validate()
+// Using .validate() from mongoose
+// newUser.validate()
+// 	.then(data => {
+// 		console.log('data', data)
+// 	})
+// 	.catch(e => console.error(e.message))
+// const validation = await newUser.validate()
 
 // 		try {
 // 			const result = await newUser.save()
@@ -249,4 +247,3 @@ module.exports = Router
 //   console.log('deleting user')
 //   return res.send(user)
 // })
-
