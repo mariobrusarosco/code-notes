@@ -3,6 +3,7 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const path = require('path')
 const session = require('express-session')
+const assetsCompression = require('express-static-gzip')
 
 // App Setitngs
 const app = express()
@@ -89,6 +90,10 @@ app.use('/api/v1/languages', languages)
 // if (process.env.NODE_ENV !== 'local') {
 // Serving assets like main.css or main.js
 // If this condition fits...code ends here!!
+app.use(assetsCompression('dist', {
+	enableBrotli: true,
+	orderPreference: ['br']
+}))
 app.use(express.static('dist'))
 
 // If the server does not recognize a route... it's gonna serve index.html
