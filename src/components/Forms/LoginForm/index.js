@@ -1,6 +1,5 @@
 // Vendors
 import { Field, reduxForm } from 'redux-form'
-import { connect } from 'react-redux'
 
 // Components
 import InputText from 'components/Forms/Inputs/InputText'
@@ -8,37 +7,33 @@ import SpinnerLoader from 'components/Spinner'
 
 // Utils
 import { isRequired } from 'utils/fieldsValidators'
-import codeNotesAPI from 'api/code-notes'
-import { decodeToken } from 'utils/authentication'
-
-// Actoins
-import { loadUserData, logUser } from 'actions'
 
 class LoginForm extends Component {
+  // onSubmitCallback = async ({ email, password }) => {
+  //   // TO DO async/awati aproach
+  //   codeNotesAPI.post('/auth', { email, password })
+  //     .then(res => {
+  //       // Set User's token
+  //       localStorage.setItem('UID', res.headers['uid'])
 
-  onSubmitCallback = async ({ email, password }) => {
-    // TO DO async/awati aproach
-    codeNotesAPI.post('/auth', { email, password })
-      .then(res => {
-        // Set User's token
-        localStorage.setItem('UID', res.headers['uid'])
+  //       const { userAllowed, userData } = decodeToken()
 
-        const { userAllowed, userData } = decodeToken()
-
-        this.props.logUser({ userAllowed, userData })
-        this.props.history.push('/')
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+  //       this.props.logUser({ userAllowed, userData })
+  //       this.props.history.push('/')
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
 
   render() {
-
     return (
       <>
-        { this.props.submitting && <SpinnerLoader /> }
-        <form className="ui form" onSubmit={this.props.handleSubmit(this.onSubmitCallback)}>
+        {this.props.submitting && <SpinnerLoader />}
+        <form
+          className="ui form"
+          onSubmit={this.props.handleSubmit(this.props.onSubmitCallback)}
+        >
           <div className="field-wrapper">
             <Field
               elemTag="login-email"
@@ -78,4 +73,4 @@ const wrappedForm = reduxForm({
   form: 'login'
 })(LoginForm)
 
-export default connect(null, { loadUserData, logUser })(wrappedForm)
+export default wrappedForm
