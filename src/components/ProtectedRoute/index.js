@@ -22,7 +22,7 @@ export default WrappedComponent => {
     }
 
     authenticateUser = () => {
-      const token = cookie('P_USER')
+      const token = cookie('P_U')
       const { userAllowed } = decodeToken(token)
 
       return userAllowed

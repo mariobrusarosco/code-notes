@@ -18,7 +18,7 @@ class Login extends Component {
       await codeNotesAPI.post('/auth', { email, password })
 
       // Get User's token
-      const token = cookie('P_USER')
+      const token = cookie('P_U')
 
       // Decode User's token
       const { userAllowed, userData } = decodeToken(token)

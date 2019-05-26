@@ -5,7 +5,7 @@ const Joi = require('joi')
 const bycrpt = require('bcrypt')
 
 // Project's Config
-const { errorsMap } = require('../../config')
+const { errorsMap, USER_COOKIE_NAME, AUTHORIZATION_COOKIE_NAME } = require('../../config')
 
 // MIddlewares
 const { routeMiddleware } = require('../../middlewares/routes')
@@ -61,10 +61,10 @@ Router.post(
      */
     const AuthorizationToken = returningUser.generateAuthorizationToken()
 
-    res.cookie('PA', AuthorizationToken, {
-      expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+    res.cookie(AUTHORIZATION_COOKIE_NAME, AuthorizationToken, {
+      // expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
       // secure: true,
-      httpOnly: true
+      // httpOnly: true
     })
 
     /*
@@ -72,8 +72,8 @@ Router.post(
      */
     const userToken = returningUser.generateUserIdToken()
 
-    res.cookie('P_USER', userToken, {
-      expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
+    res.cookie(USER_COOKIE_NAME, userToken, {
+      // expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
     })
     // res.header('UID', token)
     // res.header('Access-Control-Expose-Headers', 'UID')
