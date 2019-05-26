@@ -5,6 +5,17 @@ const Joi = require('joi')
 // Utils
 const PromiseTryCatch = require('../../utils/PromiseTryCatch')
 // Common Functions
+// const validateNewUser = req => {
+//   const validationOptions = {
+//     firstname: Joi.string().min(2).max(25).required(),
+//     lastname: Joi.string().min(2).max(50).required(),
+//     email: Joi.string().min(7).max(255).required().email(),
+//     password: Joi.string().min(6).max(1024).required(),
+//     authTypes: Joi.array().required().error(new Error(40))
+//   }
+
+//   return Joi.validate(req, validationOptions)
+// }
 
 // Model
 const User = require('../../models/User')
@@ -41,12 +52,10 @@ Router.get('/', async (req, res) => {
     //.sort('name')
     .select({ name: 1, email: -1 })
   // simple select version
-	//.select('name -email')
+  //.select('name -email')
 
   res.send(allUsers)
 })
-
-
 
 Router.post('/', async (req, res) => {
   const { name, email, isPublished, numberOfPurchases, authTypes } = req.body
@@ -54,29 +63,28 @@ Router.post('/', async (req, res) => {
   const newUser = new User({
     name,
     email,
-		isPublished,
-		numberOfPurchases,
-		authTypes,
-	})
+    isPublished,
+    numberOfPurchases,
+    authTypes
+  })
 
-	// Using .validate() from mongoose
-	// newUser.validate()
-	// 	.then(data => {
-		// 		console.log('data', data)
-		// 	})
-		// 	.catch(e => console.error(e.message))
-		// const validation = await newUser.validate()
+  // Using .validate() from mongoose
+  // newUser.validate()
+  // 	.then(data => {
+  // 		console.log('data', data)
+  // 	})
+  // 	.catch(e => console.error(e.message))
+  // const validation = await newUser.validate()
 
-		try {
-			const result = await newUser.save()
+  try {
+    const result = await newUser.save()
 
-			res.send(result)
-		} catch (e) {
-			const errors = Object.keys(e.errors)
-				.map(error => e.errors[error]['message'])
+    res.send(result)
+  } catch (e) {
+    const errors = Object.keys(e.errors).map(error => e.errors[error]['message'])
 
-				res.status(400).send(errors)
-		}
+    res.status(400).send(errors)
+  }
 })
 
 Router.put('/', async (req, res) => {
@@ -101,17 +109,16 @@ Router.put('/', async (req, res) => {
   })
 
   // Update First approach
-	const updatedUser = await User
-		.findOneAndUpdate(
-			{_id: mockedId },
-			{
-				$set: {
-					name: 'bbbbb',
-					isPublished: false
-				}
-			},
-			{ new: true }
-		).select('name')
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: mockedId },
+    {
+      $set: {
+        name: 'bbbbb',
+        isPublished: false
+      }
+    },
+    { new: true }
+  ).select('name')
 
   // const updatedUser = await user.save()
 
@@ -119,15 +126,13 @@ Router.put('/', async (req, res) => {
 })
 
 Router.delete('/', async (req, res) => {
-	const mockedId = '5c68273df7f5d0328bd50303'
+  const mockedId = '5c68273df7f5d0328bd50303'
 
-	const deletedUser = await User.findOneAndRemove(
-		{
-			_id: mockedId,
-		}
-	)
+  const deletedUser = await User.findOneAndRemove({
+    _id: mockedId
+  })
 
-	res.send(deletedUser)
+  res.send(deletedUser)
 })
 
 // Common Functions

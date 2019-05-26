@@ -5,6 +5,7 @@
 import React, { Component } from 'react'
 import { Router } from 'react-router-dom'
 import { connect } from 'react-redux'
+import cookie from 'js-cookie'
 
 // Components
 import Header from 'components/Header'
@@ -25,22 +26,24 @@ import { decodeToken } from 'utils/authentication'
 class App extends Component {
   componentDidMount() {
     console.log('....Starting the application...')
-
-    const { userAllowed, userData } = decodeToken()
+    // TODO -- DRY
+    // Retrieving User's Cookie
+    const token = cookie('P_U')
+    const { userAllowed, userData } = decodeToken(token)
 
     if (userAllowed) {
-      console.log('dispatching')
+      // console.log('dispatching')
       return this.props.logUser({ userAllowed, userData })
-    }
-    else {
+    } else {
       console.log('no token')
     }
+    // TODO -- DRY
   }
 
   render() {
     return (
       <div className="main">
-        <Router history={history} >
+        <Router history={history}>
           <Header />
           <AppRoutes />
         </Router>
@@ -48,7 +51,6 @@ class App extends Component {
     )
   }
 }
-
 
 export default connect(
   null,

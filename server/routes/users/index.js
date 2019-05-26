@@ -1,33 +1,25 @@
 const express = require('express')
 const Router = express.Router()
 const Joi = require('joi')
+const R = require('ramda')
+
+// Project's Config
+const { errorsMap, USER_COOKIE_NAME } = require('../../config')
 
 // Middlewares
 const authorization = require('../../middlewares/authorization')
 
 // Utils
-const PromiseTryCatch = require('../../utils/PromiseTryCatch')
-// Common Functions
-const validateNewUser = req => {
-  const validationOptions = {
-    firstname: Joi.string().min(2).max(25).required(),
-    lastname: Joi.string().min(2).max(50).required(),
-    email: Joi.string().min(7).max(255).required().email(),
-    password: Joi.string().min(6).max(1024).required(),
-    authTypes: Joi.array().required().error(new Error(40))
-  }
-
-  return Joi.validate(req, validationOptions)
-}
+const { validateNewUser, validateExistingUser } = require('../../utils/validations')
+const { userPublicData } = require('../../utils/User')
 
 const hashPassword = async password => {
   const bcrypt = require('bcrypt')
   const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(password, salt, )
+  const hashedPassword = await bcrypt.hash(password, salt)
 
   return hashedPassword
 }
-
 
 // Models
 const User = require('../../models/User')
@@ -39,20 +31,57 @@ Router.get('/', authorization, async (req, res) => {
 })
 
 Router.patch('/:id', authorization, async (req, res) => {
-  const contentToBeUpdated = req.body
-  const userID = req.params.id
+  console.log('patch')
+  // const body = R.path('body', req)
+  // const id = R.path('params', 'id', req)
 
+  const body = req.body
+  const id = req.params.id
+
+  // Validation Process
+  // const { error } = validateExistingUser({
+  //   id,
+  //   ...body
+  // })
+
+  // if (error) {
+  //   return res.status(400).send(errorsMap[error.message] || error.message)
+  // }
+
+  /*
+   * Exisitng User Verification
+   */
+  const user = await User.findById(id)
+
+  if (!user) {
+    return res.status(400).send(errorsMap['A09'])
+  }
+
+  /*
+   * Updating User
+   */
   const updatedUser = await User.findOneAndUpdate(
-			{_id: userID },
-			{
-				$set: { contentToBeUpdated }
-			},
-			{ new: true }
-		)
+    { _id: id },
+    {
+      $set: { ...body }
+    },
+    { new: true }
+  )
+  /*
+   * Saving the Updated User
+   */
+  await updatedUser.save()
 
-    await updatedUser.save()
+  /*
+   * Updating User's cookie
+   */
+  const userToken = updatedUser.generateUserIdToken()
 
-   res.send(updatedUser)
+  res.cookie(USER_COOKIE_NAME, userToken, {
+    // expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
+  })
+
+  res.send(userPublicData(updatedUser))
 })
 
 Router.post('/', async (req, res) => {
@@ -60,7 +89,7 @@ Router.post('/', async (req, res) => {
   const { error } = validateNewUser(req.body)
 
   if (error) {
-    return res.status(400).send(global.errorsMap[error.message])
+    return res.status(400).send(errorsMap[error.message])
   }
 
   // User already registered Validation
@@ -68,7 +97,7 @@ Router.post('/', async (req, res) => {
   const existingUser = await User.findOne({ email })
 
   if (existingUser) {
-    return res.status(400).send('User already registered')
+    return res.status(400).send(errorsMap['D01'])
   }
 
   const { firstname, lastname, password, authTypes } = req.body
@@ -80,7 +109,7 @@ Router.post('/', async (req, res) => {
     lastname,
     email,
     password: hashedPassword,
-    authTypes,
+    authTypes
   })
 
   await newUser.save()
@@ -89,55 +118,20 @@ Router.post('/', async (req, res) => {
 
   return res
     .header(`x-auth-token`, token)
-    .send(newUser)
+    .send('Thanks!! Your user was successfully registered!')
 })
 
-module.exports = Router
-
-
-// Router.get('/', async (req, res) => {
-//   const allUsers = await User.find({
-//     isPublished: true,
-//     name: { $in: ['Walter White', 'Heisenberg'] },
-//     email: { $eq: 'ww@gmail.com' }
-//   })
-//     .limit(10)
-//     .sort({ name: 1 }) // 1 means 'ASC' and -1 means -1
-//     //.sort('name')
-//     .select({ name: 1, email: -1 })
-//   // simple select version
-// 	//.select('name -email')
-
-//   res.send(allUsers)
-// })
-
-
-
-
-	// Using .validate() from mongoose
-	// newUser.validate()
-	// 	.then(data => {
-		// 		console.log('data', data)
-		// 	})
-		// 	.catch(e => console.error(e.message))
-		// const validation = await newUser.validate()
-
-// 		try {
-// 			const result = await newUser.save()
-
-// 			res.send(result)
-// 		} catch (e) {
-// 			const errors = Object.keys(e.errors)
-// 				.map(error => e.errors[error]['message'])
-
-// 				res.status(400).send(errors)
-// 		}
-// })
-
 // Router.put('/', async (req, res) => {
-//   const mockedId = '5c69a02b06f59901c9338970'
+//   //  Validation Errors
+//   const { error } = validateExistingUser(req.body)
 
-//   const user = await User.findById(mockedId)
+//   if (error) {
+//     return res.status(400).send(errorsMap[error.message])
+//   }
+
+//   const { id } = req.body
+
+//   const user = await User.findById(id)
 
 //   if (!user) {
 //     return res.send('user not found')
@@ -156,23 +150,62 @@ module.exports = Router
 //   })
 
 //   // Update First approach
-// 	const updatedUser = await User
-// 		.findOneAndUpdate(
-// 			{_id: mockedId },
-// 			{
-// 				$set: {
-// 					name: 'bbbbb',
-// 					isPublished: false
-// 				}
-// 			},
-// 			{ new: true }
-// 		).select('name')
+//   const updatedUser = await User
+//     .findOneAndUpdate(
+//       {_id: mockedId },
+//       {
+//         $set: {
+//           name: 'bbbbb',
+//           isPublished: false
+//         }
+//       },
+//       { new: true }
+//     ).select('name')
 
 //   // const updatedUser = await user.save()
 
 //   res.send(updatedUser)
 // })
 
+module.exports = Router
+
+// Router.get('/', async (req, res) => {
+//   const allUsers = await User.find({
+//     isPublished: true,
+//     name: { $in: ['Walter White', 'Heisenberg'] },
+//     email: { $eq: 'ww@gmail.com' }
+//   })
+//     .limit(10)
+//     .sort({ name: 1 }) // 1 means 'ASC' and -1 means -1
+//     //.sort('name')
+//     .select({ name: 1, email: -1 })
+//   // simple select version
+// 	//.select('name -email')
+
+//   res.send(allUsers)
+// })
+
+// Using .validate() from mongoose
+// newUser.validate()
+// 	.then(data => {
+// 		console.log('data', data)
+// 	})
+// 	.catch(e => console.error(e.message))
+// const validation = await newUser.validate()
+
+// 		try {
+// 			const result = await newUser.save()
+
+// 			res.send(result)
+// 		} catch (e) {
+// 			const errors = Object.keys(e.errors)
+// 				.map(error => e.errors[error]['message'])
+
+// 				res.status(400).send(errors)
+// 		}
+// })
+
+//
 // Router.delete('/', async (req, res) => {
 // 	const mockedId = '5c68273df7f5d0328bd50303'
 
@@ -249,4 +282,3 @@ module.exports = Router
 //   console.log('deleting user')
 //   return res.send(user)
 // })
-

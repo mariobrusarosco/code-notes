@@ -5,10 +5,12 @@ const Joi = require('joi')
 const bycrpt = require('bcrypt')
 
 // Project's Config
-const { errorsMap } = require('../../config')
+const { errorsMap, USER_COOKIE_NAME, AUTHORIZATION_COOKIE_NAME } = require('../../config')
+
+// MIddlewares
+const { routeMiddleware } = require('../../middlewares/routes')
 
 // Utils
-const { routeMiddleware } = require('../../middlewares/routes')
 const { userPublicData } = require('../../utils/User')
 const { email, password } = require('../../utils/validations')
 
@@ -25,7 +27,7 @@ const validateReturningUser = reqBody => {
   return Joi.validate(reqBody, validationOptions)
 }
 
-Router.post('/', routeMiddleware(async (req, res, next) => {
+Router.post('/', async (req, res, next) => {
   const { error } = validateReturningUser(req.body)
 
   if (error) {
@@ -34,31 +36,47 @@ Router.post('/', routeMiddleware(async (req, res, next) => {
 
   const { email, password } = req.body
 
+  /*
+   * Exisitng User Verification
+   */
   const returningUser = await User.findOne({ email })
 
   if (!returningUser) {
-    return res.status(400).send(errorsMap['C01'])
+    return res.status(400).send(errorsMap['A06'])
   }
 
-  const returningUserPassword = await bycrpt.compare(password,returningUser.password)
+  /*
+   * Password Verification
+   */
+  const returningUserPassword = await bycrpt.compare(password, returningUser.password)
 
   if (!returningUserPassword) {
-    return res.status(400).send(errorsMap['C01'])
+    return res.status(400).send(errorsMap['A06'])
   }
 
+  /*
+   * Authorization Process
+   */
+  const AuthorizationToken = returningUser.generateAuthorizationToken()
 
-  res.cookie('username', '9', {
-    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-    secure: true,
-    httpOnly: true
+  res.cookie(AUTHORIZATION_COOKIE_NAME, AuthorizationToken, {
+    // expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+    // secure: true,
+    // httpOnly: true
   })
 
-  const token = returningUser.generateJWT()
+  /*
+   * User Identification Process
+   */
+  const userToken = returningUser.generateUserIdToken()
 
-  res.header('UID', token)
-  res.header('Access-Control-Expose-Headers', 'UID')
-  res.send(userPublicData(returningUser))
+  res.cookie(USER_COOKIE_NAME, userToken, {
+    // expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
+  })
+  // res.header('UID', token)
+  // res.header('Access-Control-Expose-Headers', 'UID')
 
-}))
+  res.send(userToken)
+})
 
 module.exports = Router

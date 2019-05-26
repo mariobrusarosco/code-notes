@@ -3,7 +3,7 @@
 
 // Vendor
 import { connect } from 'react-redux'
-
+import cookie from 'js-cookie'
 // Actions
 import { logUser } from 'actions'
 
@@ -11,7 +11,6 @@ import { logUser } from 'actions'
 import { decodeToken } from 'utils/authentication'
 
 export default WrappedComponent => {
-
   class ProtectedRoute extends Component {
     constructor(props) {
       super(props)
@@ -23,16 +22,15 @@ export default WrappedComponent => {
     }
 
     authenticateUser = () => {
-      const { userAllowed } = decodeToken()
+      const token = cookie('P_U')
+      const { userAllowed } = decodeToken(token)
 
       return userAllowed
     }
 
     render() {
       console.log('render: ', this.authenticateUser())
-      return (
-        (this.authenticateUser()) ? <WrappedComponent {...this.props} /> : null
-      )
+      return this.authenticateUser() ? <WrappedComponent {...this.props} /> : null
     }
   }
 
