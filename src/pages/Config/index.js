@@ -13,16 +13,18 @@ class Config extends Component {
         firstname
       })
 
-      // Updates User's token
-      localStorage.setItem('UID', response.headers['uid'])
-
       const message = response && response.data
 
       alert(message)
       // this.props.history.push('/')
     } catch (err) {
-      const message = err && err.response && err.response.data
+      const { name, message } = err && err.response && err.response.data
+
       alert(message)
+
+      if (name === 'TokenExpiredError') {
+        this.props.history.push('/login')
+      }
     }
   }
 

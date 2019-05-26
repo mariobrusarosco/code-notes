@@ -30,6 +30,7 @@ Router.get('/', authorization, async (req, res) => {
 })
 
 Router.patch('/:id', authorization, async (req, res) => {
+  console.log('patch')
   // const body = R.path('body', req)
   // const id = R.path('params', 'id', req)
 
@@ -62,10 +63,9 @@ Router.patch('/:id', authorization, async (req, res) => {
 
   await updatedUser.save()
 
-  const token = returningUser.generateJWT()
-
-  res.header('UID', token)
-  res.header('Access-Control-Expose-Headers', 'UID')
+  // const token = returningUser.generateJWT()
+  // res.header('UID', token)
+  // res.header('Access-Control-Expose-Headers', 'UID')
   res.send(userPublicData(updatedUser))
 })
 

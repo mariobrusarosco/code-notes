@@ -46,7 +46,7 @@ app.use(cookieParser())
 const authorization = require('./middlewares/authorization')
 
 app.use(function(req, res, next) {
-  console.log('passed cookies in a request', req.cookies)
+  // console.log('passed cookies in a request', req.cookies)
 
   res.header('Access-Control-Allow-Origin', config.AccessControlAllowOrigin)
   res.header(
