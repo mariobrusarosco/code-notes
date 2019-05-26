@@ -38,28 +38,46 @@ Router.post(
 
     const { email, password } = req.body
 
+    /*
+     * Exisitng User Verification
+     */
     const returningUser = await User.findOne({ email })
 
     if (!returningUser) {
-      return res.status(400).send(errorsMap['C01'])
+      return res.status(400).send(errorsMap['A06'])
     }
 
+    /*
+     * Password Verification
+     */
     const returningUserPassword = await bycrpt.compare(password, returningUser.password)
 
     if (!returningUserPassword) {
-      return res.status(400).send(errorsMap['C01'])
+      return res.status(400).send(errorsMap['A06'])
     }
 
-    res.cookie('username', 'dasdaasdas', {
-      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    /*
+     * Authorization Process
+     */
+    const AuthorizationToken = returningUser.generateAuthorizationToken()
+
+    res.cookie('PA', AuthorizationToken, {
+      expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
       // secure: true,
       httpOnly: true
     })
 
-    const token = returningUser.generateJWT()
+    /*
+     * User Identification Process
+     */
+    const userToken = returningUser.generateUserIdToken()
 
-    res.header('UID', token)
-    res.header('Access-Control-Expose-Headers', 'UID')
+    res.cookie('P_USER', userToken, {
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
+    })
+    // res.header('UID', token)
+    // res.header('Access-Control-Expose-Headers', 'UID')
+
     res.send(userPublicData(returningUser))
   })
 )

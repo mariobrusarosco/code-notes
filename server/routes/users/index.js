@@ -52,8 +52,6 @@ Router.patch('/:id', authorization, async (req, res) => {
     return res.status(400).send(errorsMap['A09'])
   }
 
-  console.log('Old', user)
-
   const updatedUser = await User.findOneAndUpdate(
     { _id: id },
     {
@@ -63,8 +61,12 @@ Router.patch('/:id', authorization, async (req, res) => {
   )
 
   await updatedUser.save()
-  console.log('new', updatedUser)
-  res.send(updatedUser)
+
+  const token = returningUser.generateJWT()
+
+  res.header('UID', token)
+  res.header('Access-Control-Expose-Headers', 'UID')
+  res.send(userPublicData(updatedUser))
 })
 
 Router.post('/', async (req, res) => {

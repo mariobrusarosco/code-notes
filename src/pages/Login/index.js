@@ -1,5 +1,6 @@
 // Vendors
 import { connect } from 'react-redux'
+import cookie from 'js-cookie'
 
 // Components
 import LoginForm from 'components/Forms/LoginForm'
@@ -14,16 +15,20 @@ import { loadUserData, logUser } from 'actions'
 class Login extends Component {
   onSubmitCallback = async ({ email, password }) => {
     try {
-      const response = await codeNotesAPI.post('/auth', { email, password })
-      // Set User's token
-      localStorage.setItem('UID', response.headers['uid'])
+      await codeNotesAPI.post('/auth', { email, password })
+
+      // Get User's token
+      const token = cookie('P_USER')
+
       // Decode User's token
-      const { userAllowed, userData } = decodeToken()
+      const { userAllowed, userData } = decodeToken(token)
+
       // Update store with user's info and go to Home
       this.props.logUser({ userAllowed, userData })
       this.props.history.push('/')
     } catch (err) {
-      console.log(err)
+      const message = err && err.response && err.response.data
+      alert(message)
     }
   }
 

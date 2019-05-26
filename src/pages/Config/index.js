@@ -13,6 +13,9 @@ class Config extends Component {
         firstname
       })
 
+      // Updates User's token
+      localStorage.setItem('UID', response.headers['uid'])
+
       const message = response && response.data
 
       alert(message)
