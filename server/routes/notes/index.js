@@ -7,7 +7,13 @@ const Language = require('../../models/Language')
 
 Router.get('/', async (req, res) => {
   try {
-    const allNotes = await Note.find()
+    const userID = req.query.user
+
+    if (!userID) {
+      return res.send(400, 'You must provide an user as a query parameter.')
+    }
+
+    const allNotes = await Note.find({ user: userID })
       .populate('user', 'name email-_id')
       // .populate('language', 'name')
       .populate('related_notes', 'description')
@@ -21,11 +27,12 @@ Router.get('/', async (req, res) => {
 })
 
 Router.post('/', async (req, res) => {
-  const { description, language, user, related_notes } = req.body
+  const { description, language, body, user, related_notes } = req.body
 
   const newNote = await new Note({
     description,
     language,
+    body,
     user,
     related_notes
   })

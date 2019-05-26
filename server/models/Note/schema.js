@@ -7,6 +7,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 const NoteSchema = new mongoose.Schema({
   description: String,
   language: String,
+  body: String,
   // Population Example
   user: {
     type: ObjectId,
