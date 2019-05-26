@@ -58,13 +58,13 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateAuthorizationToken = function() {
   return jwt.sign({}, process.env.AUTHORIZATION_SECRET, {
-    expiresIn: 60
+    expiresIn: 3 * 60
   })
 }
 
 userSchema.methods.generateUserIdToken = function() {
   return jwt.sign(userPublicData(this), process.env.USER_TOKEN_SECRET, {
-    expiresIn: 60
+    expiresIn: 3 * 60
   })
 }
 

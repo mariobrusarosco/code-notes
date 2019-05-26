@@ -81,9 +81,6 @@ Router.patch('/:id', authorization, async (req, res) => {
     // expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
   })
 
-  // const token = returningUser.generateJWT()
-  // res.header('UID', token)
-  // res.header('Access-Control-Expose-Headers', 'UID')
   res.send(userPublicData(updatedUser))
 })
 

@@ -10,12 +10,12 @@ import { logUser } from 'actions'
 
 // Utils
 import codeNotesAPI from 'api/code-notes'
+import { decodeToken } from 'utils/authentication'
 
 class Config extends Component {
   onSubmitCallback = async data => {
     try {
       const { id, firstname } = data
-
       /*
        * Calling the API with the new User's values.
        * The User's new data will be inside a cookie, named USER_COOKIE_NAME in the App Configuration
@@ -30,15 +30,13 @@ class Config extends Component {
       const { userAllowed, userData } = decodeToken(token)
 
       if (userAllowed) {
-        // console.log('dispatching')
-        return this.props.logUser({ userAllowed, userData })
+        this.props.logUser({ userAllowed, userData })
       } else {
         console.log('no token')
       }
       // TODO -- DRY
 
-      alert(userData)
-      // this.props.history.push('/')
+      alert('Updated Data')
     } catch (err) {
       const { name, message } = err && err.response && err.response.data
 
