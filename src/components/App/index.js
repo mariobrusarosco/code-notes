@@ -26,17 +26,18 @@ import { decodeToken } from 'utils/authentication'
 class App extends Component {
   componentDidMount() {
     console.log('....Starting the application...')
-
+    // TODO -- DRY
     // Retrieving User's Cookie
     const token = cookie('P_U')
     const { userAllowed, userData } = decodeToken(token)
 
     if (userAllowed) {
-      console.log('dispatching')
+      // console.log('dispatching')
       return this.props.logUser({ userAllowed, userData })
     } else {
       console.log('no token')
     }
+    // TODO -- DRY
   }
 
   render() {

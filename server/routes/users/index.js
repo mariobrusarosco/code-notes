@@ -4,13 +4,14 @@ const Joi = require('joi')
 const R = require('ramda')
 
 // Project's Config
-const { errorsMap } = require('../../config')
+const { errorsMap, USER_COOKIE_NAME } = require('../../config')
 
 // Middlewares
 const authorization = require('../../middlewares/authorization')
 
 // Utils
 const { validateNewUser, validateExistingUser } = require('../../utils/validations')
+const { userPublicData } = require('../../utils/User')
 
 const hashPassword = async password => {
   const bcrypt = require('bcrypt')
@@ -47,12 +48,18 @@ Router.patch('/:id', authorization, async (req, res) => {
   //   return res.status(400).send(errorsMap[error.message] || error.message)
   // }
 
+  /*
+   * Exisitng User Verification
+   */
   const user = await User.findById(id)
 
   if (!user) {
     return res.status(400).send(errorsMap['A09'])
   }
 
+  /*
+   * Updating User
+   */
   const updatedUser = await User.findOneAndUpdate(
     { _id: id },
     {
@@ -60,8 +67,19 @@ Router.patch('/:id', authorization, async (req, res) => {
     },
     { new: true }
   )
-
+  /*
+   * Saving the Updated User
+   */
   await updatedUser.save()
+
+  /*
+   * Updating User's cookie
+   */
+  const userToken = updatedUser.generateUserIdToken()
+
+  res.cookie(USER_COOKIE_NAME, userToken, {
+    // expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
+  })
 
   // const token = returningUser.generateJWT()
   // res.header('UID', token)

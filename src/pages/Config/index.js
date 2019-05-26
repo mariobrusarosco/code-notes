@@ -1,5 +1,12 @@
+// Vendor
+import { connect } from 'react-redux'
+import cookie from 'js-cookie'
+
 // Components
 import ConfigEditForm from 'components/Forms/ConfigEditForm'
+
+// Actions
+import { logUser } from 'actions'
 
 // Utils
 import codeNotesAPI from 'api/code-notes'
@@ -9,13 +16,28 @@ class Config extends Component {
     try {
       const { id, firstname } = data
 
+      /*
+       * Calling the API with the new User's values.
+       * The User's new data will be inside a cookie, named USER_COOKIE_NAME in the App Configuration
+       */
       const response = await codeNotesAPI.patch(`/users/${id}`, {
         firstname
       })
 
-      const message = response && response.data
+      // TODO -- DRY
+      // Retrieving User's Cookie
+      const token = cookie('P_U')
+      const { userAllowed, userData } = decodeToken(token)
 
-      alert(message)
+      if (userAllowed) {
+        // console.log('dispatching')
+        return this.props.logUser({ userAllowed, userData })
+      } else {
+        console.log('no token')
+      }
+      // TODO -- DRY
+
+      alert(userData)
       // this.props.history.push('/')
     } catch (err) {
       const { name, message } = err && err.response && err.response.data
@@ -37,4 +59,7 @@ class Config extends Component {
   }
 }
 
-export default Config
+export default connect(
+  null,
+  { logUser }
+)(Config)
