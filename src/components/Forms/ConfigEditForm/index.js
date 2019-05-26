@@ -10,18 +10,15 @@ import SpinnerLoader from 'components/Spinner'
 import { isRequired } from 'utils/fieldsValidators'
 
 class ConfigEditForm extends Component {
-
-  onSubmitCallback = async () => {
-    console.log('Config Edit Form submit was triggered')
-    this.props.history.push('/')
-  }
-
   render() {
-
     return (
       <>
-        {/* { true && <SpinnerLoader /> } */}
-        <form className="ui form" onSubmit={this.props.handleSubmit(this.onSubmitCallback)}>
+        {this.props.pristine || (this.props.submitting && <SpinnerLoader />)}
+
+        <form
+          className="ui form"
+          onSubmit={this.props.handleSubmit(this.props.onSubmitCallback)}
+        >
           <div className="field-wrapper">
             <Field
               name="firstname"
@@ -55,7 +52,7 @@ class ConfigEditForm extends Component {
               component={InputText}
               label="Your new password"
               type="password"
-              validate={[isRequired]}
+              // validate={[isRequired]}
             />
           </div>
           <div className="field-wrapper">
@@ -64,7 +61,7 @@ class ConfigEditForm extends Component {
               component={InputText}
               label="Repeat your new password"
               type="password"
-              validate={[isRequired]}
+              // validate={[isRequired]}
             />
           </div>
           <div className="field-wrapper">

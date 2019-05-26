@@ -20,31 +20,69 @@ const validateNewUser = req => {
     firstname: Joi.string()
       .min(2)
       .max(25)
-      .required(),
+      .required()
+      .error(new Error('A02')),
     lastname: Joi.string()
       .min(2)
       .max(50)
-      .required(),
+      .required()
+      .error(new Error('A03')),
     email: Joi.string()
       .min(7)
       .max(255)
       .required()
-      .email(),
+      .email()
+      .error(new Error('A08')),
     password: Joi.string()
       .min(6)
-      .max(1024)
+      .max(50)
       .required()
-      .error(new Error('B01')),
+      .error(new Error('A07')),
     authTypes: Joi.array()
       .required()
-      .error(new Error(40))
+      .error(new Error('A01'))
   }
 
   return Joi.validate(req, validationOptions)
 }
 
+const validateExistingUser = data => {
+  const validationOptions = {
+    id: Joi.string()
+      .required()
+      .error(new Error('A08'))
+    // firstname: Joi.string()
+    //   .min(2)
+    //   .max(25)
+    //   .required()
+    //   .error(new Error('A02')),
+    // lastname: Joi.string()
+    //   .min(2)
+    //   .max(50)
+    //   .required()
+    //   .error(new Error('A03')),
+    // email: Joi.string()
+    //   .min(7)
+    //   .max(255)
+    //   .required()
+    //   .email()
+    //   .error(new Error('A08')),
+    // password: Joi.string()
+    //   .min(6)
+    //   .max(50)
+    //   .required()
+    //   .error(new Error('A07')),
+    // authTypes: Joi.array()
+    //   .required()
+    //   .error(new Error('A01'))
+  }
+
+  return Joi.validate(data, validationOptions)
+}
+
 module.exports = {
   email,
   password,
-  validateNewUser
+  validateNewUser,
+  validateExistingUser
 }

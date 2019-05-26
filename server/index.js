@@ -11,7 +11,7 @@ const app = express()
 const config = require('../config')()
 // --------------  ERRORS LOGGER --------------------- //
 // Logging Async Errors
-// require('express-async-errors')
+require('express-async-errors')
 // Logging errors in the entire App
 // const winston = require('winston')
 // winston.add(new winston.transports.File({ filename: "logfile.log" }));
@@ -54,7 +54,7 @@ app.use(function(req, res, next) {
     'Origin, X-Requested-With, Content-Type, Accept'
   )
   res.header('Access-Control-Allow-Credentials', 'true')
-  res.header('Access-Control-Allow-Methods', '*')
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS')
 
   // // For Authenticated Cookies
   //   res.cookie('username', '9', {
@@ -90,10 +90,12 @@ app.use('/api/v1/languages', languages)
 // if (process.env.NODE_ENV !== 'local') {
 // Serving assets like main.css or main.js
 // If this condition fits...code ends here!!
-app.use(assetsCompression('dist', {
-	enableBrotli: true,
-	orderPreference: ['br']
-}))
+app.use(
+  assetsCompression('dist', {
+    enableBrotli: true,
+    orderPreference: ['br']
+  })
+)
 app.use(express.static('dist'))
 
 // If the server does not recognize a route... it's gonna serve index.html

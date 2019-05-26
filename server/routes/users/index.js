@@ -1,6 +1,7 @@
 const express = require('express')
 const Router = express.Router()
 const Joi = require('joi')
+const R = require('ramda')
 
 // Project's Config
 const { errorsMap } = require('../../config')
@@ -9,19 +10,7 @@ const { errorsMap } = require('../../config')
 const authorization = require('../../middlewares/authorization')
 
 // Utils
-const { validateNewUser } = require('../../utils/validations')
-// Common Functions
-// const validateNewUser = req => {
-//   const validationOptions = {
-//     firstname: Joi.string().min(2).max(25).required(),
-//     lastname: Joi.string().min(2).max(50).required(),
-//     email: Joi.string().min(7).max(255).required().email(),
-//     password: Joi.string().min(6).max(1024).required(),
-//     authTypes: Joi.array().required().error(new Error(40))
-//   }
-
-//   return Joi.validate(req, validationOptions)
-// }
+const { validateNewUser, validateExistingUser } = require('../../utils/validations')
 
 const hashPassword = async password => {
   const bcrypt = require('bcrypt')
@@ -41,19 +30,40 @@ Router.get('/', authorization, async (req, res) => {
 })
 
 Router.patch('/:id', authorization, async (req, res) => {
-  const contentToBeUpdated = req.body
-  const userID = req.params.id
+  // const body = R.path('body', req)
+  // const id = R.path('params', 'id', req)
+
+  const body = req.body
+  const id = req.params.id
+
+  // Validation Process
+  // const { error } = validateExistingUser({
+  //   id,
+  //   ...body
+  // })
+
+  // if (error) {
+  //   return res.status(400).send(errorsMap[error.message] || error.message)
+  // }
+
+  const user = await User.findById(id)
+
+  if (!user) {
+    return res.status(400).send(errorsMap['A09'])
+  }
+
+  console.log('Old', user)
 
   const updatedUser = await User.findOneAndUpdate(
-    { _id: userID },
+    { _id: id },
     {
-      $set: { contentToBeUpdated }
+      $set: { ...body }
     },
     { new: true }
   )
 
   await updatedUser.save()
-
+  console.log('new', updatedUser)
   res.send(updatedUser)
 })
 
@@ -94,6 +104,52 @@ Router.post('/', async (req, res) => {
     .send('Thanks!! Your user was successfully registered!')
 })
 
+// Router.put('/', async (req, res) => {
+//   //  Validation Errors
+//   const { error } = validateExistingUser(req.body)
+
+//   if (error) {
+//     return res.status(400).send(errorsMap[error.message])
+//   }
+
+//   const { id } = req.body
+
+//   const user = await User.findById(id)
+
+//   if (!user) {
+//     return res.send('user not found')
+//   }
+
+//   // Query and then update approach
+
+//   // Assigning new properties
+//   user.isPublished = false
+//   user.name = "Walter 'Heisenberg' White"
+
+//   // Using ge .set() method
+//   user.set({
+//     isPublished: false,
+//     name: "Walter 'Heisenberg' White"
+//   })
+
+//   // Update First approach
+//   const updatedUser = await User
+//     .findOneAndUpdate(
+//       {_id: mockedId },
+//       {
+//         $set: {
+//           name: 'bbbbb',
+//           isPublished: false
+//         }
+//       },
+//       { new: true }
+//     ).select('name')
+
+//   // const updatedUser = await user.save()
+
+//   res.send(updatedUser)
+// })
+
 module.exports = Router
 
 // Router.get('/', async (req, res) => {
@@ -132,45 +188,7 @@ module.exports = Router
 // 		}
 // })
 
-// Router.put('/', async (req, res) => {
-//   const mockedId = '5c69a02b06f59901c9338970'
-
-//   const user = await User.findById(mockedId)
-
-//   if (!user) {
-//     return res.send('user not found')
-//   }
-
-//   // Query and then update approach
-
-//   // Assigning new properties
-//   user.isPublished = false
-//   user.name = "Walter 'Heisenberg' White"
-
-//   // Using ge .set() method
-//   user.set({
-//     isPublished: false,
-//     name: "Walter 'Heisenberg' White"
-//   })
-
-//   // Update First approach
-// 	const updatedUser = await User
-// 		.findOneAndUpdate(
-// 			{_id: mockedId },
-// 			{
-// 				$set: {
-// 					name: 'bbbbb',
-// 					isPublished: false
-// 				}
-// 			},
-// 			{ new: true }
-// 		).select('name')
-
-//   // const updatedUser = await user.save()
-
-//   res.send(updatedUser)
-// })
-
+//
 // Router.delete('/', async (req, res) => {
 // 	const mockedId = '5c68273df7f5d0328bd50303'
 

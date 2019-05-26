@@ -9,23 +9,6 @@ import SpinnerLoader from 'components/Spinner'
 import { isRequired } from 'utils/fieldsValidators'
 
 class LoginForm extends Component {
-  // onSubmitCallback = async ({ email, password }) => {
-  //   // TO DO async/awati aproach
-  //   codeNotesAPI.post('/auth', { email, password })
-  //     .then(res => {
-  //       // Set User's token
-  //       localStorage.setItem('UID', res.headers['uid'])
-
-  //       const { userAllowed, userData } = decodeToken()
-
-  //       this.props.logUser({ userAllowed, userData })
-  //       this.props.history.push('/')
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // }
-
   render() {
     return (
       <>
