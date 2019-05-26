@@ -114,11 +114,7 @@ Router.post('/', async (req, res) => {
 
   await newUser.save()
 
-  const token = newUser.generateJWT()
-
-  return res
-    .header(`x-auth-token`, token)
-    .send('Thanks!! Your user was successfully registered!')
+  return res.send('Thanks!! Your user was successfully registered!')
 })
 
 // Router.put('/', async (req, res) => {

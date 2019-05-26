@@ -10,7 +10,8 @@ const errorsMap = {
   A08: 'An User ID is required',
   A09: 'User not Found',
   A10: '',
-  B01: 'No Provided Token'
+  B01: 'No Provided Token',
+  D01: 'This email is already registered. Please try a diferent one'
 }
 
 module.exports = errorsMap
