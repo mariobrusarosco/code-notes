@@ -34,11 +34,14 @@ class App extends Component {
 
     if (userAllowed) {
       // console.log('dispatching')
-      return this.props.logUser({ userAllowed, userData })
+      this.props.logUser({ userAllowed, userData })
     } else {
       console.log('no token')
     }
     // TODO -- DRY
+    setTimeout(() => {
+      this.props.setAppAsLoaded()
+    }, 1500)
   }
 
   render() {
