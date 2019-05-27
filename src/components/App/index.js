@@ -38,10 +38,8 @@ class App extends Component {
     } else {
       console.log('no token')
     }
-    // TODO -- DRY
-    setTimeout(() => {
-      this.props.setAppAsLoaded()
-    }, 1500)
+
+    setTimeout(this.props.setAppAsLoaded, 1500)
   }
 
   render() {
