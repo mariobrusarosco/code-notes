@@ -1,11 +1,22 @@
-export const logUser = payload => ({
-  type: 'LOG_IN',
-  payload
-})
+export const logUser = payload => {
+  return {
+    type: 'LOG_IN',
+    payload
+  }
+}
 
-export const setAppAsLoaded = () => ({
-  type: 'APP_LOADED'
-})
+export const setAppAsLoaded = () => {
+  return {
+    type: 'APP_LOADED'
+  }
+}
+
+export const toggleModal = payload => {
+  return {
+    type: 'TOGGLE_MODAL',
+    ...payload
+  }
+}
 
 export const fetchPostsAndUsers = () => async (dispatch, getState) => {
   await dispatch(fetchPosts())

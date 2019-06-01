@@ -4,13 +4,15 @@ import cookie from 'js-cookie'
 
 // Components
 import LoginForm from 'components/Forms/LoginForm'
+import Modal from 'components/Modal'
+import DefaultError from 'components/Errors/Default'
 
 // Utils
 import codeNotesAPI from 'api/code-notes'
 import { decodeToken } from 'utils/authentication'
 
 // Actions
-import { loadUserData, logUser } from 'actions'
+import { loadUserData, logUser, toggleModal } from 'actions'
 
 class Login extends Component {
   onSubmitCallback = async ({ email, password }) => {
@@ -28,23 +30,36 @@ class Login extends Component {
       this.props.history.push('/')
     } catch (err) {
       const message = err && err.response && err.response.data
-      alert(message)
+
+      this.props.toggleModal({
+        content: <DefaultError markup={message} />
+      })
+      // alert(message)
     }
   }
 
   render() {
     return (
-      <div className="login ui segment">
-        <LoginForm
-          history={this.props.history}
-          onSubmitCallback={this.onSubmitCallback}
-        />
-      </div>
+      <>
+        <div className="login ui segment">
+          <LoginForm
+            history={this.props.history}
+            onSubmitCallback={this.onSubmitCallback}
+          />
+        </div>
+        {this.props.globalModal.active && <Modal history={this.props.history} />}
+      </>
     )
   }
 }
 
+const mapStateToProps = ({ app }) => {
+  return {
+    globalModal: app.globalModal
+  }
+}
+
 export default connect(
-  null,
-  { loadUserData, logUser }
+  mapStateToProps,
+  { loadUserData, logUser, toggleModal }
 )(Login)
