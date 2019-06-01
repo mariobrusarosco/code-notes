@@ -7,11 +7,11 @@ const assetsCompression = require('express-static-gzip')
 
 // App Setitngs
 const app = express()
-
 const config = require('../config')()
+
 // --------------  ERRORS LOGGER --------------------- //
 // Logging Async Errors
-// require('express-async-errors')
+require('express-async-errors')
 // Logging errors in the entire App
 // const winston = require('winston')
 // winston.add(new winston.transports.File({ filename: "logfile.log" }));

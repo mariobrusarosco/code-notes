@@ -5,6 +5,7 @@ const session = require('express-session')
 const { errorsMap, USER_COOKIE_NAME, AUTHORIZATION_COOKIE_NAME } = require('../../config')
 
 const authorization = (req, res, next) => {
+  throw new Error('Just forcing!!')
   // console.log('cookie: ', req.cookies[AUTHORIZATION_COOKIE_NAME])
 
   // Access denied if no AUTHORIZATION_COOKIE_NAME exists
