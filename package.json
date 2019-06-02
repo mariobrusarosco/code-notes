@@ -45,6 +45,7 @@
   },
   "homepage": "https://github.com/mariobrusarosco/code-notes#readme",
   "dependencies": {
+    "app-root-path": "^2.2.1",
     "babel-eslint": "^10.0.1",
     "codemirror": "^5.45.0",
     "express": "^4.16.4",

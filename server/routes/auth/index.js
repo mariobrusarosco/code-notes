@@ -28,6 +28,13 @@ const validateReturningUser = reqBody => {
 }
 
 Router.post('/', async (req, res, next) => {
+  try {
+    console.log(email.nothing.asdasdas)
+  } catch (ex) {
+    console.log('catched')
+    next(ex)
+  }
+
   const { error } = validateReturningUser(req.body)
 
   if (error) {

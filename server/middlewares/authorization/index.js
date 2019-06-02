@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken')
 const session = require('express-session')
+const winston = require('winston')
 
 // Project's Config
 const { errorsMap, USER_COOKIE_NAME, AUTHORIZATION_COOKIE_NAME } = require('../../config')
 
 const authorization = (req, res, next) => {
-  throw new Error('Just forcing!!')
   // console.log('cookie: ', req.cookies[AUTHORIZATION_COOKIE_NAME])
 
   // Access denied if no AUTHORIZATION_COOKIE_NAME exists
@@ -31,32 +31,11 @@ const authorization = (req, res, next) => {
       return res
         .clearCookie(AUTHORIZATION_COOKIE_NAME)
         .clearCookie(USER_COOKIE_NAME)
-        .send(403, { name, message })
+        .status(403)
+        .send({ name, message })
     }
-
-    // console.log('JWT Errror', error)
-    // return res.send(403,'Verification error')
   }
 
-  console.log(decode)
-  // return res.send('authorization in progress')
-
-  // if (req.cookies.username == 'dasdaasdas') {
-  //   console.log('authorized')
-  // } else {
-  //   return res.status(401).send('Access Denined.')
-  // }
-  //   session({
-  //     name: 'session',
-  //     keys: ['key1', 'key2'],
-  //     cookie: { secure: true,
-  //               httpOnly: true,
-  //               // domain: 'example.com',
-  //               path: 'foo/bar',
-  //               expires: expiryDate
-  //             }
-  //   })
-  console.log('...next')
   next()
 }
 

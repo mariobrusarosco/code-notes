@@ -9,13 +9,14 @@ const assetsCompression = require('express-static-gzip')
 const app = express()
 const config = require('../config')()
 
-// --------------  ERRORS LOGGER --------------------- //
+// -------------- ERRORS HANDLING PROCESS --------------------- //
+// Custom Router Handler
+const { routeErrorHandler } = require('./middlewares/routes')
+
 // Logging Async Errors
 require('express-async-errors')
-// Logging errors in the entire App
-// const winston = require('winston')
-// winston.add(new winston.transports.File({ filename: "logfile.log" }));
-// --------------  ERRORS LOGGER --------------------- //
+
+// -------------- ERRORS HANDLING PROCESS --------------------- //
 
 // --------------  DB --------------------- //--
 const mongoose = require('mongoose')
@@ -38,6 +39,7 @@ app.use(express.json())
 const helmet = require('helmet')
 const morgan = require('morgan')
 
+// app.use(morgan('combined', { stream: logger.stream }))
 app.use(morgan('tiny'))
 app.use(helmet())
 app.use(cookieParser())
@@ -83,9 +85,7 @@ app.use('/api/v1/me', me)
 app.use('/api/v1/notes', notes)
 app.use('/api/v1/languages', languages)
 
-// Error Handlers for Routes
-// const { routeErrorHandler } = require('./middlewares/routes')
-// app.use(routeErrorHandler)
+app.use(routeErrorHandler)
 
 // if (process.env.NODE_ENV !== 'local') {
 // Serving assets like main.css or main.js
