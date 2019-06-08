@@ -12,7 +12,6 @@ const config = require('../config')()
 // -------------- ERRORS HANDLING PROCESS --------------------- //
 // Custom Router Handler
 const { routeErrorHandler } = require('./middlewares/routes')
-
 // Logging Async Errors
 require('express-async-errors')
 

@@ -11,34 +11,22 @@ const routeMiddleware = fn => {
   }
 }
 
-const winston = require('winston')
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  defaultMeta: { service: 'user-service' },
+const { createLogger, format, transports } = require('winston')
+const { combine, timestamp, label, prettyPrint } = format
+
+const logger = createLogger({
+  format: combine(timestamp(), prettyPrint()),
   transports: [
-    //
-    // - Write to all logs with level `info` and below to `combined.log`
-    // - Write all logs error (and below) to `error.log`.
-    //
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' })
+    new transports.File({ filename: 'error.log', level: 'error' }),
+    new transports.File({ filename: 'combined.log' })
   ]
 })
 
 const routeErrorHandler = (error, req, res, next) => {
-  console.log('error handler')
-  logger.error({
-    level: 'error',
-    message: 'Info!!'
-  })
+  const { message } = error
 
-  logger.log({
-    level: 'info',
-    message: 'Info!'
-  })
+  logger.error({ message })
 
-  // infoLogger.error('error')
   res.status(500).send('Internal Failure')
 }
 
