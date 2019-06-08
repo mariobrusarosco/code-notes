@@ -23,12 +23,13 @@ class NewNote extends Component {
     body: null,
     mode: 'javascript',
     theme: 'darcula',
-    instance: null
+    editor: null,
+    CodeMirror: null
   }
 
   handleSaveNote = () => {
     console.log('saving')
-    console.log(this.state.instance)
+    console.log(this.state.editor.getValue())
   }
   // // Include CSS file
   // async addCSS(filename){
@@ -46,13 +47,15 @@ class NewNote extends Component {
   // }
 
   async componentDidMount() {
+    // Import CodeMirror Lib and its main StyleSheet and store it into the Component itself
     const { default: CodeMirror } = await import(
       /* webpackChunkName: "code-mirror" */ '../../../static/code-mirror/lib/codemirror'
     )
-
     const { default: CodeMirrorMainCSS } = await import(
-      /* webpackChunkName: "code-mirror" */ '../../../static/code-mirror/lib/codemirror.css'
+      /* webpackChunkName: "code-mirror-css" */ '../../../static/code-mirror/lib/codemirror.css'
     )
+
+    this.setState({ CodeMirror })
 
     // const { default: test } = await import(/* webpackChunkName: "code-mirror-load-mode" */ '../../../static/code-mirror/addon/mode/loadmode.js')
 
@@ -65,13 +68,13 @@ class NewNote extends Component {
     // console.log(CodeMirror.modes)
     // console.log(CodeMirror.resolveMode)
 
-    const editor = new CodeMirror(this.nodeElem.current, {
-      value: "const a = 'red';",
-      mode: this.state.mode,
-      theme: this.state.theme
-    })
+    // const editor = new CodeMirror(this.nodeElem.current, {
+    //   value: "const a = 'red';",
+    //   mode: this.state.mode,
+    //   theme: this.state.theme
+    // })
 
-    console.log(CodeMirror)
+    // console.log(CodeMirror)
 
     // this.props.setEditorConstructorAsLoaded()
 
@@ -87,15 +90,41 @@ class NewNote extends Component {
   }
 
   createEditor = async () => {
-    const mode = this.state.mode
+    const { CodeMirror, mode, theme } = this.state
+
+    const editor = new CodeMirror(this.nodeElem.current, {
+      value: `const a = 'red'; .test { color: red;}`,
+      mode,
+      theme
+    })
+
+    this.setState({ editor })
+
+    // debugger
+    // const mode = this.state.mode
 
     const res = await codeNotesAPI.get(`/modes/${mode}`)
     console.log(res)
-    debugger
+    console.log(this.state)
   }
 
-  selectMode(event) {
-    this.setState({ mode: event.target.value })
+  async selectMode(event) {
+    const { CodeMirror, editor } = this.state
+
+    const mode = event.target.value
+
+    const res = await codeNotesAPI.get(`/modes/${mode}`)
+    console.log(res.data)
+    eval(res.data)
+
+    editor.setOption('mode', mode)
+
+    this.setState({ mode })
+
+    console.log(this.state)
+    // console.log(CodeMirror.modes)
+
+    // console.log(this.state)
   }
 
   render() {
