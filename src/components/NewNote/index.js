@@ -6,7 +6,6 @@ import codeNotesAPI from 'api/code-notes'
 
 // Actions
 import { setEditorConstructorAsLoaded } from 'actions'
-import { compose } from 'redux'
 
 // Components
 
@@ -31,20 +30,6 @@ class NewNote extends Component {
     console.log('saving')
     console.log(this.state.editor.getValue())
   }
-  // // Include CSS file
-  // async addCSS(filename){
-  //   const { default: css } = await import(`../../../static/code-mirror/theme/monokai.css`)
-
-  //   const head = document.getElementsByTagName('head')[0];
-
-  //   const style = document.createElement('style');
-  //   style.innerHTML = css;
-
-  //   console.log(style)
-  //   // style.type = 'text/css';
-  //   // style.rel = 'stylesheet';
-  //   // head.append(style);
-  // }
 
   async componentDidMount() {
     // Import CodeMirror Lib and its main StyleSheet and store it into the Component itself
@@ -61,32 +46,6 @@ class NewNote extends Component {
 
     const res = await codeNotesAPI.get(`/modes/javascript`)
     eval(res.data)
-
-    // console.dir(res.data)
-    // CodeMirror.defineMode('javascript', res.data)
-
-    // console.log(CodeMirror.modes)
-    // console.log(CodeMirror.resolveMode)
-
-    // const editor = new CodeMirror(this.nodeElem.current, {
-    //   value: "const a = 'red';",
-    //   mode: this.state.mode,
-    //   theme: this.state.theme
-    // })
-
-    // console.log(CodeMirror)
-
-    // this.props.setEditorConstructorAsLoaded()
-
-    // this.addCSS('material')
-
-    // this.setState({ instance: myCodeMirror })
-    // .then(res => {
-    //   // eval(res.data)
-    //   CodeMirror = res.default
-    //   console.log(CodeMirror)
-
-    // })
   }
 
   createEditor = async () => {
@@ -100,9 +59,6 @@ class NewNote extends Component {
 
     this.setState({ editor })
 
-    // debugger
-    // const mode = this.state.mode
-
     const res = await codeNotesAPI.get(`/modes/${mode}`)
     console.log(res)
     console.log(this.state)
@@ -114,7 +70,7 @@ class NewNote extends Component {
     const mode = event.target.value
 
     const res = await codeNotesAPI.get(`/modes/${mode}`)
-    console.log(res.data)
+    // console.log(res.data)
     eval(res.data)
 
     editor.setOption('mode', mode)
@@ -122,9 +78,6 @@ class NewNote extends Component {
     this.setState({ mode })
 
     console.log(this.state)
-    // console.log(CodeMirror.modes)
-
-    // console.log(this.state)
   }
 
   render() {
