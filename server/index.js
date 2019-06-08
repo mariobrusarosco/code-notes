@@ -52,7 +52,7 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', config.AccessControlAllowOrigin)
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin'
   )
   res.header('Access-Control-Allow-Credentials', 'true')
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS')
@@ -75,14 +75,14 @@ const auth = require('./routes/auth')
 const users = require('./routes/users')
 const me = require('./routes/me')
 const notes = require('./routes/notes')
-const languages = require('./routes/languages')
+const modes = require('./routes/modes')
 
 // app.use('/', home)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/users', users)
 app.use('/api/v1/me', me)
 app.use('/api/v1/notes', notes)
-app.use('/api/v1/languages', languages)
+app.use('/api/v1/modes', modes)
 
 app.use(routeErrorHandler)
 

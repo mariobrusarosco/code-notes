@@ -2,6 +2,7 @@
 // Remove console.log
 
 // Vendor
+import { hot } from 'react-hot-loader/root'
 import React, { Component } from 'react'
 import { Router } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -62,7 +63,9 @@ const mapStateToProps = ({ app }) => ({
   appIsLoaded: app?.appIsLoaded
 })
 
-export default connect(
+const connectedApp = connect(
   mapStateToProps,
   { logUser, setAppAsLoaded }
 )(App)
+
+export default hot(connectedApp)

@@ -25,6 +25,12 @@ const appReducer = handleActions(
           content
         }
       }
+    },
+    EDITOR_CONSTRUCTOR_LOADED: state => {
+      return { ...state, editorConstructorIsLoaded: true }
+    },
+    EDITOR_THEME_LOADED: state => {
+      return { ...state, editorThemeIsLoaded: true }
     }
   },
   initialState
