@@ -3,7 +3,9 @@ const Router = express.Router()
 
 // Models
 const Note = require('../../models/Note')
-const Language = require('../../models/Language')
+
+// Middlewares
+const authorization = require('../../middlewares/authorization')
 
 Router.get('/', async (req, res) => {
   try {
@@ -26,7 +28,7 @@ Router.get('/', async (req, res) => {
   }
 })
 
-Router.post('/', async (req, res) => {
+Router.post('/', authorization, async (req, res) => {
   const { description, language, body, user, related_notes } = req.body
 
   const newNote = await new Note({

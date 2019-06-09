@@ -4,7 +4,11 @@ import { connect } from 'react-redux'
 import codeNotesAPI from 'api/code-notes'
 
 // Actions
-import { updateCodeMirrorData, updateNoteDescription } from 'actions/Editor'
+import {
+  updateCodeMirrorData,
+  updateNoteDescription,
+  changeEditorMode
+} from 'actions/Editor'
 
 // Components
 
@@ -12,24 +16,31 @@ class Editor extends Component {
   constructor(props) {
     super(props)
 
-    this.selectMode = this.selectMode.bind(this)
+    this.handleChangeEditorMode = this.handleChangeEditorMode.bind(this)
     this.nodeElem = React.createRef()
   }
 
   state = {
-    // description: null,
-    // body: null,
-    // mode: 'javascript',
-    // theme: 'darcula',
-    // editor: null,
+    editor: null,
     CodeMirror: null
     // pristine: true
   }
 
-  handleSaveNote = () => {
-    const noteContent = this.state.editor.getValue()
+  handleSaveNote = async () => {
+    const { user, mode: language, description } = this.props
+    const content = this.state.editor.getValue()
 
-    console.log(noteContent)
+    console.log(user, language, description, content)
+
+    const res = await codeNotesAPI.post(`/notes`, {
+      user,
+      language,
+      description,
+      content,
+      relatedNotes: []
+    })
+
+    console.log(res)
   }
 
   async componentDidMount() {
@@ -40,17 +51,23 @@ class Editor extends Component {
     const { default: CodeMirrorMainCSS } = await import(
       /* webpackChunkName: "code-mirror-css" */ '../../../static/code-mirror/lib/codemirror.css'
     )
-
+    // Store Code Mirror Class into the Component Itself
     this.setState({ CodeMirror })
 
-    // this.props.updateCodeMirrorData({ CodeMirror })
-
-    const res = await codeNotesAPI.get(`/modes/javascript`)
-    eval(res.data)
+    try {
+      // Fetch a default Code Mirror Mode. 'Mode' is a syntax support for the editor
+      const res = await codeNotesAPI.get(`/modes/${this.props.mode}`)
+      // Load this 'mode' by evaluating the fetched code. The mode is gonna look for a Code Mirror constructor. If it finds a constructor, then it's gonna load itself.
+      eval(res.data)
+    } catch (e) {
+      // TODO use a modal in case of error
+      alert('Could fetch this mode')
+    }
   }
 
   createEditor = async () => {
-    const { CodeMirror, mode, theme } = this.state
+    const { CodeMirror } = this.state
+    const { mode, theme } = this.props
 
     const editor = new CodeMirror(this.nodeElem.current, {
       value: `const a = 'red'; .test { color: red;}`,
@@ -59,28 +76,29 @@ class Editor extends Component {
     })
 
     this.setState({ editor })
-
-    const res = await codeNotesAPI.get(`/modes/${mode}`)
-    console.log(res)
-    console.log(this.state)
   }
 
-  async selectMode(event) {
+  async handleChangeEditorMode(event) {
     const { CodeMirror, editor } = this.state
 
-    const mode = event.target.value
-
-    const res = await codeNotesAPI.get(`/modes/${mode}`)
-    // console.log(res.data)
-    eval(res.data)
-
-    if (editor) {
-      editor.setOption('mode', mode)
+    if (!editor) {
+      return null
     }
 
-    this.setState({ mode })
+    try {
+      // Fetch the new mode and evaluate it so CodeMirror instance can load into itself
+      const mode = event.target.value
+      const res = await codeNotesAPI.get(`/modes/${mode}`)
+      eval(res.data)
 
-    // console.log(this.state)
+      // Tell the editor which mode should it display
+      editor.setOption('mode', mode)
+      // Update this new mode on store
+      this.props.changeEditorMode(mode)
+    } catch (e) {
+      // TODO use a modal in case of error
+      alert('Could not fetch this mode', e)
+    }
   }
 
   render() {
@@ -93,16 +111,16 @@ class Editor extends Component {
           </button>
         ) : null}
 
-        {!this.props.pristine ? (
-          <button className="ui button" onClick={this.handleSaveNote}>
-            Save
-          </button>
-        ) : null}
+        {/* {!this.props.pristine ? ( */}
+        <button className="ui button" onClick={this.handleSaveNote}>
+          Save
+        </button>
+        {/* ) : null} */}
 
         <select
           name="mode-selector"
           id="mode-selector"
-          onChange={this.selectMode}
+          onChange={this.handleChangeEditorMode}
           value={this.state.mode}
         >
           <option value="javascript">javascript</option>
@@ -127,13 +145,17 @@ class Editor extends Component {
   }
 }
 
-const mapStateToProps = ({ editor }) => {
-  return { ...editor }
+const mapStateToProps = ({ editor, authentication }) => {
+  return {
+    ...editor,
+    user: authentication.userData.id // Refactor with ramda or Elvis Operator
+  }
 }
 
 const mapDispatchToProps = {
   updateCodeMirrorData,
-  updateNoteDescription
+  updateNoteDescription,
+  changeEditorMode
 }
 
 export default connect(

@@ -6,6 +6,13 @@ export const updateNoteDescription = description => {
   }
 }
 
+export const changeEditorMode = mode => {
+  return {
+    type: 'CHANGE_EDITOR_MODE',
+    mode
+  }
+}
+
 export const updateCodeMirrorData = ({ CodeMirror }) => {
   return {
     type: 'UPDATE_CODE_MIRROR_DATA',

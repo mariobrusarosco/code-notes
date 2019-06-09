@@ -21,6 +21,11 @@ const EditorReducer = (state = initialState, action) => {
 
       return { ...state, description }
 
+    case 'CHANGE_EDITOR_MODE':
+      const { mode } = action
+
+      return { ...state, mode }
+
     default:
       return state
   }

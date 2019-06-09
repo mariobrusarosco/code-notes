@@ -31,23 +31,8 @@ Router.get('/', authorization, async (req, res) => {
 })
 
 Router.patch('/:id', authorization, async (req, res) => {
-  console.log('patch')
-  // const body = R.path('body', req)
-  // const id = R.path('params', 'id', req)
-
   const body = req.body
   const id = req.params.id
-
-  // Validation Process
-  // const { error } = validateExistingUser({
-  //   id,
-  //   ...body
-  // })
-
-  // if (error) {
-  //   return res.status(400).send(errorsMap[error.message] || error.message)
-  // }
-
   /*
    * Exisitng User Verification
    */
