@@ -94,7 +94,8 @@ class NewNote extends Component {
           <option value="css">css</option>
         </select>
 
-        <button onClick={this.createEditor}>Create</button>
+        {!this.state.editor ? <button onClick={this.createEditor}>Create</button> : null}
+
         <div className="new-note__editor" ref={this.nodeElem} />
         <button onClick={this.handleSaveNote}>Save</button>
       </div>

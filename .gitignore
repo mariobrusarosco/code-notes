@@ -1,6 +1,11 @@
+# Folders
 node_modules
 dist
 build
+
+# Files
+.error.log
+.combined.log
 
 .env
 npm-debug.log

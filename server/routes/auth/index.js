@@ -7,9 +7,6 @@ const bycrpt = require('bcrypt')
 // Project's Config
 const { errorsMap, USER_COOKIE_NAME, AUTHORIZATION_COOKIE_NAME } = require('../../config')
 
-// MIddlewares
-const { routeMiddleware } = require('../../middlewares/routes')
-
 // Utils
 const { userPublicData } = require('../../utils/User')
 const { email, password } = require('../../utils/validations')

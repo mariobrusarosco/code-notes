@@ -10,8 +10,8 @@ const app = express()
 const config = require('../config')()
 
 // -------------- ERRORS HANDLING PROCESS --------------------- //
-// Custom Router Handler
-const { routeErrorHandler } = require('./middlewares/routes')
+// require('./utils/uncaughtExceptions')
+
 // Logging Async Errors
 require('express-async-errors')
 
@@ -84,7 +84,10 @@ app.use('/api/v1/me', me)
 app.use('/api/v1/notes', notes)
 app.use('/api/v1/modes', modes)
 
-app.use(routeErrorHandler)
+// Handling errors related to Express, like errors happened in An Express Route
+const { expressErrorHandler } = require('./middlewares/express')
+
+app.use(expressErrorHandler)
 
 // if (process.env.NODE_ENV !== 'local') {
 // Serving assets like main.css or main.js
