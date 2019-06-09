@@ -27,8 +27,9 @@ class NewNote extends Component {
   }
 
   handleSaveNote = () => {
-    console.log('saving')
-    console.log(this.state.editor.getValue())
+    const noteContent = this.state.editor.getValue()
+
+    console.log(noteContent)
   }
 
   async componentDidMount() {
@@ -73,7 +74,9 @@ class NewNote extends Component {
     // console.log(res.data)
     eval(res.data)
 
-    editor.setOption('mode', mode)
+    if (editor) {
+      editor.setOption('mode', mode)
+    }
 
     this.setState({ mode })
 
@@ -96,6 +99,17 @@ class NewNote extends Component {
 
         {!this.state.editor ? <button onClick={this.createEditor}>Create</button> : null}
 
+        <label htmlFor="note-description">
+          <span>Description</span>
+          <input
+            id="note-description"
+            type="text"
+            value={this.props.description}
+            readOnly={false}
+            // onChange={(e) => console.log(e.target.value)}
+          />
+        </label>
+
         <div className="new-note__editor" ref={this.nodeElem} />
         <button onClick={this.handleSaveNote}>Save</button>
       </div>
@@ -103,7 +117,13 @@ class NewNote extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    description: state?.editor?.description
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { setEditorConstructorAsLoaded }
 )(NewNote)
