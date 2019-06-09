@@ -1,15 +1,14 @@
-import axios from 'axios'
 import { connect } from 'react-redux'
 
 // Api Util
 import codeNotesAPI from 'api/code-notes'
 
 // Actions
-import { setEditorConstructorAsLoaded } from 'actions'
+import { updateCodeMirrorData, updateNoteDescription } from 'actions/Editor'
 
 // Components
 
-class NewNote extends Component {
+class Editor extends Component {
   constructor(props) {
     super(props)
 
@@ -18,12 +17,13 @@ class NewNote extends Component {
   }
 
   state = {
-    description: null,
-    body: null,
-    mode: 'javascript',
-    theme: 'darcula',
-    editor: null,
+    // description: null,
+    // body: null,
+    // mode: 'javascript',
+    // theme: 'darcula',
+    // editor: null,
     CodeMirror: null
+    // pristine: true
   }
 
   handleSaveNote = () => {
@@ -43,7 +43,7 @@ class NewNote extends Component {
 
     this.setState({ CodeMirror })
 
-    // const { default: test } = await import(/* webpackChunkName: "code-mirror-load-mode" */ '../../../static/code-mirror/addon/mode/loadmode.js')
+    // this.props.updateCodeMirrorData({ CodeMirror })
 
     const res = await codeNotesAPI.get(`/modes/javascript`)
     eval(res.data)
@@ -80,13 +80,25 @@ class NewNote extends Component {
 
     this.setState({ mode })
 
-    console.log(this.state)
+    // console.log(this.state)
   }
 
   render() {
-    console.log('render -> ', this.state)
+    // console.log('render -> ', this.state)
     return (
-      <div className="new-note">
+      <div className="editor ui form">
+        {this.props.inEditMode ? (
+          <button className="ui button" onClick={this.handleEditMode}>
+            Edit
+          </button>
+        ) : null}
+
+        {!this.props.pristine ? (
+          <button className="ui button" onClick={this.handleSaveNote}>
+            Save
+          </button>
+        ) : null}
+
         <select
           name="mode-selector"
           id="mode-selector"
@@ -105,25 +117,26 @@ class NewNote extends Component {
             id="note-description"
             type="text"
             value={this.props.description}
-            readOnly={false}
-            // onChange={(e) => console.log(e.target.value)}
+            onChange={e => this.props.updateNoteDescription(e.target.value)}
           />
         </label>
 
         <div className="new-note__editor" ref={this.nodeElem} />
-        <button onClick={this.handleSaveNote}>Save</button>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    description: state?.editor?.description
-  }
+const mapStateToProps = ({ editor }) => {
+  return { ...editor }
+}
+
+const mapDispatchToProps = {
+  updateCodeMirrorData,
+  updateNoteDescription
 }
 
 export default connect(
   mapStateToProps,
-  { setEditorConstructorAsLoaded }
-)(NewNote)
+  mapDispatchToProps
+)(Editor)

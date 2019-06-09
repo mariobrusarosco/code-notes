@@ -29,7 +29,7 @@ export default WrappedComponent => {
     }
 
     render() {
-      console.log('render: ', this.authenticateUser())
+      // console.log('render: ', this.authenticateUser())
       return this.authenticateUser() ? <WrappedComponent {...this.props} /> : null
     }
   }

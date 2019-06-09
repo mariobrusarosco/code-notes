@@ -1,14 +1,12 @@
 // Components
-import NewNote from 'components/NewNote'
+import Editor from 'components/Editor'
 
 const New = () => {
-
   return (
     <div className="page">
-      <NewNote />
+      <Editor />
     </div>
   )
-
 }
 
 export default New
