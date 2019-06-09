@@ -7,9 +7,6 @@ const bycrpt = require('bcrypt')
 // Project's Config
 const { errorsMap, USER_COOKIE_NAME, AUTHORIZATION_COOKIE_NAME } = require('../../config')
 
-// MIddlewares
-const { routeMiddleware } = require('../../middlewares/routes')
-
 // Utils
 const { userPublicData } = require('../../utils/User')
 const { email, password } = require('../../utils/validations')
@@ -35,7 +32,6 @@ Router.post('/', async (req, res, next) => {
   }
 
   const { email, password } = req.body
-
   /*
    * Exisitng User Verification
    */
@@ -44,7 +40,6 @@ Router.post('/', async (req, res, next) => {
   if (!returningUser) {
     return res.status(400).send(errorsMap['A06'])
   }
-
   /*
    * Password Verification
    */

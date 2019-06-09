@@ -7,15 +7,15 @@ const assetsCompression = require('express-static-gzip')
 
 // App Setitngs
 const app = express()
-
 const config = require('../config')()
-// --------------  ERRORS LOGGER --------------------- //
+
+// -------------- ERRORS HANDLING PROCESS --------------------- //
+// require('./utils/uncaughtExceptions')
+
 // Logging Async Errors
-// require('express-async-errors')
-// Logging errors in the entire App
-// const winston = require('winston')
-// winston.add(new winston.transports.File({ filename: "logfile.log" }));
-// --------------  ERRORS LOGGER --------------------- //
+require('express-async-errors')
+
+// -------------- ERRORS HANDLING PROCESS --------------------- //
 
 // --------------  DB --------------------- //--
 const mongoose = require('mongoose')
@@ -38,6 +38,7 @@ app.use(express.json())
 const helmet = require('helmet')
 const morgan = require('morgan')
 
+// app.use(morgan('combined', { stream: logger.stream }))
 app.use(morgan('tiny'))
 app.use(helmet())
 app.use(cookieParser())
@@ -51,7 +52,7 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', config.AccessControlAllowOrigin)
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin'
   )
   res.header('Access-Control-Allow-Credentials', 'true')
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS')
@@ -74,18 +75,19 @@ const auth = require('./routes/auth')
 const users = require('./routes/users')
 const me = require('./routes/me')
 const notes = require('./routes/notes')
-const languages = require('./routes/languages')
+const modes = require('./routes/modes')
 
 // app.use('/', home)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/users', users)
 app.use('/api/v1/me', me)
 app.use('/api/v1/notes', notes)
-app.use('/api/v1/languages', languages)
+app.use('/api/v1/modes', modes)
 
-// Error Handlers for Routes
-// const { routeErrorHandler } = require('./middlewares/routes')
-// app.use(routeErrorHandler)
+// Handling errors related to Express, like errors happened in An Express Route
+const { expressErrorHandler } = require('./middlewares/express')
+
+app.use(expressErrorHandler)
 
 // if (process.env.NODE_ENV !== 'local') {
 // Serving assets like main.css or main.js

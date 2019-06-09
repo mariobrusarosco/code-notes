@@ -2,8 +2,6 @@
 if (module && module.hot) {
   module.hot.accept()
 }
-
-import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'

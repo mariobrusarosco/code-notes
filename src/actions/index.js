@@ -18,6 +18,14 @@ export const toggleModal = payload => {
   }
 }
 
+export const setEditorConstructorAsLoaded = () => ({
+  type: 'EDITOR_CONSTRUCTOR_LOADED'
+})
+
+export const setEditorThemeConstructorAsLoaded = () => ({
+  type: 'EDITOR_THEME_LOADED'
+})
+
 export const fetchPostsAndUsers = () => async (dispatch, getState) => {
   await dispatch(fetchPosts())
 

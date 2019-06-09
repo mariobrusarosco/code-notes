@@ -6,8 +6,6 @@ const {
   API: { ROOT }
 } = process.env.APP
 
-console.log(process.env.APP)
-
 const codeNotesAPI = axios.create({
   baseURL: `${APP_URL}/${ROOT}`,
   withCredentials: true,
