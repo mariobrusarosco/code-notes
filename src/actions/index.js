@@ -1,3 +1,6 @@
+// Api Helpers
+import codeNotesAPI from 'api/code-notes'
+
 export const logUser = payload => {
   return {
     type: 'LOG_IN',
@@ -18,9 +21,18 @@ export const toggleModal = payload => {
   }
 }
 
-export const setEditorConstructorAsLoaded = () => ({
-  type: 'EDITOR_CONSTRUCTOR_LOADED'
-})
+export const fetchNotes = () => async dispatch => {
+  try {
+    const { data: allNotes } = await codeNotesAPI.get('/notes')
+
+    return dispatch({
+      type: 'FETCH_NOTES',
+      allNotes
+    })
+  } catch (e) {
+    console.error('error loading notes ----> ', e)
+  }
+}
 
 export const setEditorThemeConstructorAsLoaded = () => ({
   type: 'EDITOR_THEME_LOADED'

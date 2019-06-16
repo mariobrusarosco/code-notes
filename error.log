@@ -1,125 +1,20 @@
-{ message: 
-   { exception: Error: Testing !!
-    at Object.<anonymous> (/var/www/html/code-notes/server/index.js:15:7)
-    at Module._compile (module.js:649:14)
-    at Object.Module._extensions..js (module.js:663:10)
-    at Module.load (module.js:565:32)
-    at tryModuleLoad (module.js:505:12)
-    at Function.Module._load (module.js:497:3)
-    at Function.Module.runMain (module.js:693:10)
-    at startup (bootstrap_node.js:188:16)
-    at bootstrap_node.js:609:3 },
+{ message: 'jwt expired',
   level: 'error',
-  timestamp: '06-09-2019 12:06:43',
+  timestamp: '06-15-2019 19:34:53',
   [Symbol(level)]: 'error' }
-{ message: 
-   { exception: Error: Testing !!
-    at Object.<anonymous> (/var/www/html/code-notes/server/index.js:15:7)
-    at Module._compile (module.js:649:14)
-    at Object.Module._extensions..js (module.js:663:10)
-    at Module.load (module.js:565:32)
-    at tryModuleLoad (module.js:505:12)
-    at Function.Module._load (module.js:497:3)
-    at Function.Module.runMain (module.js:693:10)
-    at startup (bootstrap_node.js:188:16)
-    at bootstrap_node.js:609:3 },
+{ message: 'jwt expired',
   level: 'error',
-  timestamp: '06-09-2019 12:07:01',
+  timestamp: '06-15-2019 19:53:35',
   [Symbol(level)]: 'error' }
-{ message: 
-   { exception: Error: Testing !!
-    at Object.<anonymous> (/var/www/html/code-notes/server/index.js:15:7)
-    at Module._compile (module.js:649:14)
-    at Object.Module._extensions..js (module.js:663:10)
-    at Module.load (module.js:565:32)
-    at tryModuleLoad (module.js:505:12)
-    at Function.Module._load (module.js:497:3)
-    at Function.Module.runMain (module.js:693:10)
-    at startup (bootstrap_node.js:188:16)
-    at bootstrap_node.js:609:3 },
+{ message: 'jwt expired',
   level: 'error',
-  timestamp: '06-09-2019 12:07:22',
+  timestamp: '06-15-2019 21:39:11',
   [Symbol(level)]: 'error' }
-{ message: 
-   { exception: Error: Testing !!
-    at Object.<anonymous> (/var/www/html/code-notes/server/index.js:15:7)
-    at Module._compile (module.js:652:30)
-    at Object.Module._extensions..js (module.js:663:10)
-    at Module.load (module.js:565:32)
-    at tryModuleLoad (module.js:505:12)
-    at Function.Module._load (module.js:497:3)
-    at Function.Module.runMain (module.js:693:10)
-    at startup (bootstrap_node.js:188:16)
-    at bootstrap_node.js:609:3 },
+{ message: 'jwt expired',
   level: 'error',
-  timestamp: '06-09-2019 12:07:42',
+  timestamp: '06-15-2019 21:39:16',
   [Symbol(level)]: 'error' }
-{ message: 
-   { exception: Error: Testing !!
-    at Object.<anonymous> (/var/www/html/code-notes/server/index.js:15:7)
-    at Module._compile (module.js:649:14)
-    at Object.Module._extensions..js (module.js:663:10)
-    at Module.load (module.js:565:32)
-    at tryModuleLoad (module.js:505:12)
-    at Function.Module._load (module.js:497:3)
-    at Function.Module.runMain (module.js:693:10)
-    at startup (bootstrap_node.js:188:16)
-    at bootstrap_node.js:609:3 },
+{ message: 'jwt expired',
   level: 'error',
-  timestamp: '06-09-2019 12:08:05',
-  [Symbol(level)]: 'error' }
-{ message: 
-   { exception: Error: Testing !!
-    at Object.<anonymous> (/var/www/html/code-notes/server/index.js:15:7)
-    at Module._compile (module.js:649:14)
-    at Object.Module._extensions..js (module.js:663:10)
-    at Module.load (module.js:565:32)
-    at tryModuleLoad (module.js:505:12)
-    at Function.Module._load (module.js:497:3)
-    at Function.Module.runMain (module.js:693:10)
-    at startup (bootstrap_node.js:188:16)
-    at bootstrap_node.js:609:3 },
-  level: 'error',
-  timestamp: '06-09-2019 12:08:37',
-  [Symbol(level)]: 'error' }
-{ message: 
-   { exception: Error: Testing !!
-    at Object.<anonymous> (/var/www/html/code-notes/server/index.js:15:7)
-    at Module._compile (module.js:649:14)
-    at Object.Module._extensions..js (module.js:663:10)
-    at Module.load (module.js:565:32)
-    at tryModuleLoad (module.js:505:12)
-    at Function.Module._load (module.js:497:3)
-    at Function.Module.runMain (module.js:693:10)
-    at startup (bootstrap_node.js:188:16)
-    at bootstrap_node.js:609:3 },
-  level: 'error',
-  timestamp: '06-09-2019 12:15:47',
-  [Symbol(level)]: 'error' }
-{ message: 
-   { exception: Error: Testing !!
-    at Object.<anonymous> (/var/www/html/code-notes/server/index.js:15:7)
-    at Module._compile (module.js:649:14)
-    at Object.Module._extensions..js (module.js:663:10)
-    at Module.load (module.js:565:32)
-    at tryModuleLoad (module.js:505:12)
-    at Function.Module._load (module.js:497:3)
-    at Function.Module.runMain (module.js:693:10)
-    at startup (bootstrap_node.js:188:16)
-    at bootstrap_node.js:609:3 },
-  level: 'error',
-  timestamp: '06-09-2019 12:16:27',
-  [Symbol(level)]: 'error' }
-{ Error: Testing !!
-    at Object.<anonymous> (/var/www/html/code-notes/server/index.js:15:7)
-    at Module._compile (module.js:649:14)
-    at Object.Module._extensions..js (module.js:663:10)
-    at Module.load (module.js:565:32)
-    at tryModuleLoad (module.js:505:12)
-    at Function.Module._load (module.js:497:3)
-    at Function.Module.runMain (module.js:693:10)
-    at startup (bootstrap_node.js:188:16)
-    at bootstrap_node.js:609:3
-  level: 'error',
-  timestamp: '06-09-2019 12:17:03',
+  timestamp: '06-15-2019 21:39:52',
   [Symbol(level)]: 'error' }

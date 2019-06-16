@@ -5,7 +5,8 @@ const initialState = {
   globalModal: {
     active: false,
     content: ''
-  }
+  },
+  notes: []
 }
 
 const appReducer = handleActions(
@@ -26,11 +27,8 @@ const appReducer = handleActions(
         }
       }
     },
-    EDITOR_CONSTRUCTOR_LOADED: state => {
-      return { ...state, editorConstructorIsLoaded: true }
-    },
-    EDITOR_THEME_LOADED: state => {
-      return { ...state, editorThemeIsLoaded: true }
+    FETCH_NOTES: (state, { allNotes }) => {
+      return { ...state, notes: allNotes }
     }
   },
   initialState

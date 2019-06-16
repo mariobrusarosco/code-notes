@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
-// Api Util
+// Utils
+import history from 'utils/app-history'
 import codeNotesAPI from 'api/code-notes'
 
 // Actions
@@ -41,6 +42,7 @@ class Editor extends Component {
     })
 
     console.log(res)
+    history.push('/')
   }
 
   async componentDidMount() {

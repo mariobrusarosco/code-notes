@@ -1,30 +1,45 @@
 const express = require('express')
 const Router = express.Router()
+const jwt = require('jsonwebtoken')
+const logger = require('../../utils/logger')
+
+// Project's Config
+const { errorsMap, USER_COOKIE_NAME } = require('../../config')
 
 // Models
 const Note = require('../../models/Note')
 
-// Middlewares
+// MiddlewaresTokenExpiredError
 const authorization = require('../../middlewares/authorization')
 
 Router.get('/', async (req, res) => {
   try {
-    const userID = req.query.user
+    // Access denied if an invalid cookie was passed
+    const token = req.cookies[USER_COOKIE_NAME] || ''
+    // Decoding JWT stored in the 'USER_COOKIE_NAME'
+    const decodeToken = jwt.verify(token, process.env.USER_TOKEN_SECRET)
+    const { id } = decodeToken
 
-    if (!userID) {
-      return res.send(400, 'You must provide an user as a query parameter.')
+    if (!id) {
+      // Logging
+      logger.error(`user '${id}' not found on Database`)
+
+      return res.send(400, errorsMap['D02'])
     }
 
-    const allNotes = await Note.find({ user: userID })
-      .populate('user', 'name email-_id')
-      // .populate('language', 'name')
+    const allNotes = await Note.find({ user: id })
       .populate('related_notes', 'description')
-      .select('user description language related_notes')
+      .select('description language related_notes')
 
     res.send(allNotes)
-  } catch (e) {
-    console.log(e)
-    res.send(e)
+  } catch (err) {
+    // Logging
+    logger.error(err.message)
+
+    return res.send(403, {
+      name: 'InvalidToken',
+      message: errorsMap['B02']
+    })
   }
 })
 

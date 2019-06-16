@@ -11,7 +11,9 @@ const errorsMap = {
   A09: 'User not Found',
   A10: '',
   B01: 'No Provided Token',
-  D01: 'This email is already registered. Please try a diferent one'
+  B02: 'Invalid Token',
+  D01: 'This email is already registered. Please try a diferent one',
+  D02: 'Ops! We could not retrieve your notes'
 }
 
 module.exports = errorsMap
