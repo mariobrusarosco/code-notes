@@ -4,8 +4,6 @@ import cookie from 'js-cookie'
 
 // Components
 import LoginForm from 'components/Forms/LoginForm'
-import Modal from 'components/Modal'
-import DefaultError from 'components/Errors/Default'
 
 // Utils
 import codeNotesAPI from 'api/code-notes'
@@ -31,10 +29,10 @@ class Login extends Component {
     } catch (err) {
       const message = err && err.response && err.response.data
 
-      this.props.toggleModal({
-        content: <DefaultError markup={message} />
-      })
-      // alert(message)
+      // this.props.toggleModal({
+      //   content: <Toast markup={message} />
+      // })
+      alert(message)
     }
   }
 

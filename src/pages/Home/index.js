@@ -33,7 +33,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props.notes)
     return (
       <div className="home ui container">
         Code Notes

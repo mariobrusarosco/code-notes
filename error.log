@@ -18,3 +18,7 @@
   level: 'error',
   timestamp: '06-15-2019 21:39:52',
   [Symbol(level)]: 'error' }
+{ message: 'jwt expired',
+  level: 'error',
+  timestamp: '06-16-2019 10:40:29',
+  [Symbol(level)]: 'error' }
