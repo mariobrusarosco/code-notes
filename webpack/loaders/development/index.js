@@ -1,13 +1,16 @@
 const developmentLoaders = [
   {
     test: /\.s?css$/,
+    include: /src/,
+    exclude: /node_modules/,
     use: [
       'style-loader',
       {
         loader: 'css-loader',
         options: {
-          // modules: true,
-          // localIdentName: '[name]__[hash:base64:8]',
+          importLoaders: 1,
+          modules: true,
+          localIdentName: '[local]__[hash:base64:8]'
         }
       },
       {
@@ -15,12 +18,17 @@ const developmentLoaders = [
         options: {
           data: `
             @import 'variables';
-            @import 'reset';
           `,
           includePaths: ['./src/styles']
         }
       }
     ]
+  },
+  {
+    test: /\.css$/,
+    include: /static\/|node_modules/,
+    exclude: /src/,
+    use: ['style-loader', 'css-loader']
   }
 ]
 

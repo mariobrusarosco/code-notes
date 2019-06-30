@@ -1,5 +1,4 @@
 const path = require('path')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 // Loaders
 const commonLoaders = require('../loaders/common')
@@ -14,10 +13,12 @@ const commonConfig = require('./common.config')
 
 const productionConfig = env => ({
   mode: 'production',
-  devtool: 'eval-source-map',
+  // devtool: 'eval-source-map',
   output: {
-    filename: '[name].[contenthash].bundle.js',
-    chunkFilename: '[name].[contenthash].chunk.js',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].chunk.js',
+    // filename: '[name].[contenthash].bundle.js',
+    // chunkFilename: '[name].[contenthash].chunk.js',
     path: path.resolve(__dirname, '../../dist'),
     publicPath: '/'
   },

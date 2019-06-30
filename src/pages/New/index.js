@@ -1,9 +1,12 @@
 // Components
-import Editor from 'components/Editor'
+import Editor, { NewEditor } from 'components/Editor'
+
+import { page } from './styles.scss'
 
 const New = () => {
   return (
-    <div className="page">
+    <div className={`ui container ${page}`}>
+      <NewEditor />
       <Editor />
     </div>
   )

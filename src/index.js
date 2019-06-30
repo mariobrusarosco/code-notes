@@ -15,11 +15,22 @@ import reducers from './reducers'
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(reducers, composeEnhancers(applyMiddleware(reduxThunk)))
 
+// Global Styles
+import 'semantic-ui-css/semantic.min.css'
+import './styles/app.scss'
+
+// Components
 import App from './components/App'
+import Toast, { Toast2 } from 'components/Toast'
+import AppContextProvider from 'contexts/AppContext'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AppContextProvider>
+      <App />
+      {/* <Toast2 /> */}
+    </AppContextProvider>
+    {/* <Toast /> */}
   </Provider>,
   document.querySelector('#app')
 )
