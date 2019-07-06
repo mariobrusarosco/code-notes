@@ -1,47 +1,27 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 // Styles
-import styles from './styles.scss'
+import { toast } from './styles.scss'
 
 // Context
-import { AppContext2 } from 'contexts/AppContext'
+import { AppContext } from 'contexts/AppContext'
+
+// Actions
+import { resetGlobalError } from 'actions/App'
 
 const Toast = () => {
-  const [isVisible, hideToast] = useState(false)
+  const { App, dispatch } = useContext(AppContext)
+  const { appHasError, errorContent } = App
+
+  const hideToast = () => dispatch(resetGlobalError())
+
+  if (!appHasError) return null
 
   return (
-    <AppContext.Consumer>
-      {context => {
-        const { appHasError, errorContent } = context
-
-        if (!appHasError) return null
-
-        return (
-          <div className={styles.Toast}>
-            This is a message
-            <p>{errorContent}</p>
-            <button onClick={hideToast}>x</button>
-          </div>
-        )
-      }}
-    </AppContext.Consumer>
+    <div className={toast}>
+      <p>{errorContent}</p>
+      <button onClick={hideToast}>x</button>
+    </div>
   )
-}
-
-export class Toast2 extends Component {
-  static contextType = AppContext2
-
-  render() {
-    const { appHasError, errorContent } = this.context
-
-    if (!appHasError) return null
-
-    return (
-      <div className={styles.Toast}>
-        This is a message
-        <p>{errorContent}</p>
-      </div>
-    )
-  }
 }
 
 export default Toast

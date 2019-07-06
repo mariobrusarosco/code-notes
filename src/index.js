@@ -21,16 +21,15 @@ import './styles/app.scss'
 
 // Components
 import App from './components/App'
-import Toast, { Toast2 } from 'components/Toast'
+import Toast from 'components/Toast'
 import AppContextProvider from 'contexts/AppContext'
 
 ReactDOM.render(
   <Provider store={store}>
     <AppContextProvider>
       <App />
-      {/* <Toast2 /> */}
+      <Toast />
     </AppContextProvider>
-    {/* <Toast /> */}
   </Provider>,
   document.querySelector('#app')
 )
