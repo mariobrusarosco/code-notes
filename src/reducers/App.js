@@ -1,3 +1,9 @@
+export const AppInitialState = {
+  appIsLoaded: false,
+  appHasError: false,
+  errorContent: null
+}
+
 export const AppReducer = (state, { type, errorContent }) => {
   switch (type) {
     case 'SET_GLOBAL_ERROR':

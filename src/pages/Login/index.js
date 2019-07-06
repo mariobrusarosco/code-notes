@@ -16,11 +16,10 @@ import { setGlobalError } from 'actions/App'
 
 // Context
 import { AppContext } from 'contexts/AppContext'
+import { AuthenticationContext } from 'contexts/Authentication'
 
 const Login = ({ logUser }) => {
   const { dispatch } = useContext(AppContext)
-
-  console.log(withRouter)
 
   const onSubmitCallback = async ({ email, password }) => {
     try {
@@ -34,6 +33,7 @@ const Login = ({ logUser }) => {
 
       // Update store with user's info and go to Home
       logUser({ userAllowed, userData })
+
       withRouter.push('/')
     } catch (err) {
       // Network Failed Scenario ----> const message = path(['message'], err)

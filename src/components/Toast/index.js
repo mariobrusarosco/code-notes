@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
 // Styles
-import { toast } from './styles.scss'
+import { toast } from './styles.css'
 
 // Context
 import { AppContext } from 'contexts/AppContext'

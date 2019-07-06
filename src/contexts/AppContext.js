@@ -37,12 +37,10 @@ const initialState = {
   errorContent: null
 }
 
-const AppContextProvider = props => {
+const AppContextProvider = ({ children }) => {
   const [App, dispatch] = useReducer(AppReducer, initialState)
 
-  return (
-    <AppContext.Provider value={{ App, dispatch }}>{props.children}</AppContext.Provider>
-  )
+  return <AppContext.Provider value={{ App, dispatch }}>{children}</AppContext.Provider>
 }
 
 export default AppContextProvider
