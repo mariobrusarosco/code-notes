@@ -1,6 +1,8 @@
 // Vendors
-import { connect } from 'react-redux'
+import { useContext } from 'react'
 import cookie from 'js-cookie'
+import { withRouter } from 'react-router-dom'
+import { path, pathOr } from 'ramda'
 
 // Components
 import LoginForm from 'components/Forms/LoginForm'
@@ -10,10 +12,17 @@ import codeNotesAPI from 'api/code-notes'
 import { decodeToken } from 'utils/authentication'
 
 // Actions
-import { loadUserData, logUser, toggleModal } from 'actions'
+import { setGlobalError } from 'actions/App'
 
-class Login extends Component {
-  onSubmitCallback = async ({ email, password }) => {
+// Context
+import { AppContext } from 'contexts/AppContext'
+
+const Login = ({ logUser }) => {
+  const { dispatch } = useContext(AppContext)
+
+  console.log(withRouter)
+
+  const onSubmitCallback = async ({ email, password }) => {
     try {
       await codeNotesAPI.post('/auth', { email, password })
 
@@ -24,40 +33,27 @@ class Login extends Component {
       const { userAllowed, userData } = decodeToken(token)
 
       // Update store with user's info and go to Home
-      this.props.logUser({ userAllowed, userData })
-      this.props.history.push('/')
+      logUser({ userAllowed, userData })
+      withRouter.push('/')
     } catch (err) {
-      const message = err && err.response && err.response.data
+      // Network Failed Scenario ----> const message = path(['message'], err)
+      console.log('catched: ', err)
+      const message = pathOr(err.message, ['response', 'data'], err)
 
-      // this.props.toggleModal({
-      //   content: <Toast markup={message} />
-      // })
-      alert(message)
+      dispatch(setGlobalError(message))
     }
   }
 
-  render() {
-    return (
-      <>
-        <div className="login ui segment">
-          <LoginForm
-            history={this.props.history}
-            onSubmitCallback={this.onSubmitCallback}
-          />
-        </div>
-        {this.props.globalModal.active && <Modal history={this.props.history} />}
-      </>
-    )
-  }
+  return (
+    <>
+      <div className="login ui segment">
+        <LoginForm
+          // history={this.props.history}
+          onSubmitCallback={onSubmitCallback}
+        />
+      </div>
+    </>
+  )
 }
 
-const mapStateToProps = ({ app }) => {
-  return {
-    globalModal: app.globalModal
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  { loadUserData, logUser, toggleModal }
-)(Login)
+export default Login

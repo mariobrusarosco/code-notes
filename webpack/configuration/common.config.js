@@ -1,11 +1,11 @@
 const path = require('path')
 
-const commonConfig = () => ({
+const developmentConfig = () => ({
   entry: ['@babel/polyfill', './src/index.js'],
   resolve: {
-    alias: {
-      'react-dom': '@hot-loader/react-dom'
-    },
+    // alias: {
+    //   "imagesPath": path.resolve('src','assets','images')
+    // },
     modules: [
       path.resolve('node_modules'),
       path.resolve('src'),
@@ -14,4 +14,4 @@ const commonConfig = () => ({
   }
 })
 
-module.exports = commonConfig
+module.exports = developmentConfig

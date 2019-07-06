@@ -1,3 +1,6 @@
+// Vendors
+import { useState, useEffect, useReducer } from 'react'
+
 import { connect } from 'react-redux'
 
 // Utils
@@ -12,6 +15,77 @@ import {
 } from 'actions/Editor'
 
 // Components
+
+// Styles
+import { editor } from './styles.scss'
+
+export const NewEditor = () => {
+  // State
+  const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
+    editor: null,
+    CodeMirror: null,
+    mode: 'jasvascript',
+    description: ''
+  })
+
+  // Effects
+  useEffect(() => {
+    async function mountEditor() {
+      console.log('mountEditor')
+      try {
+        // Import CodeMirror Lib and its main StyleSheet and store it into the Component itself
+        const { default: CodeMirror } = await import(
+          /* webpackChunkName: "code-mirror" */ '../../../static/code-mirror/lib/codemirror'
+        )
+        const { default: CodeMirrorMainCSS } = await import(
+          /* webpackChunkName: "code-mirror-css" */ '../../../static/code-mirror/lib/codemirror.css'
+        )
+        // Store Code Mirror Class into the Component Itself
+        setState({ CodeMirror })
+        // Fetch a default Code Mirror Mode. 'Mode' is a syntax support for the editor
+        const res = await codeNotesAPI.get(`/modes/${state.mode}`)
+        // Load this 'mode' by evaluating the fetched code. The mode is gonna look for a Code Mirror constructor. If it finds a constructor, then it's gonna load itself.
+        eval(res.data)
+      } catch (e) {
+        // TODO use a modal in case of error
+        console.log(e)
+      }
+    }
+
+    mountEditor()
+  }, [])
+
+  const handleSubmit = e => {
+    e.preventDefault()
+
+    console.log(state)
+  }
+
+  return (
+    <section className={`${editor} ui form`}>
+      <h2 className="ui dividing header">
+        Create a new <strong>Note</strong>
+      </h2>
+
+      <div className="two fields">
+        <div className="field">
+          <label htmlFor="note-description">Note Description</label>
+          <textarea
+            id="note-description"
+            type="text"
+            value={state.description}
+            onChange={e => setState({ description: e.target.value })}
+          />
+        </div>
+        <div className="field"></div>
+      </div>
+
+      <button className="ui submit button" onClick={handleSubmit}>
+        save
+      </button>
+    </section>
+  )
+}
 
 class Editor extends Component {
   constructor(props) {

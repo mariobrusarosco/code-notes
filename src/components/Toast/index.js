@@ -1,18 +1,25 @@
+import { useState, useContext } from 'react'
 // Styles
-import styles from './styles.scss'
+import { toast } from './styles.scss'
 
 // Context
-import AppContext from 'contexts/AppContext'
+import { AppContext } from 'contexts/AppContext'
+
+// Actions
+import { resetGlobalError } from 'actions/App'
 
 const Toast = () => {
-  const { appHasError, errorContent } = React.useContext(AppContext)
+  const { App, dispatch } = useContext(AppContext)
+  const { appHasError, errorContent } = App
+
+  const hideToast = () => dispatch(resetGlobalError())
 
   if (!appHasError) return null
 
   return (
-    <div className={styles.Toast}>
-      This is a message
+    <div className={toast}>
       <p>{errorContent}</p>
+      <button onClick={hideToast}>x</button>
     </div>
   )
 }

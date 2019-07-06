@@ -2,7 +2,7 @@
 import { createPortal } from 'react-dom'
 
 // Styles
-import './style.css'
+import styles from './style.scss'
 
 const AppLoader = () => {
   return createPortal(
