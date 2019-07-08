@@ -10,3 +10,9 @@ export const resetGlobalError = () => {
     type: 'RESET_GLOBAL_ERROR'
   }
 }
+
+export const setAppAsLoaded = () => {
+  return {
+    type: 'APP_IS_LOADED'
+  }
+}

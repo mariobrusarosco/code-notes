@@ -27,10 +27,10 @@ class Config extends Component {
       // TODO -- DRY
       // Retrieving User's Cookie
       const token = cookie('P_U')
-      const { userAllowed, userData } = decodeToken(token)
+      const { userIsLogged, userData } = decodeToken(token)
 
-      if (userAllowed) {
-        this.props.logUser({ userAllowed, userData })
+      if (userIsLogged) {
+        this.props.logUser({ userIsLogged, userData })
       } else {
         console.log('no token')
       }

@@ -9,10 +9,10 @@ import { AppContext } from 'contexts/AppContext'
 import { resetGlobalError } from 'actions/App'
 
 const Toast = () => {
-  const { App, dispatch } = useContext(AppContext)
+  const { App, AppDispatch } = useContext(AppContext)
   const { appHasError, errorContent } = App
 
-  const hideToast = () => dispatch(resetGlobalError())
+  const hideToast = () => AppDispatch(resetGlobalError())
 
   if (!appHasError) {
     return null

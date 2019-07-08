@@ -1,46 +1,29 @@
-// TO DO
-// Remove 'redux' code
-
 // Vendor
-import { connect } from 'react-redux'
 import cookie from 'js-cookie'
-// Actions
-import { logUser } from 'actions'
+import { useEffect, useState } from 'react'
 
 // Utils
 import { decodeToken } from 'utils/authentication'
 
-export default WrappedComponent => {
-  class ProtectedRoute extends Component {
-    constructor(props) {
-      super(props)
-
-      if (!this.authenticateUser()) {
-        console.log('this route is proteced...gooing to /login')
-        this.props.history.push('/login')
-      }
-    }
-
-    authenticateUser = () => {
+const ProtectedRoute = WrappedComponent => {
+  return ({ history }) => {
+    const initializeState = () => {
       const token = cookie('P_U')
-      const { userAllowed } = decodeToken(token)
+      const { userIsLogged } = decodeToken(token)
 
-      return userAllowed
+      return userIsLogged
     }
 
-    render() {
-      // console.log('render: ', this.authenticateUser())
-      return this.authenticateUser() ? <WrappedComponent {...this.props} /> : null
-    }
+    const [userIsLogged, setuserIsLogged] = useState(initializeState)
+
+    useEffect(() => {
+      if (!userIsLogged) {
+        history.push('/login')
+      }
+    }, [])
+
+    return userIsLogged ? <WrappedComponent /> : null
   }
-
-  return ProtectedRoute
-  // const mapStateToProps = ({ authentication }) => ({
-  //   userAllowed: authentication && authentication.userAllowed
-  // })
-
-  // return connect(
-  //   null,
-  //   { logUser }
-  // )(ProtectedRoute)
 }
+
+export default ProtectedRoute

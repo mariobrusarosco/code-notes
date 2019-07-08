@@ -7,8 +7,8 @@ import codeNotesAPI from 'api/code-notes'
 // Components
 import SignUpForm from 'components/Forms/SignUpForm'
 
-const SignUp = ({ userAllowed, history }) => {
-  console.log(`userAllowed: ${userAllowed}`)
+const SignUp = ({ userIsLogged, history }) => {
+  console.log(`userIsLogged: ${userIsLogged}`)
 
   const onSubmitCallback = async ({ firstname, lastname, email, password }) => {
     await codeNotesAPI
@@ -26,7 +26,7 @@ const SignUp = ({ userAllowed, history }) => {
       })
   }
 
-  if (userAllowed) {
+  if (userIsLogged) {
     return null
   }
 
@@ -38,7 +38,7 @@ const SignUp = ({ userAllowed, history }) => {
 }
 
 const mapStateToProps = ({ authentication }) => ({
-  userAllowed: authentication && authentication.userAllowed
+  userIsLogged: authentication && authentication.userIsLogged
 })
 
 export default connect(mapStateToProps)(SignUp)

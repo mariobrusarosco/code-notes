@@ -6,14 +6,17 @@ import { createContext, useReducer } from 'react'
 export const AuthenticationContext = createContext()
 
 const initialState = {
-  userAllowed: false
+  userIsLogged: false
 }
 
 export const AuthContextProvider = ({ children }) => {
-  const [Authentication, dispatch] = useReducer(AuthenticationReducer, initialState)
+  const [Authentication, AuthenticationDispatch] = useReducer(
+    AuthenticationReducer,
+    initialState
+  )
 
   return (
-    <AuthenticationContext.Provider value={{ Authentication, dispatch }}>
+    <AuthenticationContext.Provider value={{ Authentication, AuthenticationDispatch }}>
       {children}
     </AuthenticationContext.Provider>
   )

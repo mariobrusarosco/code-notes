@@ -16,9 +16,11 @@ import { logUser } from 'actions/Authentication'
 
 // Context
 import { AuthenticationContext } from 'contexts/AuthenticationContext'
+import { AppContext } from 'contexts/AppContext'
 
 const Login = ({ history }) => {
-  const { dispatch } = useContext(AuthenticationContext)
+  const { AuthenticationDispatch } = useContext(AuthenticationContext)
+  const { AppDispatch } = useContext(AppContext)
 
   const onSubmitCallback = async ({ email, password }) => {
     try {
@@ -28,14 +30,14 @@ const Login = ({ history }) => {
       const token = cookie('P_U')
 
       // Decode User's token
-      const { userAllowed, userData } = decodeToken(token)
+      const { userIsLogged, userData } = decodeToken(token)
 
       // Update Authentication Context with user's info and go to Home
-      dispatch(logUser({ userAllowed, userData }))
+      AuthenticationDispatch(logUser({ userIsLogged, userData }))
 
       // dispatch({
       //   type: 'LOG_IN',
-      //   payload: { userAllowed, userData }
+      //   payload: { userIsLogged, userData }
       // })
 
       history.push('/')

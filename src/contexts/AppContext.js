@@ -33,6 +33,7 @@ export const AppContext = createContext()
 
 const initialState = {
   appHasError: false,
+  appIsLoaded: false,
   errorContent: null
 }
 

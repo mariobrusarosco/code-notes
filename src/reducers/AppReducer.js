@@ -18,6 +18,8 @@ export const AppReducer = (state, { type, errorContent }) => {
         appHasError: false,
         errorContent: null
       }
+    case 'APP_IS_LOADED':
+      return { ...state, appIsLoaded: true }
     default:
       return state
   }
