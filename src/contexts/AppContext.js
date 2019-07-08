@@ -25,22 +25,21 @@
 
 // export default AppContextProvider
 // Reducer
-import { AppReducer } from 'reducers/App'
+import { AppReducer } from 'reducers/AppReducer'
 
 import { createContext, useReducer } from 'react'
 
-export const AppContext = React.createContext()
+export const AppContext = createContext()
 
 const initialState = {
-  appIsLoaded: false,
   appHasError: false,
   errorContent: null
 }
 
-const AppContextProvider = ({ children }) => {
-  const [App, dispatch] = useReducer(AppReducer, initialState)
+export const AppContextProvider = ({ children }) => {
+  const [App, AppDispatch] = useReducer(AppReducer, initialState)
 
-  return <AppContext.Provider value={{ App, dispatch }}>{children}</AppContext.Provider>
+  return (
+    <AppContext.Provider value={{ App, AppDispatch }}>{children}</AppContext.Provider>
+  )
 }
-
-export default AppContextProvider

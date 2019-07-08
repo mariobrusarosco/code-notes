@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
 // Styles
-import { toast } from './styles.css'
+import { toast, content, closeBtn, wrapper } from './styles.css'
 
 // Context
 import { AppContext } from 'contexts/AppContext'
@@ -14,12 +14,18 @@ const Toast = () => {
 
   const hideToast = () => dispatch(resetGlobalError())
 
-  if (!appHasError) return null
+  if (!appHasError) {
+    return null
+  }
 
   return (
     <div className={toast}>
-      <p>{errorContent}</p>
-      <button onClick={hideToast}>x</button>
+      <div className={wrapper}>
+        <div className={content}>{errorContent}</div>
+        <button className={closeBtn} onClick={hideToast}>
+          x
+        </button>
+      </div>
     </div>
   )
 }

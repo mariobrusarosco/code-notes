@@ -1,8 +1,31 @@
 .toast {
+  --toast-bg: tomato;
+}
+
+.toast {
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
+  background: var(--toast-bg);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  composes: wrapper from 'styles/Wrapper/wrapper.css';
   padding: 20px 10px;
-  background: tomato;
+}
+
+.content {
+  padding-right: 20px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.closeBtn {
+  color: #fff;
+  font-size: 20px;
+  composes: button from 'styles/Button/button.css';
 }

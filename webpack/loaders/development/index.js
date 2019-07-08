@@ -1,6 +1,6 @@
 const developmentLoaders = [
   {
-    test: /\.s?css$/,
+    test: /\.css$/,
     include: /src/,
     exclude: /node_modules/,
     use: [
@@ -11,15 +11,6 @@ const developmentLoaders = [
           importLoaders: 1,
           modules: true,
           localIdentName: '[local]__[hash:base64:8]'
-        }
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          data: `
-            @import 'variables';
-          `,
-          includePaths: ['./src/styles']
         }
       }
     ]

@@ -1,7 +1,7 @@
 // Components
 import Editor, { NewEditor } from 'components/Editor'
 
-import { page } from './styles.scss'
+import { page } from './styles.css'
 
 const New = () => {
   return (
