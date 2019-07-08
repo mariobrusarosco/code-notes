@@ -35,11 +35,6 @@ const Login = ({ history }) => {
       // Update Authentication Context with user's info and go to Home
       AuthenticationDispatch(logUser({ userIsLogged, userData }))
 
-      // dispatch({
-      //   type: 'LOG_IN',
-      //   payload: { userIsLogged, userData }
-      // })
-
       history.push('/')
     } catch (err) {
       const message = pathOr(err.message, ['response', 'data'], err)

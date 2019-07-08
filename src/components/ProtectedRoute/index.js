@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { decodeToken } from 'utils/authentication'
 
 const ProtectedRoute = WrappedComponent => {
-  return ({ history }) => {
+  return props => {
     const initializeState = () => {
       const token = cookie('P_U')
       const { userIsLogged } = decodeToken(token)
@@ -18,11 +18,11 @@ const ProtectedRoute = WrappedComponent => {
 
     useEffect(() => {
       if (!userIsLogged) {
-        history.push('/login')
+        props.history.push('/login')
       }
     }, [])
 
-    return userIsLogged ? <WrappedComponent /> : null
+    return userIsLogged ? <WrappedComponent {...props} /> : null
   }
 }
 

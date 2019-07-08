@@ -9,7 +9,7 @@ const initialState = {
   userIsLogged: false
 }
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthenticationProvider = ({ children }) => {
   const [Authentication, AuthenticationDispatch] = useReducer(
     AuthenticationReducer,
     initialState

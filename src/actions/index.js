@@ -1,25 +1,18 @@
 // Api Helpers
 import codeNotesAPI from 'api/code-notes'
 
-export const logUser = payload => {
-  return {
-    type: 'LOG_IN',
-    payload
-  }
-}
+// export const logUser = payload => {
+//   return {
+//     type: 'LOG_IN',
+//     payload
+//   }
+// }
 
-export const setAppAsLoaded = () => {
-  return {
-    type: 'APP_LOADED'
-  }
-}
-
-export const toggleModal = payload => {
-  return {
-    type: 'TOGGLE_MODAL',
-    ...payload
-  }
-}
+// export const setAppAsLoaded = () => {
+//   return {
+//     type: 'APP_LOADED'
+//   }
+// }
 
 export const fetchNotes = () => async dispatch => {
   try {
