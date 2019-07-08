@@ -42,10 +42,8 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({ authentication, app }) => {
+const mapStateToProps = ({ app }) => {
   return {
-    // Refactor with ramda,
-    user: authentication.userData.id,
     notes: app.notes
   }
 }

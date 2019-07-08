@@ -15,7 +15,6 @@ const SignUpForm = ({
   handleSubmit: reduxSubmit,
   onSubmitCallback
 }) => {
-  // debugger
   return (
     <>
       {pristine || (submitting && <SpinnerLoader />)}

@@ -1,6 +1,3 @@
-// TO DO
-// Remove console.log
-
 // Vendor
 import { hot } from 'react-hot-loader/root'
 import React, { Component } from 'react'

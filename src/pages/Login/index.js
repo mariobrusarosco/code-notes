@@ -1,8 +1,7 @@
 // Vendors
 import { useContext } from 'react'
 import cookie from 'js-cookie'
-import { withRouter } from 'react-router-dom'
-import { path, pathOr } from 'ramda'
+import { pathOr } from 'ramda'
 
 // Components
 import LoginForm from 'components/Forms/LoginForm'
@@ -13,14 +12,13 @@ import { decodeToken } from 'utils/authentication'
 
 // Actions
 import { setGlobalError } from 'actions/App'
+import { logUser } from 'actions/Authentication'
 
 // Context
-import { AppContext } from 'contexts/AppContext'
+import { AuthenticationContext } from 'contexts/AuthenticationContext'
 
-const Login = ({ logUser }) => {
-  const { dispatch } = useContext(AppContext)
-
-  console.log(withRouter)
+const Login = ({ history }) => {
+  const { dispatch } = useContext(AuthenticationContext)
 
   const onSubmitCallback = async ({ email, password }) => {
     try {
@@ -32,21 +30,25 @@ const Login = ({ logUser }) => {
       // Decode User's token
       const { userAllowed, userData } = decodeToken(token)
 
-      // Update store with user's info and go to Home
-      logUser({ userAllowed, userData })
-      withRouter.push('/')
+      // Update Authentication Context with user's info and go to Home
+      dispatch(logUser({ userAllowed, userData }))
+
+      // dispatch({
+      //   type: 'LOG_IN',
+      //   payload: { userAllowed, userData }
+      // })
+
+      history.push('/')
     } catch (err) {
-      // Network Failed Scenario ----> const message = path(['message'], err)
-      console.log('catched: ', err)
       const message = pathOr(err.message, ['response', 'data'], err)
 
-      dispatch(setGlobalError(message))
+      AppDispatch(setGlobalError(message))
     }
   }
 
   return (
     <>
-      <div className="login ui segment">
+      <div className="login">
         <LoginForm
           // history={this.props.history}
           onSubmitCallback={onSubmitCallback}

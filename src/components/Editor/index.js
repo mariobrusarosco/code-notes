@@ -17,9 +17,21 @@ import {
 // Components
 
 // Styles
-import { editor } from './styles.scss'
+import { editor } from './styles.css'
 
 export const NewEditor = () => {
+  // Example of useRef
+  //   const editorRef = useRef()
+
+  //   const editor = new CodeMirror(editorRef.current, {
+  //     value: `const a = 'red'; .test { color: red;}`,
+  //     mode,
+  //     theme
+  //   })
+
+  //   <div className="new-note__editor" ref={this.nodeElem} />
+  // Example of useRef
+
   // State
   const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
     editor: null,
@@ -31,7 +43,6 @@ export const NewEditor = () => {
   // Effects
   useEffect(() => {
     async function mountEditor() {
-      console.log('mountEditor')
       try {
         // Import CodeMirror Lib and its main StyleSheet and store it into the Component itself
         const { default: CodeMirror } = await import(

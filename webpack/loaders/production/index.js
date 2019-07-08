@@ -2,7 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const productionLoaders = [
   {
-    test: /\.scss$/,
+    test: /\.css$/,
     include: /src/,
     exclude: /node_modules|src\/static/,
     use: [
@@ -12,15 +12,6 @@ const productionLoaders = [
         options: {
           modules: true,
           localIdentName: '[local]__[hash:base64:8]'
-        }
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          data: `
-            @import 'variables';
-          `,
-          includePaths: ['./src/styles']
         }
       }
     ]
