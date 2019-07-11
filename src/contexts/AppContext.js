@@ -34,8 +34,7 @@ export const AppContext = createContext()
 const initialState = {
   appHasError: false,
   appIsLoaded: false,
-  errorContent: null,
-  notes: []
+  errorContent: null
 }
 
 export const AppProvider = ({ children }) => {

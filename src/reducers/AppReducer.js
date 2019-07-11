@@ -7,6 +7,7 @@ export const AppInitialState = {
 export const AppReducer = (state, { type, errorContent }) => {
   switch (type) {
     case 'SET_GLOBAL_ERROR':
+      console.log(1)
       return {
         ...state,
         appHasError: true,

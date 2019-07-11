@@ -31,7 +31,6 @@ import { NotesProvider } from 'contexts/NotesContext'
 
 ReactDOM.render(
   <Provider store={store}>
-    {/* Context Controller goes here...very soon */}
     <AppProvider>
       <AuthenticationProvider>
         <NotesProvider>

@@ -26,11 +26,11 @@ import { AppContext } from 'contexts/AppContext'
 import { decodeToken } from 'utils/authentication'
 
 const App = () => {
-  const { Authentication, AuthenticationDispatch } = useContext(AuthenticationContext)
+  const { AuthenticationDispatch } = useContext(AuthenticationContext)
   const { App, AppDispatch } = useContext(AppContext)
 
   useEffect(() => {
-    console.log('....Starting the application...', Authentication, App)
+    console.log('....Starting the application...')
 
     // Retrieving User's Cookie
     const token = cookie('P_U')
