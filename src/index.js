@@ -25,17 +25,20 @@ import App from './components/App'
 import Toast from 'components/Toast'
 
 // Providers
-import { AppContextProvider } from 'contexts/AppContext'
-import { AuthContextProvider } from 'contexts/AuthenticationContext'
+import { AppProvider } from 'contexts/AppContext'
+import { AuthenticationProvider } from 'contexts/AuthenticationContext'
+import { NotesProvider } from 'contexts/NotesContext'
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppContextProvider>
-      <AuthContextProvider>
-        <App />
-        <Toast />
-      </AuthContextProvider>
-    </AppContextProvider>
+    <AppProvider>
+      <AuthenticationProvider>
+        <NotesProvider>
+          <App />
+          <Toast />
+        </NotesProvider>
+      </AuthenticationProvider>
+    </AppProvider>
   </Provider>,
   document.querySelector('#app')
 )

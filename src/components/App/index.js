@@ -1,8 +1,7 @@
 // Vendor
 import { hot } from 'react-hot-loader/root'
-import React, { Component } from 'react'
+import { useEffect, useContext } from 'react'
 import { Router } from 'react-router-dom'
-import { connect } from 'react-redux'
 import cookie from 'js-cookie'
 
 // Components
@@ -16,53 +15,48 @@ import AppRoutes from 'components/AppRoutes'
 import history from 'utils/app-history'
 
 // Actions
-import { logUser, setAppAsLoaded } from 'actions'
+import { setAppAsLoaded } from 'actions/App'
+import { logUser } from 'actions/Authentication'
+
+// Context
+import { AuthenticationContext } from 'contexts/AuthenticationContext'
+import { AppContext } from 'contexts/AppContext'
 
 // Utils
-import codeNotesAPI from 'api/code-notes'
 import { decodeToken } from 'utils/authentication'
 
-class App extends Component {
-  componentDidMount() {
+const App = () => {
+  const { AuthenticationDispatch } = useContext(AuthenticationContext)
+  const { App, AppDispatch } = useContext(AppContext)
+
+  useEffect(() => {
     console.log('....Starting the application...')
-    // TODO -- DRY
+
     // Retrieving User's Cookie
     const token = cookie('P_U')
-    const { userAllowed, userData } = decodeToken(token)
+    const { userIsLogged, userData } = decodeToken(token)
 
-    if (userAllowed) {
-      // console.log('dispatching')
-      this.props.logUser({ userAllowed, userData })
+    // If the cookie is valid...pass its content into the Auth Provider
+    if (userIsLogged) {
+      AuthenticationDispatch(logUser({ userIsLogged, userData }))
     } else {
       console.log('no token')
+      history.push('/login')
     }
 
-    setTimeout(this.props.setAppAsLoaded, 1500)
-  }
+    setTimeout(() => AppDispatch(setAppAsLoaded()), 1500)
+  }, [])
 
-  render() {
-    if (!this.props.appIsLoaded) {
-      return <AppLoader />
-    }
-
-    return (
-      <div className="main">
-        <Router history={history}>
-          <Header />
-          <AppRoutes />
-        </Router>
-      </div>
-    )
-  }
+  return !App.appIsLoaded ? (
+    <AppLoader />
+  ) : (
+    <div className="main">
+      <Router history={history}>
+        <Header />
+        <AppRoutes />
+      </Router>
+    </div>
+  )
 }
 
-const mapStateToProps = ({ app }) => ({
-  appIsLoaded: app?.appIsLoaded
-})
-
-const connectedApp = connect(
-  mapStateToProps,
-  { logUser, setAppAsLoaded }
-)(App)
-
-export default hot(connectedApp)
+export default hot(App)

@@ -1,54 +1,68 @@
-import { connect } from 'react-redux'
-
-// Utils
-import history from 'utils/app-history'
+// Vendors
+import { useEffect, useContext, useState } from 'react'
+import { pathOr } from 'ramda'
 
 // Actions
-import { fetchNotes } from 'actions'
+import { setGlobalError } from 'actions/App'
+import { logUser } from 'actions/Authentication'
 
-class Home extends Component {
-  renderNotes = () => {
-    const { notes } = this.props
+// Api Helpers
+import codeNotesAPI from 'api/code-notes'
 
-    if (!notes) return null
+// Contexts
+import { NotesContext } from 'contexts/NotesContext'
+import { AppContext } from 'contexts/AppContext'
+import { AuthenticationContext } from 'contexts/AuthenticationContext'
 
-    return (
-      <div className="ui list">
-        {notes.map(note => {
-          return (
-            <div className="item" key={note._id}>
-              <img className="ui avatar image" alt={note.language} />
-              <div className="content">
-                <div className="description">{note.description}</div>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-    )
+const Home = ({ history }) => {
+  // Contexts
+  const { notesDispatch, Notes } = useContext(NotesContext)
+  const { AppDispatch } = useContext(AppContext)
+  // const { AuthenticationDispatch } = useContext(AuthenticationContext)
+
+  // States
+  // const [fetchFailed, setFetchStatus] = useState(false)
+
+  async function fetchNotes() {
+    try {
+      const { data: allNotes } = await codeNotesAPI.get('/notes')
+
+      notesDispatch({ type: 'FETCH_NOTES', allNotes: [{ a: 1 }] })
+    } catch (err) {
+      const message = pathOr(err.message, ['response', 'data', 'message'], err)
+
+      AppDispatch({
+        type: 'SET_GLOBAL_ERROR',
+        errorContent: message
+      })
+    }
   }
 
-  async componentDidMount() {
-    this.props.fetchNotes()
-  }
+  useEffect(() => {
+    fetchNotes()
+  }, [AppDispatch])
 
-  render() {
-    return (
-      <div className="home ui container">
-        Code Notes
-        {this.renderNotes()}
-      </div>
-    )
-  }
+  console.log('render nome')
+
+  return (
+    <div className="home">
+      {/* <h2 onClick={test}>Your Notes</h2> */}
+      {Notes && (
+        <ul className="list">
+          {Notes.map(note => {
+            return (
+              <li className="item" key={note._id}>
+                <img className="ui avatar image" alt={note.language} />
+                <div className="content">
+                  <div className="description">{note.description}</div>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </div>
+  )
 }
 
-const mapStateToProps = ({ app }) => {
-  return {
-    notes: app.notes
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  { fetchNotes }
-)(Home)
+export default Home

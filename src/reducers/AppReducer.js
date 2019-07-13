@@ -7,6 +7,7 @@ export const AppInitialState = {
 export const AppReducer = (state, { type, errorContent }) => {
   switch (type) {
     case 'SET_GLOBAL_ERROR':
+      console.log(1)
       return {
         ...state,
         appHasError: true,
@@ -18,6 +19,8 @@ export const AppReducer = (state, { type, errorContent }) => {
         appHasError: false,
         errorContent: null
       }
+    case 'APP_IS_LOADED':
+      return { ...state, appIsLoaded: true }
     default:
       return state
   }

@@ -33,10 +33,11 @@ export const AppContext = createContext()
 
 const initialState = {
   appHasError: false,
+  appIsLoaded: false,
   errorContent: null
 }
 
-export const AppContextProvider = ({ children }) => {
+export const AppProvider = ({ children }) => {
   const [App, AppDispatch] = useReducer(AppReducer, initialState)
 
   return (

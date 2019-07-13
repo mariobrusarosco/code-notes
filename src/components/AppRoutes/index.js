@@ -13,11 +13,23 @@ import Login from 'pages/Login'
 const AppRoutes = () => {
   return (
     <>
-      <Route path="/" exact component={ProtectedRoute(Home)} />
-      <Route path="/new" component={ProtectedRoute(New)} />
+      <Route
+        path="/"
+        exact
+        render={routeProps => <ProtectedRoute Page={Home} {...routeProps} />}
+      />
+      <Route
+        path="/new"
+        exact
+        render={routeProps => <ProtectedRoute Page={New} {...routeProps} />}
+      />
       <Route path="/sign-up" component={SignUp} />
       <Route path="/login" component={Login} />
-      <Route path="/config" component={ProtectedRoute(Config)} />
+      <Route
+        path="/config"
+        exact
+        render={routeProps => <ProtectedRoute Page={Config} {...routeProps} />}
+      />
     </>
   )
 }

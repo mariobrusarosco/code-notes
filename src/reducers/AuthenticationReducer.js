@@ -5,11 +5,11 @@ export const AuthenticationReducer = (state, action) => {
 
   switch (actionType) {
     case 'LOG_IN':
-      const { userAllowed, userData } = path(['payload'], action)
+      const { userIsLogged, userData } = path(['payload'], action)
 
       return {
         ...state,
-        userAllowed,
+        userIsLogged,
         userData
       }
     default:
