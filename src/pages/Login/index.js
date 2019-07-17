@@ -3,6 +3,12 @@ import { useContext } from 'react'
 import cookie from 'js-cookie'
 import { pathOr } from 'ramda'
 
+// APP
+const {
+  APP_URL,
+  API: { ROOT }
+} = APP
+
 // Components
 import LoginForm from 'components/Forms/LoginForm'
 
@@ -43,6 +49,10 @@ const Login = ({ history }) => {
     }
   }
 
+  const onGoogle = () => {
+    window.location.href = `${APP_URL}/${ROOT}/auth/google`
+  }
+
   return (
     <>
       <div className="login">
@@ -50,6 +60,7 @@ const Login = ({ history }) => {
           // history={this.props.history}
           onSubmitCallback={onSubmitCallback}
         />
+        <a onClick={onGoogle}>google</a>
       </div>
     </>
   )

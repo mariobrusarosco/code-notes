@@ -27,36 +27,54 @@ export const NewEditor = () => {
   const noteDescriptionInput = useRef()
 
   // State
-  const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
-    editor: null,
-    CodeMirror: null,
-    mode: 'javascript',
-    theme: 'darcula'
-  })
+  // const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
+  //   editor: null,
+  //   CodeMirror: null,
+  //   mode: 'javascript',
+  //   theme: 'darcula'
+  // })
+  const [core, setCodeMirror] = useState()
+  const coreRef = useRef()
+  coreRef.current = core
 
-  const mountEditor = async () => {
+  const [mode, setMode] = useState('javascript')
+
+  const fetchCodeMirror = async () => {
+    console.log('fetching codeMirror')
     try {
       // Import CodeMirror Lib and its main StyleSheet and store it into the Component itself
-      const { default: CodeMirror } = await import(
+      const { default: CodeMirrorCore } = await import(
         /* webpackChunkName: "code-mirror" */ '../../../static/code-mirror/lib/codemirror'
       )
-      const { default: CodeMirrorMainCSS } = await import(
+      const CodeMirrorMainCSS = await import(
         /* webpackChunkName: "code-mirror-css" */ '../../../static/code-mirror/lib/codemirror.css'
       )
 
-      const { mode, theme } = state
+      setCodeMirror(CodeMirrorCore)
+    } catch (e) {
+      // TODO use a modal in case of error
+      console.error('error when fetching a mode')
+      console.error(e)
+    }
+  }
 
+  const mountEditor = async () => {
+    try {
+      const { mode, theme, CodeMirror } = state
+
+      debugger
+      // Create a new Instance of CodeMirror
       const editor = new CodeMirror(editorRef.current, {
         value: `const a = 'red'; .test { color: red;}`,
         mode,
         theme
       })
 
-      setState({ CodeMirror, editor })
+      setState({ editor })
     } catch (e) {
       // TODO use a modal in case of error
-      console.eror('error when fetching a mode')
-      console.eror(e)
+      console.error('error when mounting a editor')
+      console.error(e)
     }
   }
 
@@ -64,19 +82,22 @@ export const NewEditor = () => {
     console.log('inside changeMode')
     const selectedMode = event.target.value
 
-    setState({ mode: selectedMode })
+    setMode(selectedMode)
   }
 
-  const fetchMode = async mode => {
+  const fetchMode = async () => {
+    console.log('inside fetchMode', core, coreRef)
     try {
-      // Fetch a default Code Mirror Mode. 'Mode' is a syntax support for the editor
+      const { current: CodeMirror } = coreRef
+      // Fetch a Code Mirror Mode. 'Mode' is a syntax support for the editor
       const res = await codeNotesAPI.get(`/modes/${mode}`)
       // Load this 'mode' by evaluating the fetched code. The mode is gonna look for a Code Mirror constructor. If it finds a constructor, then it's gonna load itself.
+      debugger
       eval(res.data)
     } catch (e) {
       // TODO use a modal in case of error
-      console.eror('error when fetching a mode')
-      console.eror(e)
+      console.error('error when fetching a mode')
+      console.error(e)
     }
   }
 
@@ -113,12 +134,21 @@ export const NewEditor = () => {
     console.log(state, description)
   }
 
+  const intialize = async () => {
+    console.log('before calling fetchMode: ', core)
+    // Fetch the CodeMirror Lib via Codesplitting
+    // await fetchCodeMirror()
+    // await fetchMode()
+  }
+
   // Effects
   useEffect(() => {
     // mountEditor()
+    // fetchCodeMirror()
+    // intialize()
   }, [])
 
-  console.log('render')
+  console.log('render', { core, mode })
 
   return (
     <section className={editor}>
@@ -126,31 +156,27 @@ export const NewEditor = () => {
         Create a new <strong>Note</strong>
       </h2>
 
-      <p>Current mode: {state.mode}</p>
-      <select
-        name="mode-selector"
-        id="mode-selector"
-        onChange={changeMode}
-        value={state.mode}
-      >
+      <p>Current mode: {mode}</p>
+      <select name="mode-selector" id="mode-selector" onChange={changeMode} value={mode}>
         <option value="javascript">javascript</option>
         <option value="css">css</option>
       </select>
 
-      {!state.editor ? <button onClick={mountEditor}>Create</button> : null}
+      <button onClick={intialize}>Create</button>
+      {/* {!state.editor ? <button onClick={intialize}>Create</button> : null} */}
 
-      {state.editor ? (
+      {/* {state.editor ? (
         <div className="field">
           <label htmlFor="note-description">Note Description</label>
           <textarea id="note-description" type="text" ref={noteDescriptionInput} />
         </div>
-      ) : null}
+      ) : null} */}
 
-      <div className="new-note__editor" ref={editorRef} />
+      {/* <div className="new-note__editor" ref={editorRef} /> */}
 
-      <button className="button" onClick={handleSubmit}>
-        save
-      </button>
+      {/* <button className="button" onClick={handleSubmit}>
+          save
+        </button> */}
     </section>
   )
 }

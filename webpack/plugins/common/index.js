@@ -20,8 +20,8 @@ const commonPlugins = env => [
     React: 'react',
     Component: ['react', 'Component'] // Just an example of providing only some parts of a Library/Module
   }),
-  new webpack.EnvironmentPlugin({
-    APP: config()
+  new webpack.DefinePlugin({
+    APP: JSON.stringify(config())
   }),
   new WebpackPwaManifest({
     name: 'React Boilerplate',

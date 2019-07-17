@@ -4,11 +4,12 @@ import axios from 'axios'
 const {
   APP_URL,
   API: { ROOT }
-} = process.env.APP
+} = APP
 
 const codeNotesAPI = axios.create({
   baseURL: `${APP_URL}/${ROOT}`,
   withCredentials: true,
+  crossDomain: true,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
