@@ -33,23 +33,21 @@ const App = () => {
     console.log('....Starting the application...')
 
     // Retrieving User's Cookie
-    const token = cookie('P_U')
-    const { userIsLogged, userData } = decodeToken(token)
+    // const token = cookie('P_U')
+    // const { userIsLogged, userData } = decodeToken(token)
 
     // If the cookie is valid...pass its content into the Auth Provider
-    if (userIsLogged) {
-      AuthenticationDispatch(logUser({ userIsLogged, userData }))
-    } else {
-      console.log('no token')
-      history.push('/login')
-    }
+    // if (userIsLogged) {
+    //   AuthenticationDispatch(logUser({ userIsLogged, userData }))
+    // } else {
+    //   console.log('no token')
+    //   history.push('/login')
+    // }
 
-    setTimeout(() => AppDispatch(setAppAsLoaded()), 1500)
+    // setTimeout(() => AppDispatch(setAppAsLoaded()), 1500)
   }, [])
 
-  return !App.appIsLoaded ? (
-    <AppLoader />
-  ) : (
+  return (
     <div className="main">
       <Router history={history}>
         <Header />
@@ -57,6 +55,17 @@ const App = () => {
       </Router>
     </div>
   )
+
+  // return !App.appIsLoaded ? (
+  //   <AppLoader />
+  // ) : (
+  //   <div className="main">
+  //     <Router history={history}>
+  //       <Header />
+  //       <AppRoutes />
+  //     </Router>
+  //   </div>
+  // )
 }
 
 export default hot(App)

@@ -38,16 +38,16 @@ const Home = ({ history }) => {
     }
   }
 
-  useEffect(() => {
-    fetchNotes()
-  }, [AppDispatch])
+  // useEffect(() => {
+  //   fetchNotes()
+  // }, [AppDispatch])
 
-  console.log('render nome')
+  console.log('render Home')
 
   return (
     <div className="home">
       {/* <h2 onClick={test}>Your Notes</h2> */}
-      {Notes && (
+      {/* {Notes && (
         <ul className="list">
           {Notes.map(note => {
             return (
@@ -59,8 +59,8 @@ const Home = ({ history }) => {
               </li>
             )
           })}
-        </ul>
-      )}
+        </ul> */}
+      {/* )} */}
     </div>
   )
 }
