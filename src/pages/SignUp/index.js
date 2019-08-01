@@ -1,11 +1,9 @@
 // Vendor
 import { connect } from 'react-redux'
 
-// APP
-const {
-  APP_URL,
-  API: { ROOT }
-} = APP
+// Config
+const { API } = APP
+const { API_ROOT } = API
 
 // Utils
 import codeNotesAPI from 'api/code-notes'
@@ -36,7 +34,7 @@ const SignUp = () => {
   //   return null
   // }
   const handleGoogleOAuth = () => {
-    window.location.href = `${APP_URL}/${ROOT}/auth/google`
+    window.location.href = `${API_ROOT}/auth/google`
   }
 
   return (

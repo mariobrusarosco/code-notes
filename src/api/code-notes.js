@@ -1,13 +1,11 @@
 import axios from 'axios'
 
 // Config
-const {
-  APP_URL,
-  API: { ROOT }
-} = APP
+const { API } = APP
+const { API_ROOT } = API
 
 const codeNotesAPI = axios.create({
-  baseURL: `${APP_URL}/${ROOT}`,
+  baseURL: API_ROOT,
   withCredentials: true,
   crossDomain: true,
   headers: {

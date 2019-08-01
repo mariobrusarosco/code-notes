@@ -5,8 +5,7 @@ import { pathOr } from 'ramda'
 
 // APP
 const {
-  APP_URL,
-  API: { ROOT }
+  API: { API_ROOT }
 } = APP
 
 // Components
@@ -50,7 +49,7 @@ const Login = ({ history }) => {
   }
 
   const onGoogle = () => {
-    window.location.href = `${APP_URL}/${ROOT}/auth/google`
+    window.location.href = `${API_URL}/auth/google`
   }
 
   return (
