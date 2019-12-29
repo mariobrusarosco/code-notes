@@ -1,19 +1,9 @@
-// Impor .env
-
-const options = {
-  local: require('./local'),
-  development: require('./development'),
-  production: require('./production')
-}
+console.log(`-- [ ENVIRONMENT ] ->  ${process.env.NODE_ENV}`)
 
 const appConfig = () => {
-  console.log(
-    'process.env.NODE_ENV--------------------------------',
-    process.env.NODE_ENV
-  )
   return {
-    ...options[process.env.NODE_ENV],
-    ...require('./common')
+    ...require(`./${process.env.NODE_ENV}`),
+    ...require('./common') // Import everything that is common to all environments
   }
 }
 

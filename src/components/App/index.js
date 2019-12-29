@@ -1,18 +1,13 @@
 // Vendor
 import { hot } from 'react-hot-loader/root'
 import { useEffect, useContext } from 'react'
-import { Router } from 'react-router-dom'
 import cookie from 'js-cookie'
 
 // Components
 import AppLoader from 'components/Loaders/AppLoader'
-import Header from 'components/Header'
 
 // Aoo Routes
 import AppRoutes from 'components/AppRoutes'
-
-// App History
-import history from 'utils/app-history'
 
 // Actions
 import { setAppAsLoaded } from 'actions/App'
@@ -49,10 +44,7 @@ const App = () => {
 
   return (
     <div className="main">
-      <Router history={history}>
-        <Header />
-        <AppRoutes />
-      </Router>
+      <AppRoutes />
     </div>
   )
 

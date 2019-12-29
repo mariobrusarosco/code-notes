@@ -2,20 +2,23 @@
 import cookie from 'js-cookie'
 import { useEffect, useState } from 'react'
 
+// App History
+import history from 'utils/app-history'
+import ROUTES from 'routes'
 // Utils
 import { decodeToken } from 'utils/authentication'
 
-const ProtectedRoute = ({ Page, ...props }) => {
-  const token = cookie('P_U')
-  const { userIsLogged } = decodeToken(token)
+const ProtectedRoute = ({ children, ...props }) => {
+  console.log('[ -----   PROTECTED ROUTE --------]', children, props, ROUTES)
+  const userIsLogged = true
 
-  useEffect(() => {
-    if (!userIsLogged) {
-      props.history.push('/login')
-    }
-  }, [])
+  if (!userIsLogged) {
+    history.push(ROUTES.LOGIN)
 
-  return userIsLogged ? <Page {...props} /> : null
+    return null
+  }
+
+  return children
 }
 
 export default ProtectedRoute

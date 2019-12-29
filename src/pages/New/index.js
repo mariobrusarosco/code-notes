@@ -1,6 +1,6 @@
 // Components
 import { NewEditor } from 'components/Editor'
-import CodeEditor from 'components/CodeEditor'
+import CodeEditor from 'components/CodeEditor/index.tsx'
 
 import { page } from './styles.css'
 
