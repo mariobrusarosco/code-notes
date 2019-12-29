@@ -14,7 +14,11 @@ import { NotesContext } from 'contexts/NotesContext'
 import { AppContext } from 'contexts/AppContext'
 import { AuthenticationContext } from 'contexts/AuthenticationContext'
 
-const Home = ({ history }) => {
+// Components
+import Cards from 'components/Cards/index.tsx'
+
+const Home = props => {
+  console.log('home props', props)
   // Contexts
   const { notesDispatch, Notes } = useContext(NotesContext)
   const { AppDispatch } = useContext(AppContext)
@@ -42,25 +46,63 @@ const Home = ({ history }) => {
   //   fetchNotes()
   // }, [AppDispatch])
 
-  console.log('render Home')
+  const mock = [
+    {
+      id: 1,
+      language: 'css',
+      description: 'align some text',
+      content: 'div { text-align: center; }'
+    },
+    {
+      id: 2,
+      language: 'css',
+      description: 'align some text',
+      content: 'div { text-align: center; }'
+    },
+    {
+      id: 3,
+      language: 'css',
+      description: 'align some text',
+      content: 'div { text-align: center; }'
+    },
+    {
+      id: 4,
+      language: 'css',
+      description: 'align some text',
+      content: 'div { text-align: center; }'
+    },
+    {
+      id: 1,
+      language: 'css',
+      description: 'align some text',
+      content: 'div { text-align: center; }'
+    },
+    {
+      id: 2,
+      language: 'css',
+      description: 'align some text',
+      content: 'div { text-align: center; }'
+    },
+    {
+      id: 3,
+      language: 'css',
+      description: 'align some text',
+      content: 'div { text-align: center; }'
+    },
+    {
+      id: 4,
+      language: 'css',
+      description: 'align some text',
+      content: 'div { text-align: center; }'
+    }
+  ]
+
+  console.log('render Home', mock)
 
   return (
     <div className="home">
       {/* <h2 onClick={test}>Your Notes</h2> */}
-      {/* {Notes && (
-        <ul className="list">
-          {Notes.map(note => {
-            return (
-              <li className="item" key={note._id}>
-                <img className="ui avatar image" alt={note.language} />
-                <div className="content">
-                  <div className="description">{note.description}</div>
-                </div>
-              </li>
-            )
-          })}
-        </ul> */}
-      {/* )} */}
+      {mock && <Cards data={mock} />}
     </div>
   )
 }

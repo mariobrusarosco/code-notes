@@ -1,4 +1,16 @@
+// Project's configuration
+const config = require('./config')
+
 module.exports = {
-  testMatch: ['**/__tests__/**/*.js'],
-  testPathIgnorePatterns: ['\\\\node_modules\\\\']
+  setupFiles: ['<rootDir>/jest.setup.js'],
+  testPathIgnorePatterns: ['\\\\node_modules\\\\'],
+  testMatch: ['<rootDir>/src/**/*.test.*'],
+  roots: ['<rootDir>', '<rootDir>/src'],
+  modulePaths: ['<rootDir>', '<rootDir>/src'],
+  moduleNameMapper: {
+    '\\.(css|scss|sass)$': 'identity-obj-proxy'
+  },
+  globals: {
+    APP: config()
+  }
 }
