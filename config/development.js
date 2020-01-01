@@ -1,8 +1,7 @@
 const devConfiguration = {
-  APP_ROOT: 'https://dev-code-notes.herokuapp.com',
-  AccessControlAllowOrigin: 'dev-code-notes.herokuapp.com',
   API: {
-    API_ROOT: 'https://dev-api-code-notes.herokuapp.com/api/v1'
+    // In case we have a different endpoint for development purposes
+    API_ROOT: 'http://dev-grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/'
   }
 }
 

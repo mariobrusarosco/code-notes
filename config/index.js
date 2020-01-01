@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 console.log(`-- [ ENVIRONMENT ] ->  ${process.env.NODE_ENV}`)
 
 const appConfig = () => {

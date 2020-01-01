@@ -4,7 +4,7 @@ jobs:
     docker:
       # - image: circleci/node:10
       - image: cypress/base:8
-    working_directory: ~/app
+    working_directory: ~/zap
     steps:
       - checkout
       - restore_cache: # special step to restore the dependency cache
@@ -14,7 +14,7 @@ jobs:
           name: Installation
           command: yarn
       - run:
-          name: Running Unit tests
+          name: Running Unit Tests
           command: yarn unit-test
       - run:
           name: Running E2E tests
@@ -27,7 +27,7 @@ jobs:
       - checkout
       - run:
           name: Pushing to Heroku
-          command: git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_PROD_CODE_NOTES.git
+          command: git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_PROD_ZAP.git
 
   deploy-dev:
     docker:
@@ -36,7 +36,7 @@ jobs:
       - checkout
       - run:
           name: Deploy 'development' to Heroku
-          command: git push  https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEV_CODE_NOTES.git
+          command: git push  https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEV_ZAP.git
 
 workflows:
   version: 2
@@ -47,24 +47,22 @@ workflows:
           filters:
             branches:
               only:
-                - development
                 - master
+                - /feat\/.*/
             tags:
               only: /^v.*/
-
-      - deploy-dev:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - development
-
-      - deploy-prod:
-          requires:
-            - build
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
+      # - deploy-dev:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - development
+      # - deploy-prod:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         ignore: /.*/
+      #       tags:
+      #         only: /^v.*/

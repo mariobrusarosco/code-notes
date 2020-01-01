@@ -1,0 +1,13 @@
+.businessType {
+  width: 100%;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  font-size: 18px;
+  color: $primary-color;
+  color: var(--primary-color);
+  text-align: center;
+
+  @include above(768px) {
+    font-size: 21px;
+  }
+}

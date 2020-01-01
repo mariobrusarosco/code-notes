@@ -1,7 +1,3 @@
-const developmentConfiguration = require('./development')
-
-const testConfiguration = {
-  ...developmentConfiguration
-}
+const testConfiguration = {}
 
 module.exports = testConfiguration

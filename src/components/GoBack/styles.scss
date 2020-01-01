@@ -1,0 +1,13 @@
+.btn {
+  composes: baseStyles rounded from 'styles/button.scss';
+  display: block;
+  width: 100px;
+  margin: 0 auto;
+  background-color: $primary-color;
+  background-color: var(--primary-color);
+  padding: 10px 0;
+  color: #fff;
+  font-weight: 900;
+  font-size: 14px;
+  text-transform: capitalize;
+}

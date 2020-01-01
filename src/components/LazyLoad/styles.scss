@@ -1,0 +1,19 @@
+.container {
+  max-width: $container;
+  max-width: var(--main-container);
+  margin: 0 auto;
+}
+
+.imageWrapper {
+  padding: 20px;
+  margin-bottom: 300px;
+  text-align: center;
+  min-height: 300px;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  min-height: 300px;
+  border: 1px solid tomato;
+}

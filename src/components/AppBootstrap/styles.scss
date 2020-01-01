@@ -1,0 +1,51 @@
+.appBootrap {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading {
+  font-size: 20px;
+  color: var(--seconary-color, $secondary-color);
+  padding-bottom: 20px;
+}
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+.emailInput {
+  display: block;
+  width: 100%;
+  padding: 15px 10px;
+  border-radius: 5px;
+  outline: none;
+  color: var(--seconary-color, $secondary-color);
+  border: 1px solid var(--seconary-color, $secondary-color);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.submitBtn {
+  composes: baseStyles rounded from 'styles/button.scss';
+  display: block;
+  width: 150px;
+  margin: 0 auto 15px;
+  background-color: $primary-color;
+  background-color: var(--primary-color);
+  padding: 15px 0;
+  color: #fff;
+  font-weight: 900;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.errors {
+  padding: 15px;
+  color: #f55252;
+}

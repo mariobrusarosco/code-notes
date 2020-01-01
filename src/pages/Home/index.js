@@ -1,110 +1,99 @@
 // Vendors
-import { useEffect, useContext, useState } from 'react'
-import { pathOr } from 'ramda'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { isEmpty } from 'ramda'
+// Styles
+import css from './styles.scss'
 
-// Actions
-import { setGlobalError } from 'actions/App'
-import { logUser } from 'actions/Authentication'
-
-// Api Helpers
-import codeNotesAPI from 'api/code-notes'
-
-// Contexts
-import { NotesContext } from 'contexts/NotesContext'
-import { AppContext } from 'contexts/AppContext'
-import { AuthenticationContext } from 'contexts/AuthenticationContext'
+// Assets
+import logoLosPollos from 'assets/images/logo-los-pollos.jpg'
+import logoCarWash from 'assets/images/logo-car-wash.png'
+import logoWalter from 'assets/images/logo-walter.jpeg'
+import logoJesse from 'assets/images/logo-jesse.jpeg'
+import logoMember from 'assets/images/logo-member.jpeg'
 
 // Components
-import Cards from 'components/Cards/index.tsx'
+import Image from 'components/Image'
 
-const Home = props => {
-  console.log('home props', props)
-  // Contexts
-  const { notesDispatch, Notes } = useContext(NotesContext)
-  const { AppDispatch } = useContext(AppContext)
-  // const { AuthenticationDispatch } = useContext(AuthenticationContext)
+// E2E Data
+const {
+  BUSINESS: { WALTER },
+  E2E: { HOME }
+} = APP
 
-  // States
-  // const [fetchFailed, setFetchStatus] = useState(false)
+const Home = () => {
+  // Store - Redux
+  const example = useSelector(({ example }) => example || {})
 
-  async function fetchNotes() {
-    try {
-      const { data: allNotes } = await codeNotesAPI.get('/notes')
+  // State
+  const [currentItem, setCurrentItem] = useState({})
+  // LifeCycle
+  useEffect(() => {
+    const ID = 0
+    const item = example['all'][ID]
 
-      notesDispatch({ type: 'FETCH_NOTES', allNotes: [{ a: 1 }] })
-    } catch (err) {
-      const message = pathOr(err.message, ['response', 'data', 'message'], err)
+    setCurrentItem(item)
+  }, [])
 
-      AppDispatch({
-        type: 'SET_GLOBAL_ERROR',
-        errorContent: message
-      })
-    }
+  if (isEmpty(currentItem)) {
+    return null
   }
 
-  // useEffect(() => {
-  //   fetchNotes()
-  // }, [AppDispatch])
-
-  const mock = [
-    {
-      id: 1,
-      language: 'css',
-      description: 'align some text',
-      content: 'div { text-align: center; }'
-    },
-    {
-      id: 2,
-      language: 'css',
-      description: 'align some text',
-      content: 'div { text-align: center; }'
-    },
-    {
-      id: 3,
-      language: 'css',
-      description: 'align some text',
-      content: 'div { text-align: center; }'
-    },
-    {
-      id: 4,
-      language: 'css',
-      description: 'align some text',
-      content: 'div { text-align: center; }'
-    },
-    {
-      id: 1,
-      language: 'css',
-      description: 'align some text',
-      content: 'div { text-align: center; }'
-    },
-    {
-      id: 2,
-      language: 'css',
-      description: 'align some text',
-      content: 'div { text-align: center; }'
-    },
-    {
-      id: 3,
-      language: 'css',
-      description: 'align some text',
-      content: 'div { text-align: center; }'
-    },
-    {
-      id: 4,
-      language: 'css',
-      description: 'align some text',
-      content: 'div { text-align: center; }'
-    }
-  ]
-
-  console.log('render Home', mock)
-
   return (
-    <div className="home">
-      {/* <h2 onClick={test}>Your Notes</h2> */}
-      {mock && <Cards data={mock} />}
-    </div>
+    <section className={css.home} data-id={HOME}>
+      <div className={css.wrapper}>
+        <div className={css.infoBox}>
+          <p>Welcome to Albuquerque</p>
+        </div>
+
+        <ul className={css.list}>
+          <li className={css.linkOne}>
+            <Link to="/los-pollos-hermanos">
+              <Image alt="Los Pollos Hermanos" src={logoLosPollos.src} />
+              {/* Los Pollos Hermanos */}
+            </Link>
+          </li>
+          <li className={css.linkTwo}>
+            <Link to="/car-wash">
+              <Image alt="Car Wash" src={logoCarWash.src} />
+              {/* Car Wash */}
+            </Link>
+          </li>
+          <li className={css.linkThree}>
+            <Link to={`/member/${WALTER}`}>
+              <Image alt="Walter White" src={logoWalter.src} />
+              {/* Walter White */}
+            </Link>
+          </li>
+          <li className={css.linkFour}>
+            <Link to={`/member/${'all'}`}>
+              <Image alt="Jesse" src={logoJesse.src} />
+              {/* Jesse Pinkman */}
+            </Link>
+          </li>
+          <li className={css.linkFive}>
+            <Link to={`/product/${currentItem.id}`}>
+              <Image alt="Logo Two" src={logoMember.src} />
+              {/* Specific Product */}
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </section>
   )
 }
 
-export default Home
+const Home2 = () => {
+  return (
+    <section className={css.home} data-id={HOME}>
+      <div className={css.wrapper}>
+        <div className={css.infoBox}>
+          <p>Select a Route</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default Home2

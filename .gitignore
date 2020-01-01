@@ -1,18 +1,13 @@
-# Folders
 node_modules
 dist
 build
 
-# Files
-error.log
-combined.log
-exceptions.log
-
 .env
-npm-debug.log
 yarn-error.log
-
+npm-debug.log
 .vscode
 
 cypress/screenshots
 cypress/videos
+
+.env

@@ -1,0 +1,11 @@
+.page {
+  padding: 20px 0;
+}
+.paginationArea {
+  margin: 0 auto;
+  composes: defaultPaginationArea from 'styles/pagination.scss';
+}
+
+.goBackBtn {
+  margin: 10px 0;
+}
