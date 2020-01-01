@@ -41,12 +41,13 @@ describe('<Counter />', () => {
     expect(counterState).toBe(1)
 
     // Or
-    const counterDisplay = wrapper.find('[data-test="counter-display"]')
-    expect(counterDisplay.text()).toContain('1')
+    const DisplayComponent = wrapper.find(Display)
+    const coutnerNode = DisplayComponent.dive().find('[data-test="counter-display"]')
+    expect(coutnerNode.text()).toContain('1')
 
     // Or
     // wrapper.setState({ counter: 10 })
-    // const counterDisplay = wrapper.find('[data-test="counter-display"]')
+    // const counterDisplay = DisplayComponent.dive().find('[data-test="counter-display"]')
     // expect(counterDisplay.text()).toContain("10")
   })
 
@@ -56,9 +57,10 @@ describe('<Counter />', () => {
 
     wrapper.setState({ counter: 2 })
     decrementButton.simulate('click')
-    const counterDisplay = wrapper.find('[data-test="counter-display"]')
+    const DisplayComponent = wrapper.find(Display)
+    const coutnerNode = DisplayComponent.dive().find('[data-test="counter-display"]')
 
-    expect(counterDisplay.text()).toContain('1')
+    expect(coutnerNode.text()).toContain('1')
   })
 
   it('must avoid to decrement the counter "lower" that "zero"', () => {
@@ -66,8 +68,19 @@ describe('<Counter />', () => {
     const decrementButton = wrapper.find('[data-test="counter-decrement-button"]')
 
     decrementButton.simulate('click')
-    const counterDisplay = wrapper.find('[data-test="counter-display"]')
+    const DisplayComponent = wrapper.find(Display)
+    const coutnerNode = DisplayComponent.dive().find('[data-test="counter-display"]')
 
-    expect(counterDisplay.text()).not.toContain('-1')
+    expect(coutnerNode.text()).not.toContain('-1')
+  })
+
+  describe('<Counter /> mount', () => {
+    it('contains the Display with a title', () => {
+      const mountedCounter = Enzyme.mount(<Counter />)
+      const displayTitleNode = mountedCounter.find('[data-test="display-title"]')
+      console.log(mountedCounter.debug())
+
+      expect(displayTitleNode.text().length).toBeTruthy()
+    })
   })
 })

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 // Utils
 import ROUTES from 'routes'
 
+import './styles.css'
+
 const HeaderApplication = () => {
   console.log('[ HeaderApplication ]')
 
@@ -17,6 +19,10 @@ const HeaderApplication = () => {
       <Link className="item" to={ROUTES.CONFIG}>
         config
       </Link>
+      <Link className="user-dropdown" to={ROUTES.CONFIG}>
+        MB
+      </Link>
+      {/* <button className="user-dropdown">MB</button> */}
     </header>
   )
 }

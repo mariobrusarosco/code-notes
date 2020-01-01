@@ -1,7 +1,24 @@
-export const Display = ({ counter }) => {
+import { useEffect, useRef } from 'react'
+
+export const Display = ({ counter, title }) => {
+  const componentIsMounted = useRef(false)
+
+  const doSomeStuff = () => console.log('Just doing some stuff')
+
+  useEffect(() => {
+    if (componentIsMounted.current) {
+      doSomeStuff()
+    } else {
+      componentIsMounted.current = true
+    }
+  }, [counter])
+
   return (
     <div data-test="counter-display" className="counter-display">
       {counter}
+      <span className="display-title" data-test="display-title">
+        {title}
+      </span>
     </div>
   )
 }
@@ -26,7 +43,7 @@ class Counter extends Component {
   render() {
     return (
       <div data-test="counter" className="counter">
-        <Display counter={this.state.counter} />
+        <Display counter={this.state.counter} title="Generic Counter" />
         <button
           data-test="counter-increment-button"
           onClick={() => this.setState({ counter: this.state.counter + 1 })}
