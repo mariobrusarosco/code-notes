@@ -1,7 +1,7 @@
 :global(.header) {
   border: 5px solid #bada55;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 100px) 100px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   grid-gap: 10px;
 }
 

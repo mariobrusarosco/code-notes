@@ -11547,14 +11547,7 @@ walker@^1.0.7, walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
-walter-white@../walter-white/:
-  version "1.2.1"
-  dependencies:
-    "@babel/preset-env" "^7.5.4"
-    chalk "^2.4.2"
-    ramda "^0.26.1"
-
-walter-white@^1.2.1:
+walter-white@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/walter-white/-/walter-white-1.2.1.tgz#fc576d7f9aa531d9445adecb430cd71719fc49ab"
   integrity sha512-bdftV/IgKpqetiVE7hYZg9zRGzO0ZEZQnyP1i6bTdr/Cgs+oWBVXpTlW+kJUdZ0m5jRNOkcp9HpxvkC9M01ZmA==

@@ -12,7 +12,7 @@ import New from 'pages/New'
 import Landing from 'pages/Landing'
 import SignUp from 'pages/SignUp'
 import Config from 'pages/Config'
-import Experimental from 'pages/Experimental'
+import Experimental from 'pages/Experimental/index.tsx'
 
 // Layouts
 import LandingRoute from 'components/LandingRoute'

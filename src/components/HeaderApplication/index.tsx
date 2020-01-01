@@ -5,24 +5,22 @@ import ROUTES from 'routes'
 
 import './styles.css'
 
-const HeaderApplication = () => {
-  console.log('[ HeaderApplication ]')
+const HeaderApplication: React.FunctionComponent = () => {
+  // TODO remove console.log
+  // console.log('[ HeaderApplication ]')
 
   return (
     <header className="header" data-test="header-application">
       <Link className="item" to={ROUTES.HOME}>
-        home
+        home asdasdasd asdasda asdasdas
       </Link>
       <Link className="item" to={ROUTES.NEW}>
-        new
+        new addasa sdasdasdasas das aadasdas
       </Link>
       <Link className="item" to={ROUTES.CONFIG}>
-        config
+        config adas  adas asdasdasdasdas
       </Link>
-      <Link className="user-dropdown" to={ROUTES.CONFIG}>
-        MB
-      </Link>
-      {/* <button className="user-dropdown">MB</button> */}
+      <button className="user-dropdown">MB</button>
     </header>
   )
 }
