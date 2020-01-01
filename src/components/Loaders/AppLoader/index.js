@@ -15,7 +15,9 @@ const AppLoader = () => {
   return (
     <section className={css.appLoader}>
       <div className={css.wrapper}>
-        <h1 className={css.h1}>Project Main Heading</h1>
+        <h1 className={css.h1}>
+          Project Main Heading
+        </h1>
 
         <div className={css.logo}>
           <Image src={logo} alt={`Logo ${APP_NAME}`} />

@@ -1,6 +1,6 @@
 const commonLoaders = [
   {
-    test: /\.(ts|js)x?$/,
+    test: /\.js$/,
     exclude: /node_modules/,
     use: ['babel-loader', 'eslint-loader']
   },
