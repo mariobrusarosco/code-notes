@@ -12,12 +12,12 @@
     "e2e-prod": "start-server-and-test server-prod :5000 cy-run",
     "cy-run": "cypress run",
     "cy-open": "cypress open",
-    "start": "yarn app-init && webpack-dev-server --config ./webpack/configuration/development.config.babel.js",
+    "start": "export NODE_ENV=local && yarn app-init && webpack-dev-server --config ./webpack/configuration/development.config.babel.js",
     "build-dev": "export NODE_ENV=development && yarn app-init && webpack --config ./webpack/configuration/production.config.babel.js",
     "build-prod": "export NODE_ENV=production && yarn app-init && webpack --config ./webpack/configuration/production.config.babel.js",
     "server-dev": "yarn build-dev && node server/index.js",
     "server-prod": "yarn build-prod && node server/index.js",
-    "app-init": "node scripts/create-config.js",
+    "app-init": "export NODE_ENV=local && babel-node scripts/create-config.js",
     "temp": "node server/index.js"
   },
   "jest": {
