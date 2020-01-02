@@ -17,7 +17,7 @@
     "build-prod": "export NODE_ENV=production && yarn app-init && webpack --config ./webpack/configuration/production.config.babel.js",
     "server-dev": "yarn build-dev && node server/index.js",
     "server-prod": "yarn build-prod && node server/index.js",
-    "app-init": "export NODE_ENV=local && babel-node scripts/create-config.js",
+    "app-init": "babel-node scripts/create-config.js",
     "temp": "node server/index.js"
   },
   "jest": {
