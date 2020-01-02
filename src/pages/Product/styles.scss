@@ -1,0 +1,146 @@
+.page {
+  padding: 10px 15px 85px;
+}
+
+.wrapper {
+  max-width: 1024px;
+  margin: 0 auto;
+
+  @include above(1024px) {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 50px;
+  }
+}
+
+.backButton {
+  display: block;
+  margin: 10px 0 25px auto;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 12px;
+  background-color: $primary-color;
+  background-color: var(--primary-color);
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 900;
+  will-change: background-color;
+  transition: background-color 0.2s ease-out;
+  composes: import baseStyles from 'styles/button.scss';
+
+  &:hover,
+  &:active {
+    background-color: $primary-color-dark;
+    background-color: var(--primary-color-dark);
+  }
+
+  @include above(1024px) {
+    position: absolute;
+    right: 0;
+    font-size: 14px;
+    padding: 15px 20px;
+  }
+}
+
+.imageArea {
+  max-width: 500px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+
+  @include above(1024px) {
+    margin: 0;
+    padding-bottom: 0;
+    width: 50%;
+  }
+
+  img {
+    width: 340px;
+    height: 240px;
+    object-fit: cover;
+    margin: 0 auto;
+
+    @include above(568px) {
+      width: 400px;
+      height: 350px;
+    }
+
+    @include above(1024px) {
+      width: 500px;
+      height: 350px;
+    }
+    // For Legacy Support
+    // width: ..px;
+    // height: ..px;
+    // position: relative;
+    // float: left;
+    // background-position: 50% 50%;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+  }
+}
+
+.infoArea {
+  @include above(1024px) {
+    flex-grow: 1;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 40px;
+  }
+
+  li {
+    @include above(568px) {
+      width: 50%;
+    }
+  }
+}
+
+.infoList {
+  @include above(568px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.contactButton {
+  padding: 20px;
+  background-color: $primary-color;
+  background-color: var(--primary-color);
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 900;
+  will-change: background-color;
+  transition: background-color 0.2s ease-out;
+  composes: import baseStyles from 'styles/button.scss';
+
+  @include below(1024px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0px -3px 3px -1px #00000052;
+    font-size: 16px;
+  }
+
+  @include above(1024px) {
+    margin: 50px auto;
+    border-radius: 5px;
+    order: 1;
+  }
+
+  &:hover,
+  &:active {
+    background-color: $primary-color-dark;
+    background-color: var(--primary-color-dark);
+  }
+}
+
+// Child Elements
+.propertyPage .businessType {
+  @include above(1024px) {
+    font-size: 30px;
+    padding-bottom: 50px;
+  }
+}

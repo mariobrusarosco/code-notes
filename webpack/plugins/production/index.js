@@ -1,14 +1,12 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const CompressionPlugin = require('compression-webpack-plugin')
-const BrotliPlugin = require('brotli-webpack-plugin')
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import CompressionPlugin from 'compression-webpack-plugin'
+import BrotliPlugin from 'brotli-webpack-plugin'
 
 const productionPlugins = [
   new MiniCssExtractPlugin({
-    filename: '[name].css',
-    chunkFilename: '[id].css'
-    // filename: '[name]-[contenthash].css',
-    // chunkFilename: '[id]-[contenthash].css'
+    filename: '[name]-[contenthash].css',
+    chunkFilename: '[id]-[contenthash].css'
   }),
   new OptimizeCSSAssetsPlugin({}),
   new CompressionPlugin({

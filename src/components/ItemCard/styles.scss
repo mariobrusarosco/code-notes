@@ -1,0 +1,149 @@
+// @import './react-transitions.scss';
+// @import '../../styles/animations.scss';
+
+.card {
+  cursor: pointer;
+  // background-color: red;
+  //   margin: 30px 0;
+  //   border-radius: 10px;
+  //   overflow: hidden;
+  //   color: #000;
+
+  //   @include above(768px) {
+  //     display: flex;
+  //   }
+
+  // & > *:first-child {
+  //   grid-row: 1 / 1;
+  //   grid-column: 1 / 1;
+  // }
+
+  // &:before {
+  //   content: '';
+  //   width: 0;
+  //   padding-bottom: 100%;
+  //   grid-row: 1 / 1;
+  //   grid-column: 1 / 1;
+  // }
+
+  //   @include above(1024px) {
+  // Keyframes animations
+  animation: cardAnimation forwards cubic-bezier(0.42, 0, 0.19, 1.33);
+  @include animationDuration(20, 0.35s);
+  will-change: transform, box-shadow;
+
+  //     &:hover,
+  //     &:active {
+  //       transform: translateX(-5px);
+  //       box-shadow: 4px 6px 11px -4px #0000004f;
+  //       transition: transform 0.3s ease-in-out, box-shadow 0.4s ease-in-out;
+  //     }
+  //   }
+}
+
+.imageArea {
+  // @include above(768px) {
+  //   width: 35%;
+  // }
+
+  // @include above(1024px) {
+  //   width: 50%;
+  // }
+
+  img {
+    // display: block;
+    // width: 400px;
+    // height: 250px;
+    // object-fit: cover;
+    // margin: 0 auto;
+
+    // @include above(768px) {
+    //   width: 450px;
+    //   height: 290px;
+    // }
+
+    // @include above(1024px) {
+    //   width: 450px;
+    // }
+    // For Legacy Support
+    // width: ...px;
+    // height: ...px;
+    // position: relative;
+    // float: left;
+    // background-position: 50% 50%;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+  }
+}
+
+.infoArea {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 10px;
+  border-left: 3px solid $secondary-color;
+  border-left: 3px solid var(--secondary-color);
+  background-color: $primary-bg-color;
+  background-color: var(--primary-bg-color);
+
+  @include above(768px) {
+    width: 65%;
+    flex-grow: 1;
+    border-left: 0;
+    padding: 20px 40px;
+  }
+
+  @include above(1024px) {
+    width: 50%;
+    padding: 30px 40px;
+  }
+}
+
+.featuresBox {
+  flex-basis: 50%;
+}
+
+.locationAndPriceBox {
+  flex-basis: 50%;
+}
+
+.moreDetails {
+  position: relative;
+  margin: 20px auto 0;
+  padding-bottom: 10px;
+  font-size: 15px;
+  color: var(--primary-color);
+  color: $primary-color;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+    height: 2px;
+    width: 100%;
+    background-color: $secondary-color;
+    background-color: var(--secondary-color);
+    transform: translateY(10px);
+    will-change: transform, opaicty;
+    transition: transform 0.3s ease-in-out, opacity 0.15s ease-in-out;
+    opacity: 0;
+  }
+
+  &:hover,
+  &:active {
+    transform: translateY(0);
+
+    &:before {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @include above(1024px) {
+    height: 25px;
+  }
+}

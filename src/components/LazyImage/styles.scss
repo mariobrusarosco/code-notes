@@ -1,0 +1,64 @@
+.ratio {
+  --pulse-color: var(--secondary-color);
+  --pulse-outer-circle-color: var(--primary-color);
+  --pulse-inner-circle-color: var(--primary-color);
+
+  position: relative;
+  overflow: hidden;
+  padding-top: 90%;
+  background: #e4e4e4;
+  border-radius: 5px;
+  will-change: background;
+}
+
+.picture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  // display: block;
+  // max-width: 100%;
+  // height: 200px;
+  // width: 100%;
+  // height: auto;
+  // object-fit: cover;
+  max-width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.9s cubic-bezier(0.93, -0.03, 0.36, 1.35),
+    opacity 0.4s cubic-bezier(0.93, -0.03, 0.36, 1.35);
+  will-change: opacity, transform;
+
+  :global(.lazy-loaded) & {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.pulseWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: transform 0.2s ease-in-out;
+
+  :global(.lazy-loaded) & {
+    transform: scale(0);
+    visibility: hidden;
+  }
+}
+
+// :global(img[data-src]:before) {
+//   display: block;
+//   content: '';
+//   padding-top: 56.25%;
+//   background-color: gray;
+// }

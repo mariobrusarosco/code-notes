@@ -1,0 +1,26 @@
+.header {
+  padding: 20px 0;
+  background-color: $primary-color;
+  background-color: var(--primary-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 100%;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  composes: baseStyles from 'styles/link.scss';
+  margin: 0 10px;
+  transition: color 0.35s ease-out;
+
+  &:global(.active) {
+    color: gray;
+  }
+}

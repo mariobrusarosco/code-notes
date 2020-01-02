@@ -4,12 +4,8 @@
     "browser": true
   },
   "rules": {
-    "comma-dangle": 0,
-    "react-hooks/rules-of-hooks": "error"
-  },
-  "plugins": [
-    "react-hooks"
-  ],
+    "comma-dangle": 0
+	},
 	"parser": "babel-eslint",
 	"parserOptions": {
 		"sourceType": "module",

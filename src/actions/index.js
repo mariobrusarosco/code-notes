@@ -1,56 +1,109 @@
 // Api Helpers
-import codeNotesAPI from 'api/code-notes'
+import defaultAPI from 'api/default'
+import dogAPI from 'api/dog'
 
-// export const logUser = payload => {
-//   return {
-//     type: 'LOG_IN',
-//     payload
-//   }
-// }
+// Vendors
+import { pathOr } from 'ramda'
 
-// export const setAppAsLoaded = () => {
-//   return {
-//     type: 'APP_LOADED'
-//   }
-// }
+// Utils
+import evaluate from 'utils/evaluation'
+import { validatePhotosRequest } from 'utils/validations/api/photos'
 
-export const fetchNotes = () => async dispatch => {
-  try {
-    const { data: allNotes } = await codeNotesAPI.get('/notes')
+// CONSTANTS
+const { ERRORS, BUSINESS } = APP || global.APP
+const { WALTER, JESSE } = BUSINESS
 
-    return dispatch({
-      type: 'FETCH_NOTES',
-      allNotes
-    })
-  } catch (e) {
-    console.error('error loading notes ----> ', e)
+export const evaluateSomeData = data => {
+  const evaluatedItems = evaluate(data)
+
+  // console.log({data})
+
+  return {
+    type: 'EVALUATE_SOME_DATA',
+    evaluation: data
   }
 }
 
-export const setEditorThemeConstructorAsLoaded = () => ({
-  type: 'EDITOR_THEME_LOADED'
-})
+export const fetchSomeData = () => async dispatch => {
+  try {
+    const response = await defaultAPI.get('/photos')
+    const rawData = pathOr({}, ['data'], response)
+    console.log({ rawData })
+    const validatedData = validatePhotosRequest(rawData)
 
-export const fetchPostsAndUsers = () => async (dispatch, getState) => {
-  await dispatch(fetchPosts())
+    dispatch({ type: 'FETCH_SOME_DATA' })
 
-  const userIds = _.chain(getState().blog.posts)
-    .map('userId')
-    .uniq()
-    .forEach(id => dispatch(fetchUser(id)))
-    .value()
+    return rawData
+  } catch (e) {
+    dispatch(
+      setAppCriticalError({
+        error: e,
+        additionalInfo: {
+          source: 'fetchingSomeData',
+          errorID: 'A01',
+          messageForUsers: ERRORS['A01']
+        }
+      })
+    )
+  }
 }
 
-export const fetchPosts = () => async dispatch => {
-  const posts = await axiosJsonPlaceholder.get('/posts')
+export const fetchData = endpoint => async dispatch => {
+  try {
+    const response = await dogAPI.get(endpoint)
+    const rawData = pathOr({}, ['data'], response)
 
-  dispatch({ type: 'FETCH_POSTS', payload: posts.data })
+    // const validatedData = validatePhotosRequest(rawData)
+    const validatedData = rawData
+    console.log({ validatedData })
+
+    dispatch({ type: 'FETCH_DATA' })
+
+    return validatedData
+  } catch (e) {
+    // debugger
+    dispatch(
+      setAppCriticalError({
+        error: e,
+        additionalInfo: {
+          source: 'fetchData',
+          errorID: 'A01',
+          messageForUsers: ERRORS['A01']
+        }
+      })
+    )
+  }
 }
 
-export const fetchUser = function(id) {
-  return async function(dispatch) {
-    const response = await axiosJsonPlaceholder.get(`/users/${id}`)
+export const setAppAsLoaded = () => {
+  return {
+    type: 'APP_IS_LOADED'
+  }
+}
 
-    dispatch({ type: 'FETCH_USER', payload: response.data })
+export const setAppCriticalError = ({ error, additionalInfo }) => {
+  const stack = pathOr(null, ['stack'], error)
+  const message = pathOr(null, ['message'], error)
+
+  return {
+    type: 'APP_HAS_CRITICAL_ERROR',
+    errorData: {
+      stack,
+      message,
+      ...additionalInfo
+    }
+  }
+}
+
+export const resetAppCriticalError = () => {
+  return {
+    type: 'RESET_APP_CRITICAL_ERROR'
+  }
+}
+
+export const toggleLightbox = payload => {
+  return {
+    type: 'TOGGLE_LIGHTBOX',
+    ...payload
   }
 }

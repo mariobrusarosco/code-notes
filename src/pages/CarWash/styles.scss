@@ -1,0 +1,16 @@
+.page {
+  width: 100%;
+  padding: 20px 15px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.picture {
+  display: block;
+  margin: 0 auto;
+  width: 140px;
+}
+
+.wrapper {
+  composes: mainWrapper from 'styles/app-wrappers.scss';
+}

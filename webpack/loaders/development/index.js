@@ -1,6 +1,6 @@
 const developmentLoaders = [
   {
-    test: /\.css$/,
+    test: /\.s?css$/,
     include: /src/,
     exclude: /node_modules/,
     use: [
@@ -8,16 +8,27 @@ const developmentLoaders = [
       {
         loader: 'css-loader',
         options: {
-          importLoaders: 1,
+          importLoaders: 2,
           modules: true,
-          localIdentName: '[local]__[hash:base64:8]'
+          localIdentName: '[folder]__[local]'
+        }
+      },
+      {
+        loader: 'sass-loader',
+        options: {
+          data: `
+            @import 'variables';
+            @import 'mixins';
+            @import 'animations';
+          `,
+          includePaths: ['./src/styles']
         }
       }
     ]
   },
   {
     test: /\.css$/,
-    include: /static\/|node_modules/,
+    include: /node_modules/,
     exclude: /src/,
     use: ['style-loader', 'css-loader']
   }

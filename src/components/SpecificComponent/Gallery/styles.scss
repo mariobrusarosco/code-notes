@@ -1,0 +1,52 @@
+.gallery {
+  @include above(1024px) {
+    order: 1;
+    margin-top: 50px;
+    width: 100%;
+  }
+}
+
+.title {
+  padding-bottom: 10px;
+  font-size: 16px;
+  font-weight: 900;
+  color: $primary-color;
+  color: var(--primary-color);
+
+  @include above(568px) {
+    padding-bottom: 30px;
+  }
+}
+
+.listWrapper {
+  overflow: hidden;
+  margin-bottom: 40px;
+  border-bottom: 3px solid $primary-color;
+  border-bottom: 3px solid var(--primary-color);
+  padding-bottom: 70px;
+
+  @include above(1024px) {
+    padding-bottom: 30px;
+  }
+}
+
+.thumbnail {
+  padding-right: 15px;
+  cursor: pointer;
+  outline: none;
+  will-change: transform;
+  transition: transform 0.35s cubic-bezier(0.83, -0.01, 0.36, 1.06);
+
+  &:hover {
+    @include above(1024px) {
+      transform: scale(0.95);
+      transition: transform 0.35s cubic-bezier(0.83, -0.01, 0.36, 1.06);
+    }
+  }
+
+  img {
+    width: 180px;
+    height: 120px;
+    object-fit: cover;
+  }
+}

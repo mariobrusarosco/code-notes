@@ -1,0 +1,55 @@
+.notFound {
+  background-color: var(--primary-color);
+  background-color: $primary-color;
+  height: calc(100vh - var(--header-height));
+  height: calc(100vh - #{$header-height});
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.ops {
+  font-size: 55px;
+  font-weight: 900;
+  padding-bottom: 40px;
+}
+
+.description {
+  font-size: 25px;
+  font-weight: 100;
+  padding-bottom: 20px;
+}
+
+.pulseWrapper {
+  width: 50px;
+  margin: 60px auto 0;
+}
+
+.goToHomeBtn {
+  display: block;
+  margin: 15px auto 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 12px;
+  background-color: transparent;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 900;
+  // Common Button properties that can be shared
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+
+  @include above(1024px) {
+    font-size: 14px;
+    padding: 15px 20px;
+  }
+}

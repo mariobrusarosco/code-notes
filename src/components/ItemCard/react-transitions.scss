@@ -1,0 +1,19 @@
+:global(.card-motion-appear).card {
+  opacity: 0;
+}
+
+:global(.card-motion-appear-done).card {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+// :global(.card-motion-exit).card {
+//   opacity: 1;
+//   transition: .3s ease-in-out;
+// }
+
+// :global(.card-motion-exit-done) {
+//   .card {
+//     opacity: 0;
+//   }
+// }

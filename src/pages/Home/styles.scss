@@ -1,0 +1,64 @@
+.home {
+  background-color: #fff;
+  min-height: calc(100vh - #{$header-height});
+  min-height: calc(100vh - var(--header-height));
+  min-width: 100%;
+}
+.wrapper {
+  height: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.infoBox {
+  padding: 10px 15px;
+  font-size: 22px;
+  color: $primary-color;
+  color: var(--primary-color);
+  text-align: center;
+  line-height: 1.5;
+  font-weight: 900;
+}
+
+.infoBox p {
+  padding-bottom: 15px;
+}
+
+.list {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.linkOne {
+  composes: link;
+  width: 150px;
+}
+
+.linkTwo {
+  composes: link;
+  width: 150px;
+}
+
+.linkThree {
+  composes: link;
+}
+
+.linkFour {
+  composes: link;
+}
+
+.linkFive {
+  composes: link;
+}

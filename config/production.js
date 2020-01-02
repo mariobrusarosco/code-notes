@@ -1,8 +1,7 @@
 const productionConfiguration = {
-  APP_ROOT_URL: 'https://prod-code-notes.herokuapp.com',
-  AccessControlAllowOrigin: 'prod-code-notes.herokuapp.com',
   API: {
-    API_ROOT: 'https://dev-api-code-notes.herokuapp.com/api/v1'
+    // In case we have a different endpoint for production purposes.
+    API_ROOT: 'http://prod-grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/'
   }
 }
 

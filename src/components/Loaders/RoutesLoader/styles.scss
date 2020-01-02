@@ -1,0 +1,15 @@
+.body {
+  height: calc(100vh - #{$header-height});
+  height: calc(100vh - var(--header-height));
+  width: 100%;
+  background-color: $primary-color;
+  background-color: var(---primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pulseWrapper {
+  width: 50px;
+  margin: 0 auto;
+}
