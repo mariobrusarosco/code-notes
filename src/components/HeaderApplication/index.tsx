@@ -1,27 +1,73 @@
+// Vendors
 import { Link } from 'react-router-dom'
 
+// Components
 // Utils
 import ROUTES from 'routes'
+import Button from 'components/Button/index.tsx'
 
 // import './styles.css'
+
+const Header = styled.header`
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  padding: 20px 0;
+  background-color: var(--primary-pink);
+`
+
+const Logo = styled.div`
+
+`
+const ProjectTitle = styled.span`
+
+`
+
+const Menu = styled.div`
+
+`
+const List = styled.ul`
+  display: none;
+`
+
+const HeaderItem = styled(Link)`
+
+`
+
+const UserDropdownButton = styled(Button)`
+  background-color: var(--primary-dark-blue);
+  color: var(--neutral-white);
+  border-radius: 50%;
+  padding: 10px;
+`
+
+const LogoutButton = styled(Button)`
+  background-color: var(--primary-dark-blue);
+  color: var(--primary-white);
+`
 
 const HeaderApplication: React.FunctionComponent = () => {
   // TODO remove console.log
   // console.log('[ HeaderApplication ]')
-
   return (
-    <header className="header" data-test="header-application">
-      <Link className="item" to={ROUTES.HOME}>
-        home asdasdasd asdasda asdasdas
-      </Link>
-      <Link className="item" to={ROUTES.NEW}>
-        new addasa sdasdasdasas das aadasdas
-      </Link>
-      <Link className="item" to={ROUTES.CONFIG}>
-        config adas  adas asdasdasdasdas
-      </Link>
-      <button className="user-dropdown">MB</button>
-    </header>
+    <Header data-test="header-application">
+      <Logo />
+      <ProjectTitle>
+        <HeaderItem className="item" to={ROUTES.HOME}>
+          Code Notes
+        </HeaderItem>
+      </ProjectTitle>
+      <Menu>
+        <UserDropdownButton>MB</UserDropdownButton>
+        <List>
+          <HeaderItem className="item" to={ROUTES.CONFIG}>
+            config
+          </HeaderItem>
+          <LogoutButton className="item" onClick={() => console.log('logging out')}>
+            Logout
+          </LogoutButton>
+        </List>
+      </Menu>
+    </Header>
   )
 }
 

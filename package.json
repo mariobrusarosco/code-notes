@@ -17,8 +17,7 @@
     "build-prod": "export NODE_ENV=production && yarn app-init && webpack --config ./webpack/configuration/production.config.babel.js",
     "server-dev": "yarn build-dev && node server/index.js",
     "server-prod": "yarn build-prod && node server/index.js",
-    "app-init": "babel-node -r dotenv/config scripts/create-config.js",
-    "temp": "node server/index.js"
+    "app-init": "babel-node -r dotenv/config scripts/create-config.js"
   },
   "husky": {
     "hooks": {
@@ -52,7 +51,9 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.7.7",
     "@hot-loader/react-dom": "^16.9.0",
+    "@types/enzyme": "^3.10.4",
     "@types/styled-components": "^4.4.1",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
     "axios": "^0.19.0",
     "babel-jest": "^24.9.0",
     "babel-plugin-react-remove-properties": "^0.3.0",
@@ -62,8 +63,10 @@
     "cookie-parser": "^1.4.4",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
+    "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "express": "^4.16.4",
+    "express-session": "^1.17.0",
     "express-static-gzip": "^1.1.3",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
@@ -78,6 +81,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "styled-components": "^4.4.1",
+    "typescript": "^3.7.4",
     "webpack-pwa-manifest": "^4.0.0",
     "workbox-webpack-plugin": "^4.3.1"
   },
@@ -93,6 +97,7 @@
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.5.5",
+    "@typescript-eslint/parser": "^2.14.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "brotli-webpack-plugin": "^1.1.0",
@@ -101,7 +106,7 @@
     "css-loader": "^1.0.1",
     "cypress": "^3.2.0",
     "dotenv": "^6.2.0",
-    "eslint": "^6.0.1",
+    "eslint": "^6.8.0",
     "eslint-loader": "^2.2.1",
     "favicons-webpack-plugin": "^1.0.1",
     "file-loader": "^2.0.0",

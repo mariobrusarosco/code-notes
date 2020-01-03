@@ -16,7 +16,7 @@ import reduxThunk from 'redux-thunk'
 // const store = createStore(reducers, composeEnhancers(applyMiddleware(reduxThunk)))
 
 // Components
-import GlobalStyles from 'components/GlobalStyles/index.tsx' // TODO index.tsx temp approach
+import GlobalStyles from 'styles/GlobalStyles/index.tsx' // TODO index.tsx temp approach
 // import './styles/reset.scss'
 // import './styles/variables.scss'
 // import './styles/app.scss'

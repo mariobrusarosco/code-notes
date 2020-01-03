@@ -27,5 +27,5 @@
 .closeBtn {
   color: #fff;
   font-size: 20px;
-  composes: button from 'styles/Button/button.css';
+  /* composes: button from 'styles/Button/button.css'; */
 }
