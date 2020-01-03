@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate",
+  "name": "code-notes",
   "version": "0.0.1",
-  "description": "Boilerplate",
+  "description": "Code-Notes",
   "private": true,
   "scripts": {
     "eslint": "eslint src/**/*.js",
@@ -25,8 +25,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn unit-test"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
@@ -61,6 +60,8 @@
     "babel-plugin-react-remove-properties": "^0.3.0",
     "classnames": "^2.2.6",
     "codemirror": "^5.50.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "eslint-plugin-react-hooks": "^2.3.0",
     "express": "^4.16.4",
     "express-static-gzip": "^1.1.3",
