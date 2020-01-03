@@ -17,7 +17,6 @@ const developmentLoaders = [
         loader: 'sass-loader',
         options: {
           data: `
-            @import 'variables';
             @import 'mixins';
             @import 'animations';
           `,

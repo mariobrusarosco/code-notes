@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 // Utils
 import ROUTES from 'routes'
 
-import './styles.css'
+// import './styles.css'
 
 const HeaderApplication: React.FunctionComponent = () => {
   // TODO remove console.log

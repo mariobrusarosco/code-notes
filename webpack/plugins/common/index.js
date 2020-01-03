@@ -50,7 +50,8 @@ const commonPlugins = () => [
   }),
   new webpack.ProvidePlugin({
     React: 'react',
-    Component: ['react', 'Component']
+    Component: ['react', 'Component'],
+    styled: ['styled-components', 'default']
   }),
   new webpack.DefinePlugin({
     APP: JSON.stringify(config)

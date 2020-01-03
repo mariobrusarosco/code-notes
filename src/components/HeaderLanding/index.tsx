@@ -1,24 +1,27 @@
 import { Link } from 'react-router-dom'
-import React from 'react'
 
 // Utils
 import ROUTES from 'routes'
 
-import './styles.css'
+const Header = styled.header`
+  display: grid;
+  grid-auto-flow: column;
+  text-align: center;
+  background-color: var(--primary-pink, 'red');
+`
 
 const HeaderLanding = () => {
   console.log('[ HeaderLanding ]')
 
   return (
-    <header className="header-landing">
+    <Header>
       <Link className="item" to={ROUTES.SIGN_UP}>
         Sign Up
       </Link>
       <Link className="item" to={ROUTES.LOGIN}>
         Login
       </Link>
-      <button>MB</button>
-    </header>
+    </Header>
   )
 }
 

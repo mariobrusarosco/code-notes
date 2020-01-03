@@ -1,1 +1,1 @@
-{"APP_ROOT_URL":"https://prod-code-notes.herokuapp.com","AccessControlAllowOrigin":"prod-code-notes.herokuapp.com","API":{"API_ROOT":"https://dev-api-code-notes.herokuapp.com/api/v1"},"APP_NAME":"Code Notes","VERSION":"0.0.1"}
+{"APP_ROOT_URL":"http://localhost:9090","AccessControlAllowOrigin":"http://localhost:8080","API":{"API_ROOT":"localhost:9090/api/v1"},"APP_NAME":"Code Notes","VERSION":"0.0.1"}
