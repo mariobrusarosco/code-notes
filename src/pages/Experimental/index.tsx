@@ -1,10 +1,10 @@
 // Components
 import Counter from './Counter'
-import WW from 'walter-white/dist/walter-white'
+// import WW from 'walter-white/dist/walter-white'
 import UserWelcomeDisplay from './UserWelcomeDIsplay'
 import OkBox from './OkBox.tsx'
 
-console.log(WW)
+// console.log(WW)
 
 const Experimental = () => {
   return (

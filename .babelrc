@@ -5,17 +5,5 @@
     "@babel/proposal-object-rest-spread",
     "@babel/plugin-proposal-optional-chaining",
     "@babel/plugin-transform-async-to-generator"
-  ],
-  "env": {
-    "production": {
-      "plugins": [
-        "react-remove-properties",
-        {
-          "properties": [
-            "data-test"
-          ]
-        }
-      ]
-    }
-  }
+  ]
 }

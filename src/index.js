@@ -9,16 +9,16 @@ import { Provider } from 'react-redux'
 import reduxThunk from 'redux-thunk'
 
 // Reducers
-import reducers from './reducers'
+// import reducers from './reducers'
 
 // Store
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(reducers, composeEnhancers(applyMiddleware(reduxThunk)))
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+// const store = createStore(reducers, composeEnhancers(applyMiddleware(reduxThunk)))
 
 // Global Styles
-import './styles/reset.css'
-import './styles/variables.css'
-import './styles/app.css'
+import './styles/reset.scss'
+import './styles/variables.scss'
+import './styles/app.scss'
 
 // Components
 import App from './components/App'
@@ -30,15 +30,15 @@ import { AuthenticationProvider } from 'contexts/AuthenticationContext'
 import { NotesProvider } from 'contexts/NotesContext'
 
 ReactDOM.render(
-  <Provider store={store}>
-    <AppProvider>
-      <AuthenticationProvider>
-        <NotesProvider>
-          <App />
-          <Toast />
-        </NotesProvider>
-      </AuthenticationProvider>
-    </AppProvider>
-  </Provider>,
+  // <Provider store={store}>
+  <AppProvider>
+    <AuthenticationProvider>
+      <NotesProvider>
+        <App />
+        <Toast />
+      </NotesProvider>
+    </AuthenticationProvider>
+  </AppProvider>,
+  // </Provider>,
   document.querySelector('#app')
 )

@@ -1,17 +1,14 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebpack = require('html-webpack-plugin')
-const CleanWebpack = require('clean-webpack-plugin')
+import path from 'path'
 // Loaders
-const commonLoaders = require('../loaders/common')
-const developmenLoaders = require('../loaders/development')
+import commonLoaders from '../loaders/common'
+import developmenLoaders from '../loaders/development'
 
 // Plugins
-const commonPlugins = require('../plugins/common')
-const developmentPlugins = require('../plugins/development')
+import commonPlugins from '../plugins/common'
+import developmentPlugins from '../plugins/development'
 
 // Webpacks's Configurations
-const commonConfig = require('./common.config')
+import commonConfig from './common.config.babel'
 
 const developmentConfig = env => ({
   mode: 'development',
@@ -33,4 +30,4 @@ const developmentConfig = env => ({
 })
 
 // Merging Common and Development configurations
-module.exports = Object.assign(commonConfig(), developmentConfig())
+export default Object.assign(commonConfig(), developmentConfig())

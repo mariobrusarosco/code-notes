@@ -46,9 +46,9 @@ export const NewEditor = () => {
       const { default: CodeMirrorCore } = await import(
         /* webpackChunkName: "code-mirror" */ '../../../static/code-mirror/lib/codemirror'
       )
-      const CodeMirrorMainCSS = await import(
-        /* webpackChunkName: "code-mirror-css" */ '../../../static/code-mirror/lib/codemirror.css'
-      )
+      // const CodeMirrorMainCSS = await import(
+      //   /* webpackChunkName: "code-mirror-css" */ '../../../static/code-mirror/lib/codemirror.css'
+      // )
 
       setCodeMirror(CodeMirrorCore)
     } catch (e) {
