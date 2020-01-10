@@ -7,7 +7,7 @@ import cookie from 'js-cookie'
 import AppLoader from 'components/Loaders/AppLoader'
 
 // Aoo Routes
-import AppRoutes from 'components/AppRoutes'
+import AppRoutes from 'components/AppRoutes/index.tsx'
 
 // Actions
 import { setAppAsLoaded } from 'actions/App'

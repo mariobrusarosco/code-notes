@@ -7,31 +7,24 @@ import ROUTES from 'routes'
 import Button from 'components/Button/index.tsx'
 
 // import './styles.css'
+import { Header } from './styles'
 
-const Header = styled.header`
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  padding: 20px 0;
-  background-color: var(--primary-pink);
-`
+// const Header = styled.header`
+//   display: grid;
+//   grid-template-columns: auto 1fr auto;
+//   padding: 20px 0;
+//   background-color: var(--primary-pink);
+// `
 
-const Logo = styled.div`
+const Logo = styled.div``
+const ProjectTitle = styled.span``
 
-`
-const ProjectTitle = styled.span`
-
-`
-
-const Menu = styled.div`
-
-`
+const Menu = styled.div``
 const List = styled.ul`
   display: none;
 `
 
-const HeaderItem = styled(Link)`
-
-`
+const HeaderItem = styled(Link)``
 
 const UserDropdownButton = styled(Button)`
   background-color: var(--primary-dark-blue);

@@ -15,8 +15,8 @@ import Config from 'pages/Config'
 import Experimental from 'pages/Experimental/index.tsx'
 
 // Layouts
-import LandingRoute from 'components/LandingRoute'
-import LoggedRoute from 'components/LoggedRoute'
+import LandingRoute from 'components/LandingRoute/index.tsx'
+import LoggedRoute from 'components/LoggedRoute/index.tsx'
 
 import Login from 'pages/Login'
 
