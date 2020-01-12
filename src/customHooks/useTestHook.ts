@@ -1,5 +1,5 @@
 // Vendors
-import { useState, useEffect, useReducer } from 'react'
+import { useState, useEffect } from 'react'
 
 export const useTestHook = () => {
   const [counter, increment] = useState(0)

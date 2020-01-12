@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom'
 
 // Components
 // Utils
-import ROUTES from 'routes'
-import Button from 'components/Button/index.tsx'
+// import ROUTES from 'routes'
 
 // import './styles.css'
-import { Header } from './styles'
+// import { Header } from './styles'
 
+import Header from './styles'
+
+import Button from '../Button'
+
+console.log({ Header })
 // const Header = styled.header`
 //   display: grid;
 //   grid-template-columns: auto 1fr auto;
