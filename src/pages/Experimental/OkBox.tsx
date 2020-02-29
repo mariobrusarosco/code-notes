@@ -1,4 +1,4 @@
-export const Display: React.FC = () => {
+export const OkBox: React.FC = () => {
   // const input = document.querySelector('.ok-box') as HTMLInputElement
   // input.autofocus = true
 
@@ -9,4 +9,4 @@ export const Display: React.FC = () => {
   )
 }
 
-export default Display
+export default OkBox

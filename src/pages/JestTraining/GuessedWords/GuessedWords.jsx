@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 const GuessedWords = ({ guessedWords }) => {
   return (
-    <div data-test="guessed-words">
+    <div data-test="guessed-words" style={{ marginTop: '100px' }}>
       {guessedWords?.length === 0 && (
         <div data-test="guess-intructions">Try to guess a word</div>
       )}

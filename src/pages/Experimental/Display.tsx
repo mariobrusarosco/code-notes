@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
 
 interface Test {
-  counter: number;
+  counter: number
   title: string
 }
 
-export const Display = ({ counter, title } : Test) : any  => {
+export const Display = ({ counter, title }: Test) => {
   const componentIsMounted = useRef(false)
 
   const doSomeStuff = () => console.log('Just doing some stuff')

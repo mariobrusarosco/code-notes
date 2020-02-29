@@ -1,15 +1,18 @@
 // Components
 import Counter from './Counter'
-// import WW from 'walter-white/dist/walter-white'
+import WW from 'walter-white'
+// import './walter-white.js'
 import UserWelcomeDisplay from './UserWelcomeDIsplay'
 import OkBox from './OkBox'
 import Stories from './Stories'
 import Joke from './Joke'
-import GuessedWords from './GuessedWords'
+import Gallery from './Gallery'
 
 // console.log(WW)
 
 const Experimental = () => {
+  const [showGallery, setShowGallery] = React.useState(true)
+
   return (
     <section className="experimental">
       <p>Experimental</p>
@@ -18,7 +21,8 @@ const Experimental = () => {
       <OkBox />
       <Stories />
       <Joke />
-      <GuessedWords />
+      <button onClick={() => setShowGallery(!showGallery)}>toggle gallery</button>
+      {showGallery && <Gallery />}
     </section>
   )
 }
