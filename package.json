@@ -6,7 +6,6 @@
   "scripts": {
     "eslint": "eslint src/**/*.js",
     "stylelint": "stylelint --fix src/**/*.{css,scss}",
-    "unit-test:watch": "yarn eslint && yarn stylelint && jest --watchAll",
     "unit-test": "yarn eslint && yarn stylelint && jest",
     "unit-test-ww": "walter-white",
     "e2e-dev": "start-server-and-test server-prod :5000 cy-open",
@@ -14,7 +13,7 @@
     "cy-run": "cypress run",
     "cy-open": "cypress open",
     "start": "export NODE_ENV=local && yarn app-init && webpack-dev-server --config ./webpack/configuration/development.config.babel.js",
-    "build-dev": "export NODE_ENV=development && yarn app-init && webpack --config ./webpack/configuration/production.config.babel.js",
+    "build-dev": "export NODE_ENV=development && yarn app-init && webpack --config ./webpack/configuration/development.config.babel.js",
     "build-prod": "export NODE_ENV=production && yarn app-init && webpack --config ./webpack/configuration/production.config.babel.js",
     "server-dev": "yarn build-dev && node server/index.js",
     "server-prod": "yarn build-prod && node server/index.js",
