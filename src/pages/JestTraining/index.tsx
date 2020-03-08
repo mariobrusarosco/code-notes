@@ -1,5 +1,6 @@
 // Components
 import GuessedWords from './GuessedWords/GuessedWords'
+import Counter from './Counter'
 
 const guessedWords = [
   {
@@ -10,6 +11,7 @@ const guessedWords = [
 const JestTraining = () => {
   return (
     <section className="jest-training">
+      <Counter />
       <GuessedWords guessedWords={guessedWords} />
     </section>
   )

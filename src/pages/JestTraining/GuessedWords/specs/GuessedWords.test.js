@@ -3,7 +3,7 @@ import GuessedWords from '../GuessedWords'
 import { shallow } from 'enzyme'
 
 test('renders without error', () => {
-  const component = shallow(<GuessedWords />)
+  shallow(<GuessedWords />)
 })
 
 // const setup = (Component, { props = {} }) => {

@@ -8,7 +8,7 @@
     "stylelint": "stylelint --fix src/**/*.{css,scss}",
     "unit-test": "yarn eslint && yarn stylelint && jest",
     "unit-test-ww": "walter-white",
-    "e2e-dev": "start-server-and-test server-prod :5000 cy-open",
+    "e2e-dev": "start-server-and-test server-dev :5000 cy-open",
     "e2e-prod": "start-server-and-test server-prod :5000 cy-run",
     "cy-run": "cypress run",
     "cy-open": "cypress open",
