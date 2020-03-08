@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const Landing = () => {
+const Landing: React.FC = () => {
   const start = () => {
     console.log('starting...')
     return 0

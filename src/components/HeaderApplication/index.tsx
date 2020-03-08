@@ -1,9 +1,6 @@
-// Vendors
 import { Link } from 'react-router-dom'
 
-// Components
-// Utils
-// import ROUTES from 'routes'
+import ROUTES from 'routes'
 
 // import './styles.css'
 // import { Header } from './styles'

@@ -1,4 +1,4 @@
-import checkPropTypes from 'check-prop-types'
+// import checkPropTypes from 'check-prop-types'
 import GuessedWords from '../GuessedWords'
 import { shallow } from 'enzyme'
 

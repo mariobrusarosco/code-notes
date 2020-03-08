@@ -16,33 +16,33 @@ import reduxThunk from 'redux-thunk'
 // const store = createStore(reducers, composeEnhancers(applyMiddleware(reduxThunk)))
 
 // Components
-import GlobalStyles from 'styles/GlobalStyles/index.tsx' // TODO index.tsx temp approach
+// import GlobalStyles from 'styles/GlobalStyles/index.tsx' // TODO index.tsx temp approach
 // import './styles/reset.scss'
 // import './styles/variables.scss'
 // import './styles/app.scss'
 
 // Components
-import App from './components/App'
-import Toast from 'components/Toast'
+import App from './components/App/App'
+// import Toast from 'components/Toast'
 
 // Providers
-import { AppProvider } from 'contexts/AppContext'
-import { AuthenticationProvider } from 'contexts/AuthenticationContext'
-import { NotesProvider } from 'contexts/NotesContext'
+// import { AppProvider } from 'contexts/AppContext'
+// import { AuthenticationProvider } from 'contexts/AuthenticationContext'
+// import { NotesProvider } from 'contexts/NotesContext'
 
 ReactDOM.render(
-  <>
-    <GlobalStyles />
-    {/* <Provider store={store}> */}
-    <AppProvider>
-      <AuthenticationProvider>
-        <NotesProvider>
-          <App />
-          <Toast />
-        </NotesProvider>
-      </AuthenticationProvider>
-    </AppProvider>
-    {/* </Provider>, */}
-  </>,
+  // <>
+  //   <GlobalStyles />
+  //   {/* <Provider store={store}> */}
+  //   <AppProvider>
+  //     <AuthenticationProvider>
+  //       <NotesProvider>
+  <App />,
+  //         <Toast />
+  //       </NotesProvider>
+  //     </AuthenticationProvider>
+  //   </AppProvider>
+  //   {/* </Provider>, */}
+  // </>,
   document.querySelector('#app')
 )
