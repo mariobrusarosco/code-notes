@@ -50,6 +50,7 @@
   "homepage": "https://github.com/mariobrusarosco/eng-zap-challenge#readme",
   "dependencies": {
     "@babel/preset-typescript": "^7.7.7",
+    "@babel/runtime": "^7.9.2",
     "@hot-loader/react-dom": "^16.9.0",
     "@types/enzyme": "^3.10.4",
     "@types/styled-components": "^4.4.1",
@@ -92,7 +93,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-async-to-generator": "^7.2.0",
-    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",

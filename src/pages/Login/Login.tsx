@@ -23,7 +23,7 @@ import LoginForm from 'components/Forms/LoginForm/index.tsx'
 // import { AuthenticationContext } from 'contexts/AuthenticationContext'
 // import { AppContext } from 'contexts/AppContext'
 
-const Login = ({ history }) => {
+const Login: React.FC = ({ history }) => {
   // const { AuthenticationDispatch } = useContext(AuthenticationContext)
   // const { AppDispatch } = useContext(AppContext)
 
@@ -43,7 +43,7 @@ const Login = ({ history }) => {
     //   }
   }
 
-  const onGoogle = () => {
+  const onGoogle = async () => {
     window.location.href = `${API_ROOT}/auth/google`
   }
 

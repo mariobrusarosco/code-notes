@@ -11,14 +11,14 @@ import { ROUTES } from '../../enums/ROUTES'
 const Landing = lazy(() => import('../../pages/Landing'))
 const Home = lazy(() => import('../../pages/Home'))
 
-// import { useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 // import cookie from 'js-cookie'
 
 // Components
 // import AppLoader from 'components/Loaders/AppLoader'
 
 // Aoo Routes
-// import AppRoutes from 'components/AppRoutes/index.tsx'
+import AppRoutes from 'components/AppRoutes/index.tsx'
 
 // Actions
 // import { setAppAsLoaded } from 'actions/App'
@@ -40,51 +40,27 @@ const App: React.FC = () => {
   // const { AuthenticationDispatch } = useContext(AuthenticationContext)
   // const { App, AppDispatch } = useContext(AppContext)
 
-  // useEffect(() => {
-  //   console.log('....Starting the application...')
+  useEffect(() => {
+    console.log('....Starting the application...', APP)
 
-  // Retrieving User's Cookie
-  // const token = cookie('P_U')
-  // const { userIsLogged, userData } = decodeToken(token)
+    // Retrieving User's Cookie
+    // const token = cookie('P_U')
+    // const { userIsLogged, userData } = decodeToken(token)
 
-  // If the cookie is valid...pass its content into the Auth Provider
-  // if (userIsLogged) {
-  //   AuthenticationDispatch(logUser({ userIsLogged, userData }))
-  // } else {
-  //   console.log('no token')
-  //   history.push('/login')
-  // }
+    // If the cookie is valid...pass its content into the Auth Provider
+    // if (userIsLogged) {
+    //   AuthenticationDispatch(logUser({ userIsLogged, userData }))
+    // } else {
+    //   console.log('no token')
+    //   history.push('/login')
+    // }
 
-  // setTimeout(() => AppDispatch(setAppAsLoaded()), 1500)
-  // }, [])
+    // setTimeout(() => AppDispatch(setAppAsLoaded()), 1500)
+  }, [])
 
   return (
     <div className="main">
-      {/* <AppRoutes /> */}
-      <BrowserRouter>
-        <header>
-          <NavLink to="/" activeClassName="active">
-            Root
-          </NavLink>
-          <NavLink to="/home" activeClassName="active">
-            Home
-          </NavLink>
-        </header>
-        <Switch>
-          {/* <LandingRoute path={ROUTES.ROOT} exact component={Landing} />
-          <AuthenticatedRoute path={ROUTES.HOME} component={Home} /> */}
-          <Suspense fallback={<Loader />}>
-            <Route path={ROUTES.ROOT} exact component={Landing} />
-            <Route path={ROUTES.HOME} component={Home} />
-          </Suspense>
-          {/* <LandingRoute path={ROUTES.LOGIN} component={Login} />
-          <LandingRoute path={ROUTES.SIGN_UP} component={SignUp} />
-          <LandingRoute path={ROUTES.EXPERIMENTAL} exact component={Experimental} />
-          <LandingRoute path={ROUTES.JEST_TRAINING} component={JestTraining} /> */}
-          {/* <LoggedRoute path={ROUTES.NEW} component={New} /> */}
-          {/* <LoggedRoute path={ROUTES.CONFIG} component={Config} /> */}
-        </Switch>
-      </BrowserRouter>
+      <AppRoutes />
     </div>
   )
 

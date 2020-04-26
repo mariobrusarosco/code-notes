@@ -7,19 +7,13 @@ import ROUTES from 'routes'
 import history from 'utils/app-history'
 
 // Pages (Routes)
-import Home from 'pages/Home'
-import New from 'pages/New'
-import Landing from 'pages/Landing'
-import SignUp from 'pages/SignUp'
-import Config from 'pages/Config'
-import Experimental from 'pages/Experimental/index.tsx'
-import JestTraining from 'pages/JestTraining/index.tsx'
-
-// Layouts
-import LandingRoute from 'components/LandingRoute/index.tsx'
-import LoggedRoute from 'components/LoggedRoute/index.tsx'
-
-import Login from 'pages/Login'
+import AuthenticatedRoute from '../../layouts/AuthenticatedRoute'
+import Login from '../../pages/Login'
+import LandingRoute from '../../layouts/LandingRoute'
+import Landing from '../../pages/Landing'
+import Experimental from '../../pages/Experimental'
+import JestTraining from '../../pages/JestTraining'
+import Home from '../../pages/Home'
 
 const AppRoutes = () => {
   return (
@@ -27,12 +21,12 @@ const AppRoutes = () => {
       <Switch>
         <LandingRoute path={ROUTES.ROOT} exact component={Landing} />
         <LandingRoute path={ROUTES.LOGIN} component={Login} />
-        <LandingRoute path={ROUTES.SIGN_UP} component={SignUp} />
+        {/* <LandingRoute path={ROUTES.SIGN_UP} component={SignUp} /> */}
         <LandingRoute path={ROUTES.EXPERIMENTAL} exact component={Experimental} />
         <LandingRoute path={ROUTES.JEST_TRAINING} component={JestTraining} />
-        <LoggedRoute path={ROUTES.HOME} component={Home} />
-        <LoggedRoute path={ROUTES.NEW} component={New} />
-        <LoggedRoute path={ROUTES.CONFIG} component={Config} />
+        <AuthenticatedRoute path={ROUTES.HOME} component={Home} />
+        {/* <AuthenticatedRoute path={ROUTES.NEW} component={New} /> */}
+        {/* <AuthenticatedRoute path={ROUTES.CONFIG} component={Config} /> */}
       </Switch>
     </Router>
   )

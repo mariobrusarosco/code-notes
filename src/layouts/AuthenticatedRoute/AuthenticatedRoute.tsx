@@ -1,19 +1,18 @@
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect, RouteProps } from 'react-router-dom'
 
 // Utils
 // import HeaderApplication from 'components/HeaderApplication/index.tsx'
 
-interface Props {
-  path: string
-  component: Function
-}
-
-const AuthenticatedRoute: React.FC<Props> = props => {
+const AuthenticatedRoute: React.FunctionComponent<RouteProps> = props => {
   console.log('[ AuthenticatedRoute ]', props)
 
-  const userIsLogged = false
+  const userIsLogged = localStorage.getItem('user')
 
-  if (!userIsLogged) <Redirect to="/test" />
+  console.log({ userIsLogged })
+
+  if (!userIsLogged) {
+    return <Redirect to="/login" />
+  }
 
   return (
     <>
