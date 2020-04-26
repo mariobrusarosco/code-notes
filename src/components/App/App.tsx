@@ -18,7 +18,7 @@ const Home = lazy(() => import('../../pages/Home'))
 // import AppLoader from 'components/Loaders/AppLoader'
 
 // Aoo Routes
-// import AppRoutes from 'components/AppRoutes/index.tsx'
+import AppRoutes from 'components/AppRoutes/index.tsx'
 
 // Actions
 // import { setAppAsLoaded } from 'actions/App'
@@ -60,31 +60,7 @@ const App: React.FC = () => {
 
   return (
     <div className="main">
-      {/* <AppRoutes /> */}
-      <BrowserRouter>
-        <header>
-          <NavLink to="/" activeClassName="active">
-            Root
-          </NavLink>
-          <NavLink to="/home" activeClassName="active">
-            Home
-          </NavLink>
-        </header>
-        <Switch>
-          {/* <LandingRoute path={ROUTES.ROOT} exact component={Landing} />
-          <AuthenticatedRoute path={ROUTES.HOME} component={Home} /> */}
-          <Suspense fallback={<Loader />}>
-            <Route path={ROUTES.ROOT} exact component={Landing} />
-            <Route path={ROUTES.HOME} component={Home} />
-          </Suspense>
-          {/* <LandingRoute path={ROUTES.LOGIN} component={Login} />
-          <LandingRoute path={ROUTES.SIGN_UP} component={SignUp} />
-          <LandingRoute path={ROUTES.EXPERIMENTAL} exact component={Experimental} />
-          <LandingRoute path={ROUTES.JEST_TRAINING} component={JestTraining} /> */}
-          {/* <LoggedRoute path={ROUTES.NEW} component={New} /> */}
-          {/* <LoggedRoute path={ROUTES.CONFIG} component={Config} /> */}
-        </Switch>
-      </BrowserRouter>
+      <AppRoutes />
     </div>
   )
 
