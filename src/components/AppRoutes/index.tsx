@@ -14,6 +14,9 @@ import Landing from '../../pages/Landing'
 import Experimental from '../../pages/Experimental'
 import JestTraining from '../../pages/JestTraining'
 import Home from '../../pages/Home'
+import New from '../../pages/New'
+import Config from '../../pages/Config'
+import { featureRoutes, ScreenRoute } from '../../features/routes'
 
 const AppRoutes = () => {
   return (
@@ -25,8 +28,17 @@ const AppRoutes = () => {
         <LandingRoute path={ROUTES.EXPERIMENTAL} exact component={Experimental} />
         <LandingRoute path={ROUTES.JEST_TRAINING} component={JestTraining} />
         <AuthenticatedRoute path={ROUTES.HOME} component={Home} />
-        {/* <AuthenticatedRoute path={ROUTES.NEW} component={New} /> */}
-        {/* <AuthenticatedRoute path={ROUTES.CONFIG} component={Config} /> */}
+        <AuthenticatedRoute path={ROUTES.NEW} component={New} />
+        <AuthenticatedRoute path={ROUTES.CONFIG} component={Config} />
+
+        {featureRoutes.map((route: ScreenRoute) => (
+          <LandingRoute
+            key={route.screen}
+            path={route.path}
+            component={route.component}
+            exact={route.exact}
+          />
+        ))}
       </Switch>
     </Router>
   )
